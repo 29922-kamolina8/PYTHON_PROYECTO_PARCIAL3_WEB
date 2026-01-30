@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Manejo de Formularios - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 10</span>
+    <h1 class="display-5 fw-bold text-dark">Manejo de Formularios</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Aprende a recibir datos del usuario desde HTML hacia Flask usando métodos HTTP.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="formularios-html">GET vs POST</h3>
+        <p>Para enviar datos al servidor, usamos el protocolo HTTP. Los dos métodos principales son:</p>
+        
+        <div class="row g-3 mb-4">
+            <div class="col-md-6">
+                <div class="p-3 border rounded h-100">
+                    <h5 class="text-primary fw-bold">GET</h5>
+                    <p class="small text-muted mb-0">Envía datos en la URL. Visible para todos. Usado para búsquedas.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="p-3 border rounded h-100 bg-light">
+                    <h5 class="text-success fw-bold">POST</h5>
+                    <p class="small text-muted mb-0">Envía datos ocultos en el cuerpo. Seguro. Usado para contraseñas y registros.</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="captura-datos">Recibir datos con Flask</h3>
+        <p>Flask usa el objeto global <code>request</code> para capturar la información.</p>
+
+        <div class="bg-dark text-white p-4 rounded-3 font-monospace">
+from flask import request<br><br>
+
+@app.route('/login', methods=['POST'])<br>
+def login():<br>
+&nbsp;&nbsp;&nbsp;&nbsp;# Capturar lo que el usuario escribió en el input "username"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;usuario = request.form['username']<br>
+&nbsp;&nbsp;&nbsp;&nbsp;clave = request.form['password']<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;return f"Intentando entrar con {usuario}"
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="validacion">Validación</h3>
+        <div class="alert alert-info mt-4">
+            <strong>Importante:</strong> El <code>name="username"</code> en tu HTML debe coincidir con lo que pides en Python.
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='funciones') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='arreglos') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Arreglos <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

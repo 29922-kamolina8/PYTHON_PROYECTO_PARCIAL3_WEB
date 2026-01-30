@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+
+{% block title %}HTML y Python - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 3</span>
+    <h1 class="display-5 fw-bold text-dark">HTML y Python (La Web)</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Aprende a inyectar datos de Python en tus páginas HTML usando el motor de plantillas Jinja2.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="que-es-html">El desafío de las páginas estáticas</h3>
+        <p>HTML por sí solo es estático. Si quisieras mostrar el nombre de un usuario conectado, tendrías que editar el archivo HTML manualmente para cada persona. Eso es imposible en una aplicación real.</p>
+        <p>Aquí entra <strong>Jinja2</strong>, el motor de plantillas que usa Flask.</p>
+
+        <h3 class="fw-bold mt-5 mb-3" id="estructura-basica">Sintaxis Básica de Jinja2</h3>
+        <p>Jinja2 nos permite usar "llaves" dentro del HTML para poner lógica de programación.</p>
+
+        <div class="row g-4 mt-2">
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-header bg-primary text-white fw-bold">1. Mostrar Variables</div>
+              <div class="card-body bg-light font-monospace">
+                &lt;p&gt;Hola, {{ '{{ nombre }}' }}&lt;/p&gt;
+              </div>
+              <div class="card-footer text-muted small">
+                Imprime el valor de la variable 'nombre'.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-header bg-success text-white fw-bold">2. Lógica (If / For)</div>
+              <div class="card-body bg-light font-monospace">
+                {{ '{% if usuario.activo %}' }}<br>
+                  &nbsp;&nbsp;&lt;span&gt;Online&lt;/span&gt;<br>
+                {{ '{% endif %}' }}
+              </div>
+              <div class="card-footer text-muted small">
+                Ejecuta lógica condicional.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="integracion-python">Ejemplo Completo</h3>
+        <p>Imagina que enviamos una lista de frutas desde Python:</p>
+
+        <p class="fw-bold text-primary">En Python (app.py):</p>
+        <div class="bg-dark text-white p-3 rounded mb-3">
+<code>frutas = ["Manzana", "Pera", "Uva"]
+return render_template("lista.html", lista=frutas)</code>
+        </div>
+
+        <p class="fw-bold text-primary">En HTML (lista.html):</p>
+        <div class="bg-light border p-3 rounded mb-4 font-monospace">
+&lt;ul&gt;<br>
+&nbsp;&nbsp;{{ '{% for fruta in lista %}' }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;{{ '{{ fruta }}' }}&lt;/li&gt;<br>
+&nbsp;&nbsp;{{ '{% endfor %}' }}<br>
+&lt;/ul&gt;
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='historia-python') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Sintaxis <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

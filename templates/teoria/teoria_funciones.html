@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Funciones - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 9</span>
+    <h1 class="display-5 fw-bold text-dark">Funciones</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      El principio DRY (Don't Repeat Yourself): encapsula código para reutilizarlo.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="que-son-funciones">¿Qué es una función?</h3>
+        <p>Es un bloque de código con un nombre, que puede recibir datos (parámetros) y devolver un resultado.</p>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4 font-monospace">
+def saludar(nombre):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;"""Esta función saluda a alguien"""<br>
+&nbsp;&nbsp;&nbsp;&nbsp;return f"Hola, {nombre}!"<br><br>
+
+# Uso de la función<br>
+mensaje = saludar("Carlos")<br>
+print(mensaje) # Salida: Hola, Carlos!
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="parametros">Componentes Clave</h3>
+        <ul class="list-group mb-4">
+            <li class="list-group-item"><strong>def:</strong> Palabra reservada para definir la función.</li>
+            <li class="list-group-item"><strong>return:</strong> Finaliza la función y devuelve un valor al código principal.</li>
+            <li class="list-group-item"><strong>Parámetros:</strong> Variables que la función espera recibir entre paréntesis.</li>
+        </ul>
+
+        <h3 class="fw-bold mt-5 mb-3" id="retorno">Scope (Alcance)</h3>
+        <div class="alert alert-warning d-flex align-items-center">
+            <i class="bi bi-lightbulb-fill fs-4 me-3"></i>
+            <div>
+                <strong>Scope (Alcance):</strong> Las variables creadas DENTRO de una función solo existen allí. No puedes usarlas fuera.
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='estructuras-de-control') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='manejo-formularios') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Formularios <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

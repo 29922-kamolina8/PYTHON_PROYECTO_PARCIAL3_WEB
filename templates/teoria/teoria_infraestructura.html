@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title %}Infraestructura Backend - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 1</span>
+    <h1 class="display-5 fw-bold text-dark">Infraestructura Backend</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Entiende cómo funciona la arquitectura cliente-servidor y la estructura profesional de un proyecto en Flask.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="que-es-backend">¿Qué es el Backend?</h3>
+        <p>El desarrollo web se divide en dos grandes áreas: <strong>Frontend</strong> (lo que el usuario ve) y <strong>Backend</strong> (la lógica del servidor).</p>
+        <p>En este curso usaremos <strong>Python</strong> como lenguaje de backend gracias a su legibilidad y potencia, junto con el micro-framework <strong>Flask</strong>.</p>
+
+        <div class="alert alert-info my-4 d-flex align-items-center" role="alert">
+          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Concepto Clave:</strong> Flask es un "micro-framework" porque no requiere herramientas ni librerías particulares preinstaladas. Es ligero y flexible.
+          </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="estructura-proyecto">Estructura de un Proyecto Profesional</h3>
+        <p>Para mantener el código ordenado, seguimos el patrón estándar de Flask:</p>
+
+        <div class="card bg-light border-0 mb-4">
+          <div class="card-body font-monospace">
+            <ul class="list-unstyled mb-0">
+              <li>📁 <span class="fw-bold">PROYECTO/</span></li>
+              <li class="ms-3">📄 <strong>app.py</strong> <span class="text-muted">// El cerebro: rutas y config</span></li>
+              <li class="ms-3">📁 <span class="fw-bold">static/</span> <span class="text-muted">// Archivos públicos (CSS, JS, Img)</span></li>
+              <li class="ms-4">📁 css/</li>
+              <li class="ms-4">📁 img/</li>
+              <li class="ms-4">📁 js/</li>
+              <li class="ms-3">📁 <span class="fw-bold">templates/</span> <span class="text-muted">// Archivos HTML (Vistas)</span></li>
+              <li class="ms-4">📄 base.html</li>
+              <li class="ms-4">📄 home.html</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="sistema-rutas">El Sistema de Rutas</h3>
+        <p>En Flask, usamos "decoradores" para conectar una URL con una función de Python. Cuando un usuario visita una URL, Python ejecuta la función y devuelve el resultado.</p>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4">
+<pre class="mb-0"><code class="language-python">from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    # Retorna un archivo HTML ubicado en la carpeta 'templates'
+    return render_template("home.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)</code></pre>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_general') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-grid-fill me-2"></i> Temario
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='historia-python') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Historia <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

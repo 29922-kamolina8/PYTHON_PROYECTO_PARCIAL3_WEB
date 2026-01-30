@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Variables y Constantes - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 5</span>
+    <h1 class="display-5 fw-bold text-dark">Variables y Constantes</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Aprende cómo guardar información en la memoria y las convenciones de nombrado en Python.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="variables">Variables</h3>
+        <p>Una variable es como una "caja" donde guardamos un dato. En Python, <strong>no necesitas declarar el tipo</strong> (es de tipado dinámico).</p>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4">
+<pre class="mb-0"><code class="language-python"># Creación de variables
+nombre = "Juan"   # Es un String
+edad = 25         # Es un Entero
+precio = 19.99    # Es un Float
+
+# Podemos cambiar el tipo sobre la marcha
+edad = "Veinticinco" # Ahora es String (No recomendado pero posible)</code></pre>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="nombrado">Reglas de Nombrado (Snake Case)</h3>
+        <p>En Python, por convención usamos <code>snake_case</code> (minúsculas separadas por guiones bajos).</p>
+        <div class="row text-center">
+            <div class="col-6">
+                <div class="p-3 border rounded bg-light text-success fw-bold">
+                    <i class="bi bi-check-circle me-1"></i> nombre_usuario
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="p-3 border rounded bg-light text-danger fw-bold text-decoration-line-through">
+                    <i class="bi bi-x-circle me-1"></i> nombreUsuario
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="constantes">Constantes</h3>
+        <p>Python no tiene constantes "reales" (que no se puedan cambiar), pero por convención, si escribes una variable en <strong>MAYÚSCULAS</strong>, estás gritando: "¡NO CAMBIES ESTO!".</p>
+
+        <div class="bg-light border-start border-4 border-warning p-3">
+            <code>PI = 3.1416</code><br>
+            <code>CONEXION_DB = "localhost:3306"</code>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='tipos-de-datos') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Tipos de Datos <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

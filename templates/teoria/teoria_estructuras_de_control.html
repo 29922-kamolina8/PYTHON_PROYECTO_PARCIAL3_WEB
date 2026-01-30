@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Estructuras de Control - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 8</span>
+    <h1 class="display-5 fw-bold text-dark">Estructuras de Control</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Controla el flujo de tu programa: toma decisiones y repite tareas automáticamente.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="condicionales">Condicionales (if / elif / else)</h3>
+        <p>Permiten ejecutar código solo si se cumple una condición.</p>
+        
+        <div class="card border-primary mb-4">
+            <div class="card-body bg-light font-monospace">
+edad = 18<br><br>
+if edad < 18:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Eres menor de edad")<br>
+elif edad == 18:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Acabas de cumplir la mayoría")<br>
+else:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print("Eres adulto")
+            </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="bucles">Bucle For</h3>
+        <p>Se utiliza para iterar sobre una secuencia (lista, string, rango).</p>
+        <div class="bg-dark text-white p-3 rounded mb-4 font-monospace">
+# Imprimir números del 0 al 4<br>
+for i in range(5):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(i)
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="control-flujo">Bucle While</h3>
+        <p>Repite el código mientras una condición sea verdadera. ¡Cuidado con los bucles infinitos!</p>
+        <div class="bg-light border p-3 rounded mb-4 font-monospace">
+contador = 5<br>
+while contador > 0:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(f"Cuenta regresiva: {contador}")<br>
+&nbsp;&nbsp;&nbsp;&nbsp;contador -= 1
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='operadores') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='funciones') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Funciones <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

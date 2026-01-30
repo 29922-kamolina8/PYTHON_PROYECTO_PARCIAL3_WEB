@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block title %}Inicio · Python Academy{% endblock %}
+
+{% block content %}
+
+    <section class="blog-hero section">
+      <div class="container-fluid p-0" data-aos="fade">
+        <div class="blog-hero-item">
+          <img src="{{ url_for('static', filename='assets/img/blog/pythonHero.jpg') }}" alt="Curso de Python" class="img-fluid">
+          
+          <div class="blog-hero-content">
+            <span class="category">Curso 2026</span>
+            <h1>Curso de Python: teoría y ejercicios</h1>
+            <div class="meta">
+              <span class="author">Python Academy</span>
+              <span class="date">Ruta guiada</span>
+              <span class="views">100% práctico</span>
+            </div>
+            <p class="mt-3 mb-4" style="max-width: 680px; color: #ffffff; font-size: 16px; line-height: 1.6; font-weight: 400;">
+              Aprende Python con una ruta clara: primero la teoría, luego ejercicios para practicar y finalmente Sistemas CRUD.
+            </p>
+            <div class="d-flex justify-content-center mt-4">
+              <a href="#modulos" class="read-more" style="padding: 12px 32px; font-size: 16px; border-radius: 9999px;">Ver módulos <i class="bi bi-arrow-right ms-2"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="modulos" class="latest-posts section">
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">Módulos</span>
+        <h2>Módulos del curso</h2>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4 align-items-stretch">
+          
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <article class="card-post h-100">
+              <div class="post-img position-relative overflow-hidden">
+                <img src="{{ url_for('static', filename='assets/img/blog/modulo1.webp') }}" class="img-fluid w-100" alt="Teoría">
+              </div>
+              <div class="content">
+                <span class="cat-badge">Teoría</span>
+                <h3 class="title">Fundamentos de Python</h3>
+                <p class="excerpt mb-3">Variables, tipos de datos, condicionales, funciones y POO.</p>
+                <a href="{{ url_for('teoria_general') }}" class="readmore"><span>Entrar</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="250">
+            <article class="card-post h-100">
+              <div class="post-img position-relative overflow-hidden">
+                <img src="{{ url_for('static', filename='assets/img/blog/modulo2.jpg') }}" class="img-fluid w-100" alt="Ejercicios">
+              </div>
+              <div class="content">
+                <span class="cat-badge">Ejercicios</span>
+                <h3 class="title">Práctica guiada</h3>
+                <p class="excerpt mb-3">Resuelve ejercicios y revisa soluciones explicadas para reforzar lógica.</p>
+                <a href="#" class="readmore"><span>Practicar</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </article>
+          </div>
+
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <article class="card-post h-100">
+              <div class="post-img position-relative overflow-hidden">
+                <img src="{{ url_for('static', filename='assets/img/blog/modulo3.png') }}" class="img-fluid w-100" alt="Proyecto">
+              </div>
+              <div class="content">
+                <span class="cat-badge">Proyecto Final</span>
+                <h3 class="title">CRUD con Flask y MySQL</h3>
+                <p class="excerpt mb-3">Crea una aplicación web completa conectada a base de datos.</p>
+                <a href="#" class="readmore"><span>Ver Proyecto</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+            </article>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="evaluacion" class="section">
+      <div class="container section-title" data-aos="fade-up">
+        <span class="description-title">Evaluación</span>
+        <h2>Prueba tus conocimientos</h2>
+      </div>
+      <div class="container" data-aos="fade-up">
+        <div class="row justify-content-center">
+          <div class="col-lg-8">
+            <div class="p-5 text-center bg-light border rounded-3 shadow-sm">
+              <i class="bi bi-patch-check-fill text-primary" style="font-size: 3rem;"></i>
+              <h3 class="mt-3">Test de Nivel</h3>
+              <p class="mb-4">Pon a prueba todo lo aprendido en los módulos anteriores con este examen final.</p>
+              <a href="#" class="btn btn-primary px-4 py-2">Iniciar Evaluación</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+{% endblock %}

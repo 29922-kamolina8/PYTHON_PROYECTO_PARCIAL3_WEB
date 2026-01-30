@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Índice de Teoría · Python Academy{% endblock %}
+
+{% block content %}
+<section class="section py-5" style="background: #f9fbfd;">
+  <div class="container" data-aos="fade-up">
+
+    <div class="section-title text-center mb-5" data-aos="zoom-in" data-aos-delay="50">
+      <h2 class="fancy-title fw-bold" style="color: var(--heading-color); font-size: 44px; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.03);">Temario del Curso</h2>
+      <p class="lead mt-3" style="color: rgba(45,70,94,0.78); font-size: 16px; max-width: 600px; margin-left: auto; margin-right: auto;">Selecciona un tema para comenzar tu aprendizaje</p>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="list-group" style="background: transparent; box-shadow: none;">
+          
+          {% for tema in lista_temas %}
+          <a href="{{ url_for('teoria_tema', slug=tema.slug) }}" 
+             class="list-group-item list-group-item-action d-flex align-items-center p-4 border-0 rounded-3 mb-3"
+             style="background: #ffffff; box-shadow: 0 2px 12px rgba(16, 24, 40, 0.05); border-left: 4px solid #0d6efd; transition: all 0.3s ease;"
+             onmouseover="this.style.boxShadow='0 8px 24px rgba(16, 24, 40, 0.12)'; this.style.transform='translateY(-2px)'"
+             onmouseout="this.style.boxShadow='0 2px 12px rgba(16, 24, 40, 0.05)'; this.style.transform='translateY(0)'"
+             data-aos="fade-up" data-aos-delay="{{ loop.index0 * 60 }}">
+            
+            <div class="me-3 d-flex align-items-center justify-content-center rounded" style="width: 50px; height: 50px; font-size: 1.5rem; color: #0d6efd; flex-shrink: 0; background: rgba(13,110,253,0.08);">
+              <i class="bi bi-journal-text"></i>
+            </div>
+
+            <div class="flex-grow-1">
+              <h5 class="mb-1 fw-bold text-dark" style="font-size: 15px; color: var(--heading-color);">{{ tema.titulo }}</h5>
+              <small class="text-muted" style="color: rgba(45,70,94,0.65);">Clic para leer la lección completa</small>
+            </div>
+            
+            <i class="bi bi-arrow-right-short fs-4 text-primary ms-2" style="flex-shrink: 0; color: #0d6efd;"></i>
+          </a>
+          {% endfor %}
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}

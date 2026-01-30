@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title %}Arreglos y Colecciones - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 11</span>
+    <h1 class="display-5 fw-bold text-dark">Arreglos (Colecciones)</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Cómo guardar múltiples datos en una sola variable: Listas, Tuplas y Diccionarios.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="listas">1. Listas (Lists)</h3>
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-primary text-white fw-bold">1. Listas (Lists)</div>
+            <div class="card-body">
+                <p>Ordenadas y modificables. Se usan corchetes <code>[]</code>.</p>
+                <div class="bg-light p-2 font-monospace rounded">
+frutas = ["Manzana", "Banana", "Cereza"]<br>
+frutas.append("Naranja") # Agrega al final<br>
+print(frutas[0]) # Salida: Manzana
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fw-bold mb-3" id="tuplas">2. Tuplas (Tuples)</h3>
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-success text-white fw-bold">2. Tuplas (Tuples)</div>
+            <div class="card-body">
+                <p>Ordenadas pero <strong>INMUTABLES</strong> (no se pueden cambiar). Se usan paréntesis <code>()</code>.</p>
+                <div class="bg-light p-2 font-monospace rounded">
+coordenadas = (10, 20)<br>
+# coordenadas[0] = 15  <-- ESTO DARÍA ERROR
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fw-bold mb-3" id="diccionarios">3. Diccionarios (Dicts)</h3>
+        <div class="card mb-4 border-0 shadow-sm">
+            <div class="card-header bg-warning text-dark fw-bold">3. Diccionarios (Dicts)</div>
+            <div class="card-body">
+                <p>Colección de pares <strong>Clave: Valor</strong>. Se usan llaves <code>{}</code>.</p>
+                <div class="bg-light p-2 font-monospace rounded">
+alumno = {<br>
+&nbsp;&nbsp;"nombre": "Estéfano",<br>
+&nbsp;&nbsp;"curso": "Python",<br>
+&nbsp;&nbsp;"nota": 10<br>
+}<br>
+print(alumno["nombre"])
+                </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='manejo-formularios') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='poo') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: POO <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

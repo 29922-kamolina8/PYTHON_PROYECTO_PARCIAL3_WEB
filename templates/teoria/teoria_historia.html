@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %}Historia de Python - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 2</span>
+    <h1 class="display-5 fw-bold text-dark">Historia de Python</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Desde un proyecto de vacaciones hasta convertirse en el lenguaje más popular del mundo.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <div class="text-center mb-4">
+           </div>
+
+        <h3 class="fw-bold mb-3" id="origenes">El Origen (1989)</h3>
+        <p>Python fue creado por <strong>Guido van Rossum</strong> en los Países Bajos durante la Navidad de 1989. Guido buscaba un proyecto de programación para mantenerse ocupado durante las vacaciones.</p>
+        <p>El nombre "Python" no viene de la serpiente, sino del grupo de comedia británico <em>Monty Python's Flying Circus</em>, del cual Guido era fanático.</p>
+
+        <h3 class="fw-bold mt-5 mb-3" id="evolucao">El Zen de Python</h3>
+        <p>La filosofía de diseño de Python enfatiza la legibilidad del código. Tim Peters escribió los principios rectores, conocidos como "El Zen de Python":</p>
+
+        <figure class="bg-light p-4 border-start border-4 border-primary rounded my-4">
+          <blockquote class="blockquote mb-0 fst-italic">
+            <p>"Bello es mejor que feo.<br>
+            Explícito es mejor que implícito.<br>
+            Simple es mejor que complejo.<br>
+            Complejo es mejor que complicado."</p>
+          </blockquote>
+          <figcaption class="blockquote-footer mt-2">
+            Tim Peters, <cite title="Source Title">The Zen of Python</cite>
+          </figcaption>
+        </figure>
+
+        <h3 class="fw-bold mt-5 mb-3" id="comunidad">Python 2 vs Python 3</h3>
+        <p>Un momento crítico en la historia fue el salto de la versión 2 a la 3.</p>
+        <ul class="list-group list-group-flush mb-4">
+          <li class="list-group-item"><strong>Python 2.0 (2000):</strong> Introdujo recolección de basura y soporte unicode básico. Dejó de tener soporte en 2020.</li>
+          <li class="list-group-item"><strong>Python 3.0 (2008):</strong> Diseñado para rectificar fallas fundamentales. No era retrocompatible (código de Python 2 no funcionaba en Python 3).</li>
+          <li class="list-group-item list-group-item-success"><strong>Actualidad:</strong> Hoy usamos Python 3.10+, que es rápido, moderno y robusto.</li>
+        </ul>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='infraestructura-backend') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='html-python-web') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: HTML y Web <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

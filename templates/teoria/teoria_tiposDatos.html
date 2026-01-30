@@ -1,0 +1,119 @@
+{% extends "base.html" %}
+
+{% block title %}Tipos de Datos - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 6</span>
+    <h1 class="display-5 fw-bold text-dark">Tipos de Datos Primitivos</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Los bloques fundamentales de la información: Texto, Números y Lógica.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <p class="mb-5">En Python todo es un objeto, pero existen tipos de datos primitivos esenciales que usarás el 99% del tiempo.</p>
+
+        <h3 class="fw-bold mb-3" id="numeros">Tipos Primitivos</h3>
+        <div class="row g-4">
+            
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-warning text-dark me-2">str</span>
+                            <h5 class="fw-bold mb-0">String (Texto)</h5>
+                        </div>
+                        <p class="text-muted small">Cadenas de texto entre comillas simples o dobles.</p>
+                        <code class="d-block bg-light p-2 rounded">x = "Hola Mundo"</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-primary me-2">int</span>
+                            <h5 class="fw-bold mb-0">Integer (Entero)</h5>
+                        </div>
+                        <p class="text-muted small">Números enteros sin decimales, positivos o negativos.</p>
+                        <code class="d-block bg-light p-2 rounded">edad = 25</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-info text-dark me-2">float</span>
+                            <h5 class="fw-bold mb-0">Float (Flotante)</h5>
+                        </div>
+                        <p class="text-muted small">Números con punto decimal.</p>
+                        <code class="d-block bg-light p-2 rounded">precio = 19.99</code>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-3">
+                            <span class="badge bg-success me-2">bool</span>
+                            <h5 class="fw-bold mb-0">Boolean (Lógico)</h5>
+                        </div>
+                        <p class="text-muted small">Solo dos valores posibles. Nota la mayúscula.</p>
+                        <code class="d-block bg-light p-2 rounded">activo = True</code>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="cadenas">Verificar el tipo</h3>
+        <p>Puedes usar la función <code>type()</code> para saber qué es una variable.</p>
+        <div class="bg-dark text-white p-3 rounded">
+            <code>print(type(10)) &nbsp;&nbsp;&nbsp;# &lt;class 'int'&gt;</code><br>
+            <code>print(type(3.14)) # &lt;class 'float'&gt;</code>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="booleanos">Booleanos</h3>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='variables-constantes') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='operadores') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Operadores <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

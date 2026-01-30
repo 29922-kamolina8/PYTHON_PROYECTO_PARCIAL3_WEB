@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Operadores - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 7</span>
+    <h1 class="display-5 fw-bold text-dark">Operadores</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      Las herramientas matemáticas y lógicas para procesar datos y tomar decisiones.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="aritmeticos">1. Operadores Aritméticos</h3>
+        <p>Sirven para realizar cálculos matemáticos básicos.</p>
+        <div class="table-responsive mb-5">
+            <table class="table table-hover border">
+                <thead class="table-light"><tr><th>Operador</th><th>Nombre</th><th>Ejemplo</th></tr></thead>
+                <tbody>
+                    <tr><td><code>+</code></td><td>Suma</td><td><code>x + y</code></td></tr>
+                    <tr><td><code>-</code></td><td>Resta</td><td><code>x - y</code></td></tr>
+                    <tr><td><code>*</code></td><td>Multiplicación</td><td><code>x * y</code></td></tr>
+                    <tr><td><code>/</code></td><td>División (Float)</td><td><code>10 / 2</code> (5.0)</td></tr>
+                    <tr><td><code>//</code></td><td>División Entera</td><td><code>10 // 3</code> (3)</td></tr>
+                    <tr><td><code>%</code></td><td>Módulo (Residuo)</td><td><code>10 % 3</code> (1)</td></tr>
+                    <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code> (8)</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="fw-bold mb-3" id="comparacion">2. Operadores de Comparación</h3>
+        <p>Comparan dos valores y devuelven un Booleano (<code>True</code> o <code>False</code>).</p>
+        <div class="bg-dark text-white p-3 rounded mb-5 font-monospace">
+a = 10<br>
+b = 20<br><br>
+print(a == b)  # False (Igualdad)<br>
+print(a != b)  # True (Diferencia)<br>
+print(a > b)   # False (Mayor que)<br>
+print(a <= 10) # True (Menor o igual)
+        </div>
+
+        <h3 class="fw-bold mb-3" id="logicos">3. Operadores Lógicos</h3>
+        <p>Permiten combinar múltiples condiciones.</p>
+        <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><code>and</code> (Y)</span>
+                <span class="badge bg-secondary">True si ambos son True</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><code>or</code> (O)</span>
+                <span class="badge bg-secondary">True si al menos uno es True</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span><code>not</code> (NO)</span>
+                <span class="badge bg-secondary">Invierte el valor (True -> False)</span>
+            </li>
+        </ul>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='tipos-de-datos') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_tema', slug='estructuras-de-control') }}" class="btn btn-primary rounded-pill px-4">
+             Siguiente: Estructuras de Control <i class="bi bi-arrow-right ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

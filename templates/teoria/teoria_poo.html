@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Programación Orientada a Objetos - Python Academy{% endblock %}
+
+{% block content %}
+<section class="py-5 bg-light border-bottom">
+  <div class="container text-center">
+    <span class="badge bg-primary mb-3">TEMA 12</span>
+    <h1 class="display-5 fw-bold text-dark">Programación Orientada a Objetos</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 700px;">
+      El paradigma moderno: modela cosas del mundo real como Clases y Objetos.
+    </p>
+  </div>
+</section>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="row justify-content-start">
+      <!-- Sidebar Navigation -->
+      <div class="col-lg-3 d-none d-lg-block">
+        <nav class="sidebar-nav">
+          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <ul>
+            {% for subtema in tema.subtemas %}
+            <li>
+              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                {{ subtema.titulo }}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-8">
+
+        <h3 class="fw-bold mb-3" id="clases">Clase vs Objeto</h3>
+        <p>Una <strong>Clase</strong> es el "plano" o molde. Un <strong>Objeto</strong> es lo que construyes con ese molde.</p>
+        
+        <div class="text-center my-4">
+            <div class="row">
+                <div class="col-6 border-end">
+                    <h5 class="text-primary">Clase (Molde)</h5>
+                    <p class="small">"Coche"</p>
+                </div>
+                <div class="col-6">
+                    <h5 class="text-success">Objetos (Instancias)</h5>
+                    <p class="small">"Ferrari Rojo", "Toyota Azul"</p>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="herencia">Sintaxis en Python</h3>
+        <p>Usamos el método especial <code>__init__</code> (constructor) para inicializar el objeto.</p>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4 font-monospace">
+class Perro:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;def __init__(self, nombre, raza):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.nombre = nombre<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;self.raza = raza<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;def ladrar(self):<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return "¡Guau!"<br><br>
+
+# Crear objetos (Instanciar)<br>
+mi_perro = Perro("Firulais", "Labrador")<br>
+print(mi_perro.nombre)  # Salida: Firulais
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="polimorfismo">¡Felicidades!</h3>
+        <div class="alert alert-success mt-5 text-center">
+            <h4 class="alert-heading fw-bold">¡Felicidades! 🎉</h4>
+            <p>Has completado toda la sección teórica del curso.</p>
+            <hr>
+            <a href="{{ url_for('home') }}#modulos" class="btn btn-success fw-bold px-4">Ir a los Ejercicios Prácticos</a>
+        </div>
+
+        <div class="d-flex justify-content-between mt-5 pt-4 border-top">
+           <a href="{{ url_for('teoria_tema', slug='arreglos') }}" class="btn btn-outline-secondary rounded-pill px-4">
+             <i class="bi bi-arrow-left me-2"></i> Anterior
+           </a>
+           <a href="{{ url_for('teoria_general') }}" class="btn btn-primary rounded-pill px-4">
+             Volver al Índice <i class="bi bi-grid-fill ms-2"></i>
+           </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}
