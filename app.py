@@ -11,8 +11,15 @@ TEMAS = [
         "archivo": "teoria/teoria_infraestructura.html",
         "subtemas": [
             {"id": "que-es-backend", "titulo": "¿Qué es el Backend?"},
-            {"id": "estructura-proyecto", "titulo": "Estructura de un Proyecto Profesional"},
+            {"id": "arquitectura-cliente-servidor", "titulo": "Arquitectura Cliente–Servidor"},
+            {"id": "flujo-peticion", "titulo": "Arquitectura Cliente–Servidor"},
+            {"id": "estructura-proyecto", "titulo": "Flujo de una Petición Web"},
             {"id": "sistema-rutas", "titulo": "El Sistema de Rutas"},
+            {"id": "backend-vs-herramientas", "titulo": "Backend: Concepto vs Herramienta"},
+            {"id": "errores-backend", "titulo": "Errores Comunes en el Desarrollo Backend"},
+            {"id": "cuestionario", "titulo": "Cuestionario de Aprendizaje"},
+            {"id": "juego", "titulo": "Mini-juego: Arma la Petición Backend"},
+            
         ]
     },
     {

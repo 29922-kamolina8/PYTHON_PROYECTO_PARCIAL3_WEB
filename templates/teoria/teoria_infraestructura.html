@@ -1,14 +1,12 @@
-{% extends "base.html" %}
-
-{% block title %}Infraestructura Backend - Python Academy{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}Infraestructura Backend - Python
+Academy{% endblock %} {% block content %}
 <section class="py-5 bg-light border-bottom">
   <div class="container text-center">
     <span class="badge bg-primary mb-3">TEMA 1</span>
     <h1 class="display-5 fw-bold text-dark">Infraestructura Backend</h1>
-    <p class="lead text-muted mx-auto" style="max-width: 700px;">
-      Entiende cómo funciona la arquitectura cliente-servidor y la estructura profesional de un proyecto en Flask.
+    <p class="lead text-muted mx-auto" style="max-width: 700px">
+      Entiende cómo funciona la arquitectura cliente-servidor y la estructura
+      profesional de un proyecto en Flask.
     </p>
   </div>
 </section>
@@ -23,7 +21,10 @@
           <ul>
             {% for subtema in tema.subtemas %}
             <li>
-              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+              <a
+                href="#{{ subtema.id }}"
+                class="{% if loop.first %}active{% endif %}"
+              >
                 {{ subtema.titulo }}
               </a>
             </li>
@@ -34,63 +35,1173 @@
 
       <!-- Main Content -->
       <div class="col-lg-8">
-
         <h3 class="fw-bold mb-3" id="que-es-backend">¿Qué es el Backend?</h3>
-        <p>El desarrollo web se divide en dos grandes áreas: <strong>Frontend</strong> (lo que el usuario ve) y <strong>Backend</strong> (la lógica del servidor).</p>
-        <p>En este curso usaremos <strong>Python</strong> como lenguaje de backend gracias a su legibilidad y potencia, junto con el micro-framework <strong>Flask</strong>.</p>
 
-        <div class="alert alert-info my-4 d-flex align-items-center" role="alert">
-          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
-          <div>
-            <strong>Concepto Clave:</strong> Flask es un "micro-framework" porque no requiere herramientas ni librerías particulares preinstaladas. Es ligero y flexible.
+        <div class="row align-items-start my-4">
+          <!-- Texto -->
+          <div class="col-lg-7">
+            <p>
+              En el desarrollo de aplicaciones web, el
+              <strong>backend</strong> representa la parte interna del sistema
+              que no es visible para el usuario final. Es el componente
+              encargado de procesar la información, aplicar reglas de negocio y
+              garantizar que los datos fluyan de forma correcta y segura.
+            </p>
+
+            <p>
+              Mientras el <strong>frontend</strong> se enfoca en la interfaz
+              gráfica (botones, formularios, colores y animaciones), el backend
+              se ejecuta en un <strong>servidor</strong> y actúa como el
+              intermediario entre el usuario, la lógica del sistema y la base de
+              datos.
+            </p>
+          </div>
+
+          <!-- Video lateral -->
+          <div class="col-lg-5">
+            <div class="card border-0 shadow-sm">
+              <div class="card-body p-2">
+                <div class="ratio ratio-16x9 rounded overflow-hidden">
+                  <iframe
+                    src="https://www.youtube.com/embed/7vbi-OCFZEY"
+                    title="¿Qué es Backend?"
+                    allowfullscreen
+                  >
+                  </iframe>
+                </div>
+
+                <small class="text-muted d-block mt-2 text-center">
+                  Video explicativo: rol del backend en aplicaciones web
+                </small>
+              </div>
+            </div>
           </div>
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="estructura-proyecto">Estructura de un Proyecto Profesional</h3>
-        <p>Para mantener el código ordenado, seguimos el patrón estándar de Flask:</p>
+        <div class="card border-0 shadow-sm my-5"></div>
+
+        <div
+          class="alert alert-info my-4 d-flex align-items-center"
+          role="alert"
+        >
+          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Idea clave:</strong> El backend decide
+            <em>qué hacer</em> con la información, <em>cuándo</em> procesarla y
+            <em>cómo</em> devolver una respuesta adecuada al usuario.
+          </div>
+        </div>
+
+        <p>
+          Cuando un usuario accede a una página web, inicia sesión o envía un
+          formulario, el backend recibe esa solicitud, la interpreta y ejecuta
+          acciones como:
+        </p>
+
+        <ul>
+          <li>Validar datos ingresados por el usuario</li>
+          <li>Consultar o modificar información en la base de datos</li>
+          <li>Aplicar reglas de negocio (permisos, roles, restricciones)</li>
+          <li>Generar una respuesta en formato HTML o JSON</li>
+        </ul>
+
+        <p>
+          En este curso, el backend será desarrollado utilizando
+          <strong>Python</strong>, un lenguaje reconocido por su legibilidad,
+          eficiencia y amplio uso en la industria, junto con
+          <strong>Flask</strong>, un micro-framework que permite construir
+          aplicaciones web de manera modular y profesional.
+        </p>
+
+        <div
+          class="alert alert-info my-4 d-flex align-items-center"
+          role="alert"
+        >
+          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Idea clave:</strong> Frameworks como Flask facilitan la
+            creación del backend, pero los conceptos de lógica, seguridad y
+            manejo de datos son independientes de la herramienta utilizada.
+          </div>
+        </div>
+
+        <div class="card bg-light border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold mb-2">📌 Backend en un entorno real</h6>
+            <p class="mb-0">
+              En aplicaciones profesionales, el backend no solo responde páginas
+              web, sino que también gestiona autenticación, seguridad, sesiones
+              de usuario, comunicación con APIs externas y escalabilidad del
+              sistema.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Comprender el funcionamiento del backend es fundamental para
+          desarrollar aplicaciones robustas, seguras y capaces de crecer
+          conforme aumentan los usuarios y la complejidad del sistema.
+        </p>
+        <h3 class="fw-bold mt-5 mb-4" id="arquitectura-cliente-servidor">
+          Arquitectura Cliente–Servidor
+        </h3>
+
+        <p>
+          La <strong>arquitectura cliente–servidor</strong> es el modelo
+          fundamental sobre el cual se construyen las aplicaciones web modernas.
+          Define cómo los usuarios interactúan con un sistema a través de una
+          red.
+        </p>
+
+        <p>
+          En este modelo, las responsabilidades se encuentran claramente
+          separadas, lo que permite desarrollar aplicaciones más seguras,
+          escalables y fáciles de mantener.
+        </p>
+
+        <div class="row g-4 my-4">
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+              <div class="card-body">
+                <h6 class="fw-bold">🧑‍💻 Cliente</h6>
+                <p class="text-muted mb-0">
+                  Es el punto de interacción con el usuario. Puede ser un
+                  navegador web o una aplicación móvil. Su función principal es
+                  enviar solicitudes al servidor y mostrar las respuestas
+                  recibidas.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+              <div class="card-body">
+                <h6 class="fw-bold">🖥️ Servidor</h6>
+                <p class="text-muted mb-0">
+                  Recibe las solicitudes del cliente, ejecuta la lógica del
+                  backend, accede a los datos necesarios y devuelve una
+                  respuesta adecuada.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Idea clave:</strong> el cliente solicita información, pero
+          nunca controla la lógica principal del sistema; esa responsabilidad
+          pertenece al servidor.
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-4" id="flujo-peticion">
+          Flujo de una Petición Web
+        </h3>
+
+        <p>
+          Cada vez que un usuario interactúa con una aplicación web —por
+          ejemplo, al hacer clic en un botón, iniciar sesión o enviar un
+          formulario— se genera una <strong>petición web</strong> que debe ser
+          procesada por el backend.
+        </p>
+
+        <p>
+          Aunque este proceso ocurre en milisegundos, internamente sigue un
+          <strong>flujo bien definido</strong> que permite validar la
+          información, aplicar reglas de negocio y devolver una respuesta
+          adecuada al cliente.
+        </p>
+
+        <!-- ================= FLUJO VISUAL ================= -->
+        <style>
+          .flow-box {
+            border-radius: 1rem;
+            padding: 1.2rem;
+            font-weight: 600;
+            color: #1f2937;
+            background: #f8fafc;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+          }
+
+          .flow-icon {
+            font-size: 1.8rem;
+          }
+
+          .flow-arrow {
+            font-size: 2rem;
+            color: #2563eb;
+          }
+
+          .flow-client {
+            border-left: 6px solid #2563eb;
+          }
+          .flow-route {
+            border-left: 6px solid #6b7280;
+          }
+          .flow-back {
+            border-left: 6px solid #06b6d4;
+          }
+          .flow-db {
+            border-left: 6px solid #f59e0b;
+          }
+          .flow-resp {
+            border-left: 6px solid #16a34a;
+          }
+        </style>
+
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <p class="text-muted mb-4 text-center">
+              Flujo completo de una petición web desde el cliente hasta la
+              respuesta final.
+            </p>
+
+            <div class="row text-center align-items-center g-3">
+              <div class="col-md-2">
+                <div class="flow-box flow-client">
+                  <div class="flow-icon">🌐</div>
+                  Cliente
+                  <div class="text-muted small">Request HTTP</div>
+                </div>
+              </div>
+
+              <div class="col-md-1 flow-arrow">→</div>
+
+              <div class="col-md-2">
+                <div class="flow-box flow-route">
+                  <div class="flow-icon">📍</div>
+                  Ruta
+                  <div class="text-muted small">URL / Endpoint</div>
+                </div>
+              </div>
+
+              <div class="col-md-1 flow-arrow">→</div>
+
+              <div class="col-md-2">
+                <div class="flow-box flow-back">
+                  <div class="flow-icon">⚙️</div>
+                  Backend
+                  <div class="text-muted small">Lógica</div>
+                </div>
+              </div>
+
+              <div class="col-md-1 flow-arrow">→</div>
+
+              <div class="col-md-2">
+                <div class="flow-box flow-db">
+                  <div class="flow-icon">🗄️</div>
+                  Datos
+                  <div class="text-muted small">Base de datos</div>
+                </div>
+              </div>
+
+              <div class="col-md-1 flow-arrow">→</div>
+
+              <div class="col-md-2">
+                <div class="flow-box flow-resp">
+                  <div class="flow-icon">📤</div>
+                  Response
+                  <div class="text-muted small">Resultado</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= EXPLICACIÓN PASO A PASO ================= -->
+
+        <h5 class="fw-bold mt-4">📘 Explicación del flujo paso a paso</h5>
+
+        <ol class="mt-3">
+          <li>
+            <strong>Cliente:</strong>
+            el navegador o aplicación móvil envía una petición HTTP (GET, POST,
+            PUT, DELETE) hacia una URL específica.
+          </li>
+
+          <li>
+            <strong>Ruta:</strong>
+            el servidor identifica qué ruta debe atender la solicitud. En Flask,
+            esta ruta está asociada a una función de Python.
+          </li>
+
+          <li>
+            <strong>Backend:</strong>
+            se ejecuta la lógica del sistema, validando datos, verificando
+            permisos y aplicando reglas de negocio.
+          </li>
+
+          <li>
+            <strong>Base de datos:</strong>
+            si es necesario, el backend consulta, inserta o actualiza
+            información almacenada.
+          </li>
+
+          <li>
+            <strong>Response:</strong>
+            el servidor genera una respuesta (HTML, JSON u otro formato) y la
+            devuelve al cliente.
+          </li>
+        </ol>
+
+        <div class="alert alert-info my-4 d-flex align-items-center">
+          <i class="bi bi-arrow-repeat fs-4 me-3"></i>
+          <div>
+            <strong>Concepto clave:</strong>
+            el usuario solo visualiza el resultado final, pero cada acción pasa
+            obligatoriamente por este flujo interno del backend.
+          </div>
+        </div>
+
+        <!-- ================= RELACIÓN CON FLASK ================= -->
+
+        <h5 class="fw-bold mt-4">🔗 Relación del flujo con Flask</h5>
+
+        <p>
+          En Flask, el flujo de una petición web se implementa mediante
+          <strong>rutas</strong> que actúan como puntos de entrada al backend.
+          Cada ruta define qué función se ejecuta y qué respuesta se devuelve.
+        </p>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4">
+          <pre
+            class="mb-0"
+          ><code class="language-python">from flask import Flask, render_template, request
+
+app = Flask(__name__)
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        # Procesamiento backend
+        return "Acceso concedido"
+    return render_template("login.html")</code></pre>
+        </div>
+
+        <p>
+          Este ejemplo refleja el flujo completo: el cliente envía la solicitud,
+          la ruta la recibe, el backend procesa la lógica y finalmente se
+          devuelve una respuesta.
+        </p>
+
+        <!-- ================= CIERRE ================= -->
+
+        <div class="alert alert-success my-4 d-flex align-items-center">
+          <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Conclusión:</strong>
+            comprender el flujo de una petición web es esencial para desarrollar
+            aplicaciones backend seguras, organizadas y fáciles de mantener.
+          </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-3" id="estructura-proyecto">
+          Estructura de un Proyecto Profesional
+        </h3>
+
+        <p>
+          Un proyecto backend profesional no se construye de forma desordenada.
+          La <strong>estructura del proyecto</strong> es fundamental para
+          garantizar mantenimiento, escalabilidad y comprensión del código a
+          largo plazo.
+        </p>
+
+        <p>
+          Flask promueve una organización clara donde cada archivo y carpeta
+          cumple una función específica. Esta separación permite que el proyecto
+          crezca sin volverse difícil de mantener.
+        </p>
+
+        <div
+          class="alert alert-info my-4 d-flex align-items-center"
+          role="alert"
+        >
+          <i class="bi bi-folder-fill fs-4 me-3"></i>
+          <div>
+            <strong>Buenas prácticas:</strong> Un proyecto bien estructurado
+            facilita el trabajo en equipo, reduce errores y mejora la calidad
+            del software.
+          </div>
+        </div>
+
+        <p>
+          A continuación se muestra la estructura base utilizada en proyectos
+          Flask de nivel profesional:
+        </p>
 
         <div class="card bg-light border-0 mb-4">
           <div class="card-body font-monospace">
             <ul class="list-unstyled mb-0">
-              <li>📁 <span class="fw-bold">PROYECTO/</span></li>
-              <li class="ms-3">📄 <strong>app.py</strong> <span class="text-muted">// El cerebro: rutas y config</span></li>
-              <li class="ms-3">📁 <span class="fw-bold">static/</span> <span class="text-muted">// Archivos públicos (CSS, JS, Img)</span></li>
-              <li class="ms-4">📁 css/</li>
-              <li class="ms-4">📁 img/</li>
-              <li class="ms-4">📁 js/</li>
-              <li class="ms-3">📁 <span class="fw-bold">templates/</span> <span class="text-muted">// Archivos HTML (Vistas)</span></li>
-              <li class="ms-4">📄 base.html</li>
-              <li class="ms-4">📄 home.html</li>
+              <li>📁 <strong>proyecto/</strong></li>
+              <li class="ms-3">
+                📄 <strong>app.py</strong>
+                <span class="text-muted"
+                  >// Punto de entrada de la aplicación</span
+                >
+              </li>
+              <li class="ms-3">
+                📁 <strong>static/</strong>
+                <span class="text-muted">// Archivos públicos</span>
+              </li>
+              <li class="ms-4">
+                📁 css/ <span class="text-muted">// Estilos</span>
+              </li>
+              <li class="ms-4">
+                📁 js/ <span class="text-muted">// Lógica del cliente</span>
+              </li>
+              <li class="ms-4">
+                📁 img/ <span class="text-muted">// Imágenes</span>
+              </li>
+              <li class="ms-3">
+                📁 <strong>templates/</strong>
+                <span class="text-muted">// Vistas HTML</span>
+              </li>
+              <li class="ms-4">
+                📄 base.html
+                <span class="text-muted">// Plantilla principal</span>
+              </li>
+              <li class="ms-4">
+                📄 home.html <span class="text-muted">// Página inicial</span>
+              </li>
             </ul>
           </div>
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="sistema-rutas">El Sistema de Rutas</h3>
-        <p>En Flask, usamos "decoradores" para conectar una URL con una función de Python. Cuando un usuario visita una URL, Python ejecuta la función y devuelve el resultado.</p>
+        <h5 class="fw-bold mt-4">📄 app.py</h5>
+        <p>
+          Es el archivo principal del proyecto. Aquí se inicializa Flask, se
+          definen las rutas principales y se configura el comportamiento general
+          de la aplicación.
+        </p>
+
+        <h5 class="fw-bold mt-4">📁 templates/</h5>
+        <p>
+          Contiene todos los archivos HTML. Flask utiliza este directorio para
+          renderizar vistas dinámicas mediante el motor de plantillas Jinja.
+        </p>
+
+        <h5 class="fw-bold mt-4">📁 static/</h5>
+        <p>
+          Almacena los recursos estáticos del proyecto como hojas de estilo,
+          scripts JavaScript e imágenes. Estos archivos no son procesados por
+          Flask, sino servidos directamente al navegador.
+        </p>
+
+        <div class="card bg-light border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold mb-2">🔎 Importancia de la separación</h6>
+            <p class="mb-0">
+              Separar la lógica del backend, las vistas y los recursos estáticos
+              permite que cada parte del sistema evolucione de forma
+              independiente, manteniendo el proyecto ordenado y profesional.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Adoptar una estructura profesional desde el inicio evita problemas
+          futuros y prepara la aplicación para incorporar bases de datos,
+          autenticación, APIs y módulos adicionales.
+        </p>
+
+        <h3 class="fw-bold mt-5 mb-3" id="sistema-rutas">
+          Sistema de Rutas en Flask
+        </h3>
+
+        <p>
+          El <strong>sistema de rutas</strong> es uno de los pilares
+          fundamentales del backend. En Flask, las rutas permiten conectar una
+          <em>URL</em> con una <strong>función escrita en Python</strong>. Esta
+          función se ejecuta cuando el usuario accede a una dirección específica
+          desde el navegador.
+        </p>
+
+        <p>
+          Cada ruta representa una acción del sistema, como mostrar una página,
+          procesar un formulario o devolver información en formato JSON.
+        </p>
+
+        <div
+          class="alert alert-info my-4 d-flex align-items-center"
+          role="alert"
+        >
+          <i class="bi bi-diagram-3-fill fs-4 me-3"></i>
+          <div>
+            <strong>Concepto clave:</strong> Una ruta define <em>qué URL</em> se
+            atiende y <em>qué función</em> se ejecuta cuando esa URL es
+            solicitada.
+          </div>
+        </div>
+
+        <p>
+          En Flask, las rutas se definen mediante <strong>decoradores</strong>.
+          Un decorador es una instrucción especial que se coloca sobre una
+          función para modificar su comportamiento.
+        </p>
 
         <div class="bg-dark text-white p-4 rounded-3 mb-4">
-<pre class="mb-0"><code class="language-python">from flask import Flask, render_template
+          <pre
+            class="mb-0"
+          ><code class="language-python">from flask import Flask, render_template
+  
 
 app = Flask(__name__)
 
 @app.route("/")
 def home():
-    # Retorna un archivo HTML ubicado en la carpeta 'templates'
-    return render_template("home.html")
-
-if __name__ == "__main__":
-    app.run(debug=True)</code></pre>
+    return render_template("home.html")</code></pre>
         </div>
+
+        <p>
+          En el ejemplo anterior, cuando el usuario accede a la URL principal
+          (<code>/</code>), Flask ejecuta la función <code>home()</code>
+          y devuelve el contenido del archivo HTML correspondiente.
+        </p>
+
+        <h5 class="fw-bold mt-4">📌 Métodos HTTP</h5>
+        <p>
+          Las rutas también pueden responder a diferentes métodos HTTP. Los más
+          comunes son:
+        </p>
+
+        <ul>
+          <li><strong>GET:</strong> Solicita información al servidor</li>
+          <li><strong>POST:</strong> Envía información para ser procesada</li>
+        </ul>
+
+        <div class="bg-dark text-white p-4 rounded-3 mb-4">
+          <pre
+            class="mb-0"
+          ><code class="language-python">@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        return "Procesando datos del formulario"
+    return render_template("login.html")</code></pre>
+        </div>
+
+        <p>
+          Gracias a este sistema, una misma ruta puede mostrar un formulario y
+          también procesar los datos enviados por el usuario.
+        </p>
+
+        <h5 class="fw-bold mt-4">📌 Rutas como punto de control</h5>
+        <p>
+          En aplicaciones reales, las rutas funcionan como puntos de control
+          donde se valida información, se verifican permisos y se decide qué
+          respuesta debe recibir el usuario.
+        </p>
+
+        <div class="card bg-light border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold mb-2">🔐 Uso profesional de rutas</h6>
+            <p class="mb-0">
+              En proyectos avanzados, las rutas controlan autenticación,
+              autorización, acceso a bases de datos y comunicación con APIs
+              externas.
+            </p>
+          </div>
+        </div>
+
+        <p>
+          Comprender el sistema de rutas es esencial para construir aplicaciones
+          dinámicas, seguras y organizadas, ya que cada interacción del usuario
+          pasa obligatoriamente por una ruta del backend.
+        </p>
+        <h3 class="fw-bold mt-5 mb-4" id="backend-vs-herramientas">
+          Backend: Concepto vs Herramienta
+        </h3>
+
+        <p>
+          Es fundamental diferenciar entre el
+          <strong>backend como concepto</strong> y las
+          <strong>herramientas utilizadas para desarrollarlo</strong>. Esta
+          distinción evita confusiones comunes en etapas iniciales de
+          aprendizaje.
+        </p>
+
+        <div class="row g-4 my-4">
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+              <div class="card-body">
+                <h6 class="fw-bold">🧠 Backend (Concepto)</h6>
+                <p class="text-muted mb-0">
+                  Representa la lógica del sistema: validaciones, reglas de
+                  negocio, seguridad, control de acceso y manejo de datos.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card shadow-sm border-0 h-100">
+              <div class="card-body">
+                <h6 class="fw-bold">🛠️ Flask (Herramienta)</h6>
+                <p class="text-muted mb-0">
+                  Es un micro-framework que facilita la implementación del
+                  backend, proporcionando estructura, rutas y renderizado de
+                  vistas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>Idea clave:</strong> aprender backend implica comprender los
+          principios que existen detrás de cualquier framework, no solo
+          memorizar una herramienta.
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-4" id="errores-backend">
+          Errores Comunes en el Desarrollo Backend
+        </h3>
+
+        <p>
+          Durante el desarrollo de aplicaciones backend, es frecuente cometer
+          errores que no siempre se detectan de inmediato, pero que pueden
+          afectar gravemente la <strong>seguridad</strong>, el
+          <strong>rendimiento</strong> y la <strong>estabilidad</strong>
+          del sistema.
+        </p>
+
+        <p>
+          Identificar y comprender estos errores permite evitarlos desde etapas
+          tempranas y desarrollar aplicaciones más profesionales y confiables.
+        </p>
+
+        <!-- ================= ERROR 1 ================= -->
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold">❌ Confiar la validación solo al Frontend</h6>
+            <p class="text-muted mb-0">
+              Un error común es asumir que los datos enviados por el cliente
+              siempre son correctos. El frontend puede ser manipulado
+              fácilmente, por lo que
+              <strong
+                >toda validación crítica debe realizarse en el backend</strong
+              >.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= ERROR 2 ================= -->
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold">❌ Mezclar lógica de negocio con vistas</h6>
+            <p class="text-muted mb-0">
+              Colocar lógica compleja directamente en archivos HTML o plantillas
+              dificulta el mantenimiento del proyecto. El backend debe
+              encargarse de la lógica, mientras que las vistas solo presentan la
+              información.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= ERROR 3 ================= -->
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold">❌ No proteger rutas sensibles</h6>
+            <p class="text-muted mb-0">
+              Permitir el acceso libre a rutas críticas, como paneles
+              administrativos o acciones internas, expone el sistema a accesos
+              no autorizados. El backend debe controlar autenticación y
+              permisos.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= ERROR 4 ================= -->
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold">❌ Exponer información interna al cliente</h6>
+            <p class="text-muted mb-0">
+              Mostrar mensajes de error detallados, consultas SQL o estructuras
+              internas puede revelar información sensible. El backend debe
+              manejar errores de forma controlada.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= ERROR 5 ================= -->
+        <div class="card shadow-sm border-0 my-4">
+          <div class="card-body">
+            <h6 class="fw-bold">❌ No manejar errores y excepciones</h6>
+            <p class="text-muted mb-0">
+              No capturar errores provoca caídas inesperadas del sistema. Un
+              backend profesional debe manejar excepciones y responder de forma
+              adecuada ante fallos.
+            </p>
+          </div>
+        </div>
+
+        <!-- ================= BLOQUE DE ALERTA ================= -->
+        <div class="alert alert-warning my-4 d-flex align-items-center">
+          <i class="bi bi-exclamation-triangle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Advertencia:</strong>
+            muchos de estos errores no se notan durante el desarrollo, pero
+            generan vulnerabilidades críticas en producción.
+          </div>
+        </div>
+
+        <!-- ================= BUENAS PRÁCTICAS ================= -->
+        <h5 class="fw-bold mt-4">✅ Enfoque Correcto</h5>
+
+        <p>
+          Evitar estos errores implica aplicar buenas prácticas desde el inicio,
+          como separar responsabilidades, validar datos en el servidor y
+          controlar correctamente el acceso a las rutas.
+        </p>
+
+        <ul>
+          <li>Validar siempre la información en el backend</li>
+          <li>Mantener separada la lógica, las vistas y los datos</li>
+          <li>Controlar autenticación y permisos</li>
+          <li>Manejar errores de forma segura</li>
+        </ul>
+
+        <div class="alert alert-success my-4 d-flex align-items-center">
+          <i class="bi bi-check-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Conclusión:</strong>
+            un backend robusto no solo funciona, sino que está preparado para
+            errores, ataques y crecimiento del sistema.
+          </div>
+        </div>
+
+        <h3 class="fw-bold mt-5 mb-4" id="cuestionario">
+          🧠 Cuestionario de Aprendizaje
+        </h3>
+
+        <p class="text-muted mb-4">
+          Responde cada pregunta para avanzar. Cada pregunta solo puede
+          responderse una vez y se calificará automáticamente.
+        </p>
+
+        <div class="card shadow-lg border-0 my-5">
+          <!-- Encabezado del cuestionario -->
+          <div class="card-header bg-primary bg-opacity-10 border-0">
+            <h4 class="fw-bold text-primary mb-1 d-flex align-items-center">
+              <i class="bi bi-ui-checks-grid me-2"></i>
+              Evaluación de Aprendizaje
+            </h4>
+            <small class="text-muted">
+              Responde cada pregunta de forma secuencial. Cada pregunta tiene un
+              solo intento.
+            </small>
+          </div>
+
+          <!-- Cuerpo -->
+          <div class="card-body border-start border-4 border-primary">
+            <!-- 👇 AQUÍ PEGA TU CUESTIONARIO TAL CUAL 👇 -->
+
+            <div class="card shadow-sm border-0">
+              <div class="card-body" id="quizContainer">
+                <!-- Progreso -->
+                <div class="mb-3 text-muted">
+                  Pregunta <span id="numPregunta"></span> de
+                  <span id="totalPreguntas"></span>
+                </div>
+
+                <!-- Pregunta -->
+                <h5 class="fw-bold mb-3" id="preguntaTitulo"></h5>
+
+                <!-- Opciones -->
+                <div id="opciones" class="mb-3"></div>
+
+                <!-- Feedback -->
+                <div id="feedback" class="alert d-none"></div>
+
+                <!-- Solución -->
+                <div id="solucion" class="alert alert-info d-none"></div>
+
+                <!-- Botón siguiente -->
+                <div class="text-end">
+                  <button
+                    id="btnSiguiente"
+                    class="btn btn-primary d-none"
+                    onclick="siguientePregunta()"
+                  >
+                    Siguiente →
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 👆 FIN DEL CUESTIONARIO 👆 -->
+          </div>
+        </div>
+        <h3 class="fw-bold mt-5 mb-4" id="juego">
+          🍔 Mini-juego: Arma la Petición Backend
+        </h3>
+
+        <p class="text-muted mb-4">
+          Arrastra los componentes y arma correctamente la petición del backend.
+        </p>
+
+        <style>
+          /* CONTENEDOR GENERAL */
+          .burger-game {
+            background: linear-gradient(180deg, #fff7ed, #ffffff);
+          }
+
+          /* INGREDIENTES */
+          .burger-game .ingredient {
+            padding: 0.7rem 1.2rem;
+            border-radius: 999px;
+            cursor: grab;
+            margin-bottom: 0.6rem;
+            text-align: center;
+            font-weight: 600;
+            color: #1f2937;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition:
+              transform 0.2s ease,
+              box-shadow 0.2s ease;
+          }
+
+          .burger-game .ingredient:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+          }
+
+          .ingredient[data-step="1"] {
+            background: #bfdbfe;
+          } /* Request */
+          .ingredient[data-step="2"] {
+            background: #bbf7d0;
+          } /* Validar */
+          .ingredient[data-step="3"] {
+            background: #fde68a;
+          } /* Auth */
+          .ingredient[data-step="4"] {
+            background: #fecaca;
+          } /* BD */
+          .ingredient[data-step="5"] {
+            background: #e9d5ff;
+          } /* Response */
+
+          /* PLATO (PAN) */
+          .burger-game .plate {
+            min-height: 320px;
+            border-radius: 2rem;
+            padding: 1.2rem;
+            background: #fde68a;
+            border: 4px solid #f59e0b;
+            box-shadow: inset 0 -10px 0 #fbbf24;
+          }
+
+          /* CAPAS DENTRO DE LA HAMBURGUESA */
+          .burger-game .plate-item {
+            background: linear-gradient(180deg, #ffffff, #f3f4f6);
+            border-radius: 999px;
+            padding: 0.55rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            animation: dropIn 0.3s ease;
+          }
+
+          @keyframes dropIn {
+            from {
+              transform: translateY(-10px);
+              opacity: 0;
+            }
+            to {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
+        </style>
+
+        <div class="card shadow-lg border-0 burger-game">
+          <div class="card-body">
+            <div class="row">
+              <!-- INGREDIENTES -->
+              <div class="col-md-4">
+                <h6 class="fw-bold mb-3">Ingredientes</h6>
+
+                <div class="ingredient" draggable="true" data-step="1">
+                  🌐 Request
+                </div>
+                <div class="ingredient" draggable="true" data-step="2">
+                  🔍 Validar datos
+                </div>
+                <div class="ingredient" draggable="true" data-step="3">
+                  🔐 Autenticación
+                </div>
+                <div class="ingredient" draggable="true" data-step="4">
+                  🗄️ Base de datos
+                </div>
+                <div class="ingredient" draggable="true" data-step="5">
+                  📤 Response
+                </div>
+
+                <button
+                  class="btn btn-outline-danger mt-3 w-100"
+                  onclick="reiniciarBurger()"
+                >
+                  🔄 Reiniciar
+                </button>
+              </div>
+
+              <!-- PLATO -->
+              <div class="col-md-8">
+                <h6 class="fw-bold mb-3">Plato (Backend)</h6>
+
+                <div id="plate" class="plate"></div>
+
+                <div id="burgerResult" class="mt-3"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          const preguntas = [
+            {
+              titulo: "¿Cuál es la función principal del backend?",
+              opciones: [
+                { texto: "Diseñar la interfaz", correcta: false },
+                { texto: "Procesar la lógica y los datos", correcta: true },
+                { texto: "Aplicar estilos visuales", correcta: false },
+              ],
+              solucion:
+                "El backend procesa la lógica, reglas de negocio y datos del sistema.",
+            },
+            {
+              titulo: "¿Dónde se ejecuta el backend?",
+              opciones: [
+                { texto: "En el navegador", correcta: false },
+                { texto: "En el servidor", correcta: true },
+              ],
+              solucion: "El backend se ejecuta en el servidor.",
+            },
+            {
+              titulo: "¿Qué ocurre cuando un usuario envía un formulario?",
+              opciones: [
+                { texto: "El backend procesa la solicitud", correcta: true },
+                { texto: "El CSS guarda los datos", correcta: false },
+              ],
+              solucion: "El backend recibe y procesa los datos enviados.",
+            },
+            {
+              titulo: "¿Qué tarea NO pertenece al backend?",
+              opciones: [
+                { texto: "Diseñar animaciones visuales", correcta: true },
+                { texto: "Validar usuarios", correcta: false },
+              ],
+              solucion: "Las animaciones corresponden al frontend.",
+            },
+            {
+              titulo: "¿Por qué el backend es clave para la seguridad?",
+              opciones: [
+                { texto: "Controla accesos y validaciones", correcta: true },
+                { texto: "Define colores y fuentes", correcta: false },
+              ],
+              solucion: "El backend valida usuarios y protege la información.",
+            },
+            {
+              titulo: "¿Qué relación tiene Flask con el backend?",
+              opciones: [
+                {
+                  texto: "Es una herramienta para desarrollarlo",
+                  correcta: true,
+                },
+                { texto: "Es un lenguaje de diseño", correcta: false },
+              ],
+              solucion: "Flask es un framework para construir backend.",
+            },
+            {
+              titulo: "¿Qué pasaría si no existiera backend?",
+              opciones: [
+                {
+                  texto: "La aplicación no funcionaría correctamente",
+                  correcta: true,
+                },
+                { texto: "Solo cambiaría el diseño", correcta: false },
+              ],
+              solucion: "Sin backend no existe lógica ni manejo de datos.",
+            },
+          ];
+
+          let indice = 0;
+          let puntaje = 0;
+          let respondida = false;
+
+          document.getElementById("totalPreguntas").textContent =
+            preguntas.length;
+
+          function cargarPregunta() {
+            const p = preguntas[indice];
+            respondida = false;
+
+            document.getElementById("numPregunta").textContent = indice + 1;
+            document.getElementById("preguntaTitulo").textContent = p.titulo;
+
+            const opcionesDiv = document.getElementById("opciones");
+            opcionesDiv.innerHTML = "";
+
+            p.opciones.forEach((op) => {
+              const btn = document.createElement("button");
+              btn.className = "btn btn-outline-secondary w-100 mb-2";
+              btn.textContent = op.texto;
+              btn.onclick = () => responder(btn, op.correcta, p.solucion);
+              opcionesDiv.appendChild(btn);
+            });
+
+            document.getElementById("feedback").classList.add("d-none");
+            document.getElementById("solucion").classList.add("d-none");
+            document.getElementById("btnSiguiente").classList.add("d-none");
+          }
+
+          function responder(btn, correcta, solucion) {
+            if (respondida) return;
+            respondida = true;
+
+            const feedback = document.getElementById("feedback");
+            const solucionDiv = document.getElementById("solucion");
+
+            // Deshabilitar botones
+            document
+              .querySelectorAll("#opciones button")
+              .forEach((b) => (b.disabled = true));
+
+            if (correcta) {
+              puntaje++;
+              btn.classList.add("btn-success");
+              feedback.className = "alert alert-success";
+              feedback.textContent = "✔️ Respuesta correcta.";
+            } else {
+              btn.classList.add("btn-danger");
+              feedback.className = "alert alert-warning";
+              feedback.textContent = "❌ Respuesta incorrecta.";
+              solucionDiv.textContent = solucion;
+              solucionDiv.classList.remove("d-none");
+            }
+
+            feedback.classList.remove("d-none");
+            document.getElementById("btnSiguiente").classList.remove("d-none");
+          }
+
+          function siguientePregunta() {
+            indice++;
+            if (indice < preguntas.length) {
+              cargarPregunta();
+            } else {
+              mostrarResultado();
+            }
+          }
+          function mostrarResultado() {
+            const nota = Math.round((puntaje / preguntas.length) * 10);
+            const aprobado = nota >= 7;
+
+            document.getElementById("quizContainer").innerHTML = `
+              <div class="text-center py-4">
+
+                <h4 class="fw-bold mb-3">📊 Resultado Final</h4>
+
+                <div class="display-3 fw-bold mb-2 ${aprobado ? "text-success" : "text-danger"}">
+                  ${nota}/10
+                </div>
+
+                <p class="text-muted mb-4">
+                  Respuestas correctas: <strong>${puntaje}</strong> de <strong>${preguntas.length}</strong>
+                </p>
+
+                <div class="alert ${aprobado ? "alert-success" : "alert-warning"} mx-auto" style="max-width: 500px;">
+                  ${
+                    aprobado
+                      ? "🎉 <strong>¡Felicidades!</strong> Has aprobado la evaluación. Continúa con el siguiente tema."
+                      : "📘 <strong>No te desanimes.</strong> Repasa el contenido y vuelve a intentarlo."
+                  }
+                </div>
+
+                <button class="btn btn-outline-primary mt-3" onclick="reiniciarCuestionario()">
+                  🔄 Realizar la evaluación nuevamente
+                </button>
+
+              </div>
+            `;
+          }
+
+          function reiniciarCuestionario() {
+            // Recarga solo la página actual
+            location.reload();
+          }
+
+          cargarPregunta();
+        </script>
+
+        <script>
+          let order = [];
+
+          document
+            .querySelectorAll(".burger-game .ingredient")
+            .forEach((item) => {
+              item.addEventListener("dragstart", (e) => {
+                e.dataTransfer.setData("step", item.dataset.step);
+                e.dataTransfer.setData("text", item.textContent);
+              });
+            });
+
+          const plate = document.getElementById("plate");
+
+          plate.addEventListener("dragover", (e) => e.preventDefault());
+
+          plate.addEventListener("drop", (e) => {
+            e.preventDefault();
+
+            const step = e.dataTransfer.getData("step");
+            const text = e.dataTransfer.getData("text");
+
+            if (order.includes(step)) return;
+
+            order.push(step);
+
+            const div = document.createElement("div");
+            div.className = "plate-item";
+            div.textContent = text;
+            plate.appendChild(div);
+
+            verificarBurger();
+          });
+
+          function verificarBurger() {
+            if (order.length === 5) {
+              const correcto = order.join() === "1,2,3,4,5";
+
+              document.getElementById("burgerResult").innerHTML = correcto
+                ? `<div class="alert alert-success">
+           🎉 ¡Petición procesada correctamente! El backend funciona.
+         </div>`
+                : `<div class="alert alert-danger">
+           ❌ Orden incorrecto. El backend falló.
+         </div>`;
+            }
+          }
+
+          function reiniciarBurger() {
+            order = [];
+            plate.innerHTML = "";
+            document.getElementById("burgerResult").innerHTML = "";
+          }
+        </script>
 
         <div class="d-flex justify-content-between mt-5 pt-4 border-top">
-           <a href="{{ url_for('teoria_general') }}" class="btn btn-outline-secondary rounded-pill px-4">
-             <i class="bi bi-grid-fill me-2"></i> Temario
-           </a>
-           <a href="{{ url_for('teoria_tema', slug='historia-python') }}" class="btn btn-primary rounded-pill px-4">
-             Siguiente: Historia <i class="bi bi-arrow-right ms-2"></i>
-           </a>
+          <a
+            href="{{ url_for('teoria_general') }}"
+            class="btn btn-outline-secondary rounded-pill px-4"
+          >
+            <i class="bi bi-grid-fill me-2"></i> Temario
+          </a>
+          <a
+            href="{{ url_for('teoria_tema', slug='historia-python') }}"
+            class="btn btn-primary rounded-pill px-4"
+          >
+            Siguiente: Historia <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
-
       </div>
     </div>
   </div>
