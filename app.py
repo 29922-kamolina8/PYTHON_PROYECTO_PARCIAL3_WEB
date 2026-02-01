@@ -62,9 +62,14 @@ TEMAS = [
         "titulo": "5. Variables y Constantes",
         "archivo": "teoria/teoria_variablesConstantes.html",
         "subtemas": [
-            {"id": "variables", "titulo": "Variables"},
-            {"id": "nombrado", "titulo": "Reglas de Nombrado (Snake Case)"},
-            {"id": "constantes", "titulo": "Constantes"},
+            {"id": "variables", "titulo": "1. Variables"},
+            {"id": "declaracion", "titulo": "1.1 Declaración"},
+            {"id": "nombrado", "titulo": "1.2 Reglas de nombrado"},
+            {"id": "constantes", "titulo": "2. Constantes"},
+            {"id": "uso-constantes", "titulo": "2.1 Uso recomendado"},
+            {"id": "playground", "titulo": "Práctica interactiva"},
+            {"id": "video", "titulo": "Video"},
+            {"id": "cuestionario", "titulo": "Cuestionario"},
         ]
     },
     {

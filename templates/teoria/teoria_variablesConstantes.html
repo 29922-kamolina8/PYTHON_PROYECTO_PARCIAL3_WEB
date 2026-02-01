@@ -3,85 +3,714 @@
 {% block title %}Variables y Constantes - Python Academy{% endblock %}
 
 {% block content %}
+
+<!-- =========================================================
+  ESTILOS 
+========================================================= -->
+<style>
+  /* ===================== SIDEBAR ===================== */
+  .sidebar-nav{
+    position: sticky;
+    top: 110px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.04);
+  }
+  .sidebar-nav ul{ list-style: none; padding-left: 0; margin: 0; }
+  .sidebar-nav li{ margin-bottom: 10px; }
+  .sidebar-nav a{
+    display: block;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+    background: #f6f7fb;
+    border: 1px solid rgba(0,0,0,.05);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .sidebar-nav a:hover{ transform: translateY(-1px); }
+  .sidebar-nav a.active{
+    background: #0d6efd;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* ===================== CODE CARD ===================== */
+  .code-card{
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    background: #111827;
+  }
+  .code-card-header{
+    padding: 12px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .code-dots{ display:flex; gap:7px; align-items:center; }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .code-title{
+    color: rgba(255,255,255,.85);
+    font-weight: 700;
+    font-size: .95rem;
+    margin: 0;
+  }
+  pre{
+    margin: 0;
+    padding: 18px 18px 16px;
+    overflow: auto;
+  }
+  code{ color: #ffffff; }
+
+  .play-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 14px 16px 16px;
+    background: rgba(255,255,255,.04);
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+
+  /* ===================== CONSOLE OUTPUT ===================== */
+  .console{
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #020617;
+    color: #ffffff;
+    padding: 14px;
+    min-height: 70px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    white-space: pre-wrap;
+  }
+
+  .console-badge{
+    display:inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .8rem;
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.8);
+    margin-bottom: 10px;
+    background: rgba(255,255,255,.04);
+  }
+
+  /* Fix visibilidad resaltado (Prism / highlight) */
+  .code-card pre code{
+    color: #f9fafb !important;
+    opacity: 1 !important;
+  }
+  .code-card .token.comment{ color: #94a3b8 !important; }
+  .code-card .token.string{ color: #86efac !important; }
+  .code-card .token.number{ color: #facc15 !important; }
+  .code-card .token.keyword{ color: #60a5fa !important; }
+
+  /* ===================== CALLOUTS ===================== */
+  .callout{
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+  }
+  .callout-warning{
+    border-left: 6px solid #f59e0b;
+    background: #fff7ed;
+  }
+  .callout-info{
+    border-left: 6px solid #0d6efd;
+    background: #eff6ff;
+  }
+
+  /* ===================== QUIZ ===================== */
+  .quiz-card {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-radius: 1.2rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 2rem;
+    max-width: 760px;
+    margin: auto;
+  }
+
+  .quiz-option {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.6rem;
+    border-radius: 0.9rem;
+    padding: 0.9rem 1rem;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .quiz-option:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+  .quiz-option.correct {
+    background-color: #22c55e !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+  .quiz-option.wrong {
+    background-color: #ef4444 !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+
+  .quiz-progress { font-size: 0.9rem; color: #555; }
+  .quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #1e3a8a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid rgba(30,58,138,.12);
+  }
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+</style>
+
+<!-- =========================================================
+  HERO / CABECERA
+========================================================= -->
 <section class="py-5 bg-light border-bottom">
   <div class="container text-center">
     <span class="badge bg-primary mb-3">TEMA 5</span>
     <h1 class="display-5 fw-bold text-dark">Variables y Constantes</h1>
-    <p class="lead text-muted mx-auto" style="max-width: 700px;">
-      Aprende cómo guardar información en la memoria y las convenciones de nombrado en Python.
+    <p class="lead text-muted mx-auto" style="max-width: 780px;">
+      Aprende a guardar información en la memoria, cómo nombrar variables correctamente y cómo manejar constantes por convención en Python.
     </p>
   </div>
 </section>
 
+<!-- =========================================================
+  CONTENIDO PRINCIPAL
+========================================================= -->
 <section class="section py-5">
   <div class="container">
-    <div class="row justify-content-start">
-      <!-- Sidebar Navigation -->
+    <div class="row justify-content-start g-4">
+
+      <!-- ===================== SIDEBAR ===================== -->
       <div class="col-lg-3 d-none d-lg-block">
         <nav class="sidebar-nav">
-          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <h5 class="mb-3"><i class="bi bi-list-check me-2"></i>Contenido</h5>
+
           <ul>
             {% for subtema in tema.subtemas %}
-            <li>
-              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
-                {{ subtema.titulo }}
-              </a>
-            </li>
+              <li>
+                <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                  {{ loop.index }}. {{ subtema.titulo }}
+                </a>
+              </li>
             {% endfor %}
           </ul>
         </nav>
       </div>
 
-      <!-- Main Content -->
+      <!-- ===================== MAIN CONTENT ===================== -->
       <div class="col-lg-8">
 
-        <h3 class="fw-bold mb-3" id="variables">Variables</h3>
-        <p>Una variable es como una "caja" donde guardamos un dato. En Python, <strong>no necesitas declarar el tipo</strong> (es de tipado dinámico).</p>
+        <!-- 1) VARIABLES -->
+        <h3 class="fw-bold mb-3" id="variables">1. Variables</h3>
+        <p>
+          Una <strong>variable</strong> es un identificador (un nombre) que se usa para <strong>almacenar un valor</strong> en la memoria.
+          Ese valor <strong>puede cambiar</strong> durante la ejecución del programa según la lógica que programes.
+        </p>
 
-        <div class="bg-dark text-white p-4 rounded-3 mb-4">
-<pre class="mb-0"><code class="language-python"># Creación de variables
-nombre = "Juan"   # Es un String
-edad = 25         # Es un Entero
-precio = 19.99    # Es un Float
-
-# Podemos cambiar el tipo sobre la marcha
-edad = "Veinticinco" # Ahora es String (No recomendado pero posible)</code></pre>
+        <div class="callout callout-info mb-4">
+          <strong>Idea rápida:</strong> piensa en una variable como una “etiqueta” que le pones a un dato para poder usarlo después.
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="nombrado">Reglas de Nombrado (Snake Case)</h3>
-        <p>En Python, por convención usamos <code>snake_case</code> (minúsculas separadas por guiones bajos).</p>
-        <div class="row text-center">
-            <div class="col-6">
-                <div class="p-3 border rounded bg-light text-success fw-bold">
-                    <i class="bi bi-check-circle me-1"></i> nombre_usuario
-                </div>
+        <!-- 1.1 Declaración -->
+        <h4 class="fw-bold mt-4 mb-2" id="declaracion">1.1 Declaración de variables</h4>
+        <p>
+          En Python declarar variables es directo:
+          <strong>no usas símbolos como $</strong>, <strong>no declaras el tipo</strong> y Python asigna el tipo automáticamente según el valor (tipado dinámico).
+        </p>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
             </div>
-            <div class="col-6">
-                <div class="p-3 border rounded bg-light text-danger fw-bold text-decoration-line-through">
-                    <i class="bi bi-x-circle me-1"></i> nombreUsuario
-                </div>
+            <p class="code-title">Ejemplo: crear variables</p>
+          </div>
+
+<pre><code class="language-python" id="code-1"># Declaración de variables (Python detecta el tipo automáticamente)
+nombre = "Juan"
+edad = 20
+precio = 15.75
+activo = True
+
+print("Nombre:", nombre)
+print("Edad:", edad)
+print("Total (edad + 5):", edad + 5)
+print("¿Está activo?:", activo)</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutar(1)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrar(1)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-1" class="mb-4 d-none">
+          <div class="console" id="output-1">Salida pendiente...</div>
+        </div>
+
+        <!-- 1.2 NOMBRADO -->
+        <h4 class="fw-bold mt-5 mb-3" id="nombrado">1.2 Reglas para nombrar variables (snake_case)</h4>
+        <p>Para que tu código sea legible y correcto, se recomienda seguir estas reglas:</p>
+
+        <ul class="mb-4">
+          <li>Debe iniciar con una <strong>letra</strong> o con <strong>_</strong></li>
+          <li>No puede iniciar con <strong>números</strong></li>
+          <li>No debe tener <strong>espacios</strong></li>
+          <li>Es sensible a mayúsculas/minúsculas: <strong>Edad</strong> y <strong>edad</strong> son distintas</li>
+          <li>Convención recomendada: <strong>snake_case</strong></li>
+        </ul>
+
+        <div class="row text-center g-3 mb-4">
+          <div class="col-12 col-md-6">
+            <div class="p-3 border rounded bg-light text-success fw-bold">
+              <i class="bi bi-check-circle me-1"></i> total_factura
             </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-3 border rounded bg-light text-success fw-bold">
+              <i class="bi bi-check-circle me-1"></i> _nombre
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-3 border rounded bg-light text-danger fw-bold text-decoration-line-through">
+              <i class="bi bi-x-circle me-1"></i> 2edad
+              <div class="small text-muted mt-1">Inicia con número</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6">
+            <div class="p-3 border rounded bg-light text-danger fw-bold text-decoration-line-through">
+              <i class="bi bi-x-circle me-1"></i> nombre-usuario
+              <div class="small text-muted mt-1">Guion medio “-” no es válido</div>
+            </div>
+          </div>
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="constantes">Constantes</h3>
-        <p>Python no tiene constantes "reales" (que no se puedan cambiar), pero por convención, si escribes una variable en <strong>MAYÚSCULAS</strong>, estás gritando: "¡NO CAMBIES ESTO!".</p>
+        <!-- 2) CONSTANTES -->
+        <h3 class="fw-bold mt-5 mb-3" id="constantes">2. Constantes</h3>
+        <p>
+          Una <strong>constante</strong> es un valor que <strong>no debería cambiar</strong>.
+          En Python se usa la convención: escribirlas en <strong>MAYÚSCULAS</strong>.
+        </p>
 
-        <div class="bg-light border-start border-4 border-warning p-3">
-            <code>PI = 3.1416</code><br>
-            <code>CONEXION_DB = "localhost:3306"</code>
+        <div class="callout callout-warning mb-4">
+          <strong>Importante:</strong> Python sí te deja cambiar una constante, pero hacerlo rompe buenas prácticas.
         </div>
 
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo: constantes por convención</p>
+          </div>
+
+<pre><code class="language-python" id="code-2"># Constantes (convención: MAYÚSCULAS)
+PI = 3.1416
+IVA = 0.12
+MAX_USUARIOS = 50
+
+precio = 100
+cantidad = 2
+
+total = precio * cantidad * (1 + IVA)
+print("Total con IVA:", total)</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutar(2)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrar(2)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-2" class="mb-4 d-none">
+          <div class="console" id="output-2">Salida pendiente...</div>
+        </div>
+
+        <!-- 2.1 Uso recomendado -->
+        <h4 class="fw-bold mt-5 mb-3" id="uso-constantes">2.1 ¿Cuándo usar constantes?</h4>
+        <ul class="mb-5">
+          <li><strong>Tasas e impuestos</strong> (IVA, ICE, etc.)</li>
+          <li><strong>Valores matemáticos fijos</strong> (PI)</li>
+          <li><strong>Límites del sistema</strong> (MAX_USUARIOS, INTENTOS_MAX)</li>
+          <li><strong>Configuraciones</strong> (URL_API, RUTA_BASE)</li>
+        </ul>
+
+        <!-- PLAYGROUND -->
+        <h3 class="fw-bold mt-5 mb-3" id="playground">Práctica interactiva</h3>
+        <p class="text-muted">Cambia el valor de una variable y observa cómo cambia la salida.</p>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejercicio: variable que cambia</p>
+          </div>
+
+<pre><code class="language-python" id="code-3">mensaje = "Hola"
+print("Antes:", mensaje)
+
+mensaje = "Hola, ya cambié"
+print("Después:", mensaje)</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutar(3)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrar(3)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-3" class="mb-4 d-none">
+          <div class="console" id="output-3">Salida pendiente...</div>
+        </div>
+
+        <!-- VIDEO -->
+        <h3 class="fw-bold mt-5 mb-3" id="video">Video de apoyo</h3>
+        <p class="text-muted">Puedes revisar este video para reforzar lo aprendido:</p>
+
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden border">
+          <iframe
+            src="https://www.youtube.com/embed/F_uMgCC3Hw8"
+            title="Variables y Constantes en Python"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+
+        <!-- =========================================================
+          CUESTIONARIO FINAL
+        ========================================================== -->
+        <div class="mt-5 pt-4 border-top" id="cuestionario">
+          <h3 class="fw-bold mb-3 text-center">Cuestionario – Variables y Constantes</h3>
+
+          <p class="text-muted text-center mb-4">
+            Responde cada pregunta para avanzar. Cada pregunta solo puede responderse una vez.
+            Al finalizar, recibirás una calificación basada en tus respuestas.
+          </p>
+
+          <div class="quiz-card">
+            <!-- Header -->
+            <div class="quiz-meta mb-3">
+              <div class="quiz-progress">
+                Pregunta <span id="numPreguntaV"></span> de <span id="totalPreguntasV"></span>
+              </div>
+              <span class="quiz-badge">
+                <i class="bi bi-award"></i> Evaluación final
+              </span>
+            </div>
+
+            <!-- Pregunta -->
+            <h5 class="fw-bold mb-3" id="preguntaTituloV"></h5>
+
+            <!-- Opciones -->
+            <div id="opcionesV"></div>
+
+            <!-- Feedback -->
+            <div id="feedbackV" class="alert d-none mt-3 mb-2"></div>
+
+            <!-- Solución -->
+            <div id="solucionV" class="alert alert-info d-none mt-2"></div>
+
+            <!-- Botón siguiente -->
+            <div class="text-end mt-3">
+              <button id="btnSiguienteV" class="btn btn-primary d-none" onclick="siguientePreguntaV()">
+                Siguiente →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAV (botones) -->
         <div class="d-flex justify-content-between mt-5 pt-4 border-top">
-           <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-outline-secondary rounded-pill px-4">
-             <i class="bi bi-arrow-left me-2"></i> Anterior
-           </a>
-           <a href="{{ url_for('teoria_tema', slug='tipos-de-datos') }}" class="btn btn-primary rounded-pill px-4">
-             Siguiente: Tipos de Datos <i class="bi bi-arrow-right ms-2"></i>
-           </a>
+          <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-2"></i> Anterior
+          </a>
+          <a href="{{ url_for('teoria_tema', slug='tipos-de-datos') }}" class="btn btn-primary rounded-pill px-4">
+            Siguiente: Tipos de Datos<i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
 
-      </div>
-    </div>
-  </div>
+      </div> <!-- /col-lg-8 -->
+    </div> <!-- /row -->
+  </div> <!-- /container -->
 </section>
+
+<!-- =========================================================
+  SCRIPTS
+  - Simulador de ejecución (código)
+  - Quiz final
+  - Active links sidebar
+========================================================= -->
+<script>
+  /* ===================== SIMULACIÓN DE EJECUCIÓN ===================== */
+  const resultados = {
+    1: `Nombre: Juan
+Edad: 20
+Total (edad + 5): 25
+¿Está activo?: True`,
+    2: `Total con IVA: 224.0`,
+    3: `Antes: Hola
+Después: Hola, ya cambié`
+  };
+
+  const estado = { 1: false, 2: false, 3: false };
+
+  function simEjecutar(id){
+    const wrap = document.getElementById(`output-wrap-${id}`);
+    const out  = document.getElementById(`output-${id}`);
+    wrap.classList.remove("d-none");
+    estado[id] = true;
+
+    out.innerHTML = `<span class="console-badge">Simulación</span>\nEjecutando código...\n Listo. Pulsa “Mostrar resultado” para verlo.`;
+  }
+
+  function simMostrar(id){
+    const wrap = document.getElementById(`output-wrap-${id}`);
+    const out  = document.getElementById(`output-${id}`);
+    wrap.classList.remove("d-none");
+
+    if(!estado[id]){
+      out.innerHTML = `<span class="console-badge">Simulación</span>\nPrimero presiona “Ejecutar”.`;
+      return;
+    }
+
+    out.innerHTML = `<span class="console-badge">Simulación</span>\n${resultados[id] || "Sin resultado."}`;
+  }
+
+  /* ===================== SIDEBAR ACTIVE ===================== */
+  document.querySelectorAll(".sidebar-nav a").forEach(a => {
+    a.addEventListener("click", () => {
+      document.querySelectorAll(".sidebar-nav a").forEach(x => x.classList.remove("active"));
+      a.classList.add("active");
+    });
+  });
+
+  /* ===================== QUIZ (Variables y Constantes) ===================== */
+  const preguntasV = [
+    {
+      titulo: "1) ¿Qué línea representa MEJOR una asignación de variable válida y una buena práctica de nombrado en Python?",
+      opciones: [
+        { texto: "A) 2edad = 20", correcta: false },
+        { texto: "B) edad_usuario = 20", correcta: true },
+        { texto: "C) edad-usuario = 20", correcta: false }
+      ],
+      solucion: " Correcta: edad_usuario = 20. No puede iniciar con número y no se recomienda usar guion medio (-) en nombres de variables."
+    },
+    {
+      titulo: "2) Observa el siguiente caso: x = 5; x = '5'. ¿Cuál afirmación es correcta en Python?",
+      opciones: [
+        { texto: "A) Python da error porque x no puede cambiar de tipo.", correcta: false },
+        { texto: "B) Python permite el cambio porque es de tipado dinámico.", correcta: true },
+        { texto: "C) Python convierte automáticamente '5' en entero siempre.", correcta: false }
+      ],
+      solucion: " Python es de tipado dinámico: una misma variable puede referenciar valores de distintos tipos, aunque no es una buena práctica hacerlo sin necesidad."
+    },
+    {
+      titulo: "3) ¿Cuál opción describe MEJOR el propósito de usar MAYÚSCULAS en constantes (por ejemplo: IVA = 0.12)?",
+      opciones: [
+        { texto: "A) Evita que el valor se pueda cambiar por el intérprete.", correcta: false },
+        { texto: "B) Es una convención para indicar que NO debería modificarse.", correcta: true },
+        { texto: "C) Hace que la variable sea global automáticamente.", correcta: false }
+      ],
+      solucion: " En Python las constantes no están 'protegidas'; MAYÚSCULAS es una convención para indicar 'no modificar'."
+    },
+    {
+      titulo: "4) ¿Cuál fragmento es el MÁS correcto para usar una constante de configuración en un programa?",
+      opciones: [
+        { texto: "A) urlApi = 'https://...'  # porque así es más corto", correcta: false },
+        { texto: "B) URL_API = 'https://...'  # constante de configuración por convención", correcta: true },
+        { texto: "C) URL-API = 'https://...'  # más legible", correcta: false }
+      ],
+      solucion: " Para constantes: MAYÚSCULAS + guion bajo. Evita guion medio (-) y usa nombres claros."
+    },
+    {
+      titulo: "5) ¿Qué salida produce este código? \n\nx = 10\nx = x + 5\nprint(x)",
+      opciones: [
+        { texto: "A) 10", correcta: false },
+        { texto: "B) 15", correcta: true },
+        { texto: "C) x + 5", correcta: false }
+      ],
+      solucion: " Se reasigna x: primero 10, luego 10+5 → 15."
+    },
+    {
+      titulo: "6) ¿Cuál opción es la MEJOR explicación de por qué 'Edad' y 'edad' son diferentes en Python?",
+      opciones: [
+        { texto: "A) Porque Python no acepta mayúsculas.", correcta: false },
+        { texto: "B) Porque Python es sensible a mayúsculas/minúsculas (case-sensitive).", correcta: true },
+        { texto: "C) Porque 'Edad' se convierte automáticamente en constante.", correcta: false }
+      ],
+      solucion: " Python es case-sensitive: 'Edad' y 'edad' son nombres distintos."
+    },
+    {
+      titulo: "7) Considera: PI = 3.1416. ¿Qué pasa si luego haces PI = 3? (sin librerías extra)",
+      opciones: [
+        { texto: "A) Python lanza error porque PI es constante.", correcta: false },
+        { texto: "B) Python lo permite, pero rompe la convención de constantes.", correcta: true },
+        { texto: "C) Python ignora la reasignación.", correcta: false }
+      ],
+      solucion: " Python lo permite, pero no es recomendable: se rompe la idea de constante por convención."
+    },
+    {
+      titulo: "8) ¿Cuál opción es la MÁS adecuada para un límite fijo del sistema?",
+      opciones: [
+        { texto: "A) maxUsuarios = 100", correcta: false },
+        { texto: "B) MAX_USUARIOS = 100", correcta: true },
+        { texto: "C) Max_Usuarios = 100", correcta: false }
+      ],
+      solucion: " Para límites fijos: MAYÚSCULAS y snake_case: MAX_USUARIOS."
+    },
+    {
+      titulo: "9) En un programa, IVA debe mantenerse igual en todos los cálculos. ¿Cuál práctica es la mejor?",
+      opciones: [
+        { texto: "A) Escribir 0.12 en cada operación para ahorrar variables.", correcta: false },
+        { texto: "B) Definir IVA = 0.12 una sola vez y reutilizarla.", correcta: true },
+        { texto: "C) Pedir al usuario que lo ingrese cada vez.", correcta: false }
+      ],
+      solucion: " Lo mejor es definir la constante una vez (IVA = 0.12) y reutilizarla para evitar errores y mejorar mantenimiento."
+    },
+    {
+      titulo: "10) ¿Cuál es el error conceptual de esta idea: 'uso constantes para que Python sea más rápido'?",
+      opciones: [
+        { texto: "A) No hay error: las constantes siempre aceleran.", correcta: false },
+        { texto: "B) La ganancia principal es claridad/mantenibilidad, no velocidad.", correcta: true },
+        { texto: "C) En Python no existen variables, solo constantes.", correcta: false }
+      ],
+      solucion: " El beneficio principal es organización y claridad. No es un 'boost' de rendimiento por sí mismo."
+    }
+  ];
+
+  let indiceV = 0;
+  let puntajeV = 0;
+  let respondidaV = false;
+
+  document.getElementById("totalPreguntasV").textContent = preguntasV.length;
+
+  function cargarPreguntaV() {
+    const p = preguntasV[indiceV];
+    respondidaV = false;
+
+    document.getElementById("numPreguntaV").textContent = indiceV + 1;
+    document.getElementById("preguntaTituloV").textContent = p.titulo;
+
+    const opcionesDiv = document.getElementById("opcionesV");
+    opcionesDiv.innerHTML = "";
+
+    p.opciones.forEach(op => {
+      const btn = document.createElement("button");
+      btn.className = "btn btn-outline-secondary quiz-option";
+      btn.textContent = op.texto;
+      btn.onclick = () => responderV(btn, op.correcta, p.solucion);
+      opcionesDiv.appendChild(btn);
+    });
+
+    document.getElementById("feedbackV").classList.add("d-none");
+    document.getElementById("solucionV").classList.add("d-none");
+    document.getElementById("btnSiguienteV").classList.add("d-none");
+  }
+
+  function responderV(btn, correcta, solucion) {
+    if (respondidaV) return;
+    respondidaV = true;
+
+    const feedback = document.getElementById("feedbackV");
+    const solucionDiv = document.getElementById("solucionV");
+
+    document.querySelectorAll("#opcionesV .quiz-option").forEach(b => b.disabled = true);
+
+    if (correcta) {
+      puntajeV++;
+      btn.classList.add("correct");
+      feedback.className = "alert alert-success mt-3 mb-2";
+      feedback.textContent = " Respuesta correcta.";
+    } else {
+      btn.classList.add("wrong");
+      feedback.className = "alert alert-warning mt-3 mb-2";
+      feedback.textContent = " Respuesta incorrecta.";
+      solucionDiv.textContent = solucion;
+      solucionDiv.classList.remove("d-none");
+    }
+
+    feedback.classList.remove("d-none");
+    document.getElementById("btnSiguienteV").classList.remove("d-none");
+  }
+
+  function siguientePreguntaV() {
+    indiceV++;
+    if (indiceV < preguntasV.length) {
+      cargarPreguntaV();
+    } else {
+      mostrarResultadoV();
+    }
+  }
+
+  function mostrarResultadoV() {
+    const nota = Math.round((puntajeV / preguntasV.length) * 10);
+
+    document.querySelector(".quiz-card").innerHTML = `
+      <div class="text-center">
+        <h4 class="fw-bold mb-3"> Resultado Final</h4>
+
+        <div class="display-4 fw-bold text-primary mb-2">
+          ${nota}/10
+        </div>
+
+        <p class="text-muted mb-1">
+          Respuestas correctas: ${puntajeV} de ${preguntasV.length}
+        </p>
+
+        <div class="alert ${nota >= 8 ? 'alert-success' : (nota >= 6 ? 'alert-warning' : 'alert-danger')} mt-4">
+          ${nota >= 8
+            ? ' Excelente. Tienes un dominio sólido sobre variables y constantes.'
+            : (nota >= 6
+                ? ' Buen trabajo, pero revisa reglas de nombrado y el uso de constantes.'
+                : ' Te recomiendo repasar la teoría y volver a intentarlo.')}
+        </div>
+
+        <button class="btn btn-outline-primary mt-3" onclick="reiniciarQuizV()">
+           Realizar la evaluación nuevamente
+        </button>
+      </div>
+    `;
+  }
+
+  function reiniciarQuizV() {
+    indiceV = 0;
+    puntajeV = 0;
+    location.reload();
+  }
+
+  cargarPreguntaV();
+</script>
+
 {% endblock %}
