@@ -3,12 +3,14 @@
 {% block title %}HTML y Python - Python Academy{% endblock %}
 
 {% block content %}
+<!-- ================= HERO ================= -->
 <section class="py-5 bg-light border-bottom">
   <div class="container text-center">
     <span class="badge bg-primary mb-3">TEMA 3</span>
     <h1 class="display-5 fw-bold text-dark">HTML y Python (La Web)</h1>
-    <p class="lead text-muted mx-auto" style="max-width: 700px;">
-      Aprende a inyectar datos de Python en tus páginas HTML usando el motor de plantillas Jinja2.
+    <p class="lead text-muted mx-auto" style="max-width: 760px;">
+      Aprende a convertir páginas estáticas en páginas dinámicas usando Flask + Jinja2:
+      variables, condicionales, ciclos y plantillas reutilizables.
     </p>
   </div>
 </section>
@@ -16,7 +18,8 @@
 <section class="section py-5">
   <div class="container">
     <div class="row justify-content-start">
-      <!-- Sidebar Navigation -->
+
+      <!-- ================= SIDEBAR ================= -->
       <div class="col-lg-3 d-none d-lg-block">
         <nav class="sidebar-nav">
           <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
@@ -32,69 +35,842 @@
         </nav>
       </div>
 
-      <!-- Main Content -->
+      <!-- ================= MAIN ================= -->
       <div class="col-lg-8">
 
+        <!-- ========================================================= -->
+        <!-- 1) DESAFIO HTML ESTATICO -->
+        <!-- ========================================================= -->
         <h3 class="fw-bold mb-3" id="que-es-html">El desafío de las páginas estáticas</h3>
-        <p>HTML por sí solo es estático. Si quisieras mostrar el nombre de un usuario conectado, tendrías que editar el archivo HTML manualmente para cada persona. Eso es imposible en una aplicación real.</p>
-        <p>Aquí entra <strong>Jinja2</strong>, el motor de plantillas que usa Flask.</p>
+        <p>
+          <strong>HTML por sí solo es estático</strong>. Esto significa que el contenido no cambia automáticamente
+          según el usuario, la base de datos o la lógica del sistema.
+        </p>
+        <p>
+          En una app real necesitas mostrar cosas como: el nombre del usuario logueado, una lista de productos,
+          resultados de búsqueda, mensajes, etc. Eso no se puede “a mano” editando HTML para cada persona.
+        </p>
 
+        <div class="alert alert-info my-4 d-flex align-items-center">
+          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Idea clave:</strong> Para que una web sea dinámica, el servidor (Python) envía datos
+            y el HTML “renderiza” esos datos.
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 2) FLUJO BASICO WEB -->
+        <!-- ========================================================= -->
+        <h4 class="fw-bold mt-5 mb-3" id="flujo-web">Flujo: Navegador → Flask → HTML</h4>
+
+        <style>
+          .flow-card{
+            background:#fff;
+            border-radius:1rem;
+            padding:1.2rem 1.2rem;
+            box-shadow:0 10px 25px rgba(0,0,0,0.08);
+            height:100%;
+            transition:all .25s ease;
+            position:relative;
+            overflow:hidden;
+          }
+          .flow-card::before{
+            content:"";
+            position:absolute; top:0; left:0;
+            height:5px; width:100%;
+            background:#0d6efd;
+            opacity:.85;
+          }
+          .flow-card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 18px 40px rgba(0,0,0,0.14);
+          }
+          .flow-icon{ font-size:2rem; }
+          .flow-arrow{
+            font-size:1.7rem;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            color:#0d6efd;
+            opacity:.9;
+          }
+          @media (max-width: 992px){
+            .flow-arrow{ display:none; }
+          }
+        </style>
+
+        <div class="row g-4 my-3 align-items-stretch">
+          <div class="col-md-4">
+            <div class="flow-card text-center">
+              <div class="flow-icon mb-2">🌐</div>
+              <h6 class="fw-bold mb-2">1) Navegador</h6>
+              <p class="text-muted mb-0">
+                El usuario abre una URL y envía una solicitud (HTTP).
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-1 d-none d-md-flex">
+            <div class="flow-arrow w-100">➜</div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="flow-card text-center">
+              <div class="flow-icon mb-2">🐍</div>
+              <h6 class="fw-bold mb-2">2) Flask</h6>
+              <p class="text-muted mb-0">
+                Ejecuta la lógica y prepara datos para la vista.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-1 d-none d-md-flex">
+            <div class="flow-arrow w-100">➜</div>
+          </div>
+
+          <div class="col-md-3">
+            <div class="flow-card text-center">
+              <div class="flow-icon mb-2">📄</div>
+              <h6 class="fw-bold mb-2">3) HTML (Jinja2)</h6>
+              <p class="text-muted mb-0">
+                La plantilla se renderiza con datos y se devuelve al navegador.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 3) SINTAXIS JINJA2 -->
+        <!-- ========================================================= -->
         <h3 class="fw-bold mt-5 mb-3" id="estructura-basica">Sintaxis Básica de Jinja2</h3>
-        <p>Jinja2 nos permite usar "llaves" dentro del HTML para poner lógica de programación.</p>
+        <p>
+          <strong>Jinja2</strong> es el motor de plantillas de Flask.
+          Te permite escribir HTML y “inyectar” datos y lógica con una sintaxis sencilla.
+        </p>
 
         <div class="row g-4 mt-2">
           <div class="col-md-6">
             <div class="card h-100 border-0 shadow-sm">
-              <div class="card-header bg-primary text-white fw-bold">1. Mostrar Variables</div>
+              <div class="card-header bg-primary text-white fw-bold">
+                1) Mostrar variables ({{ '{{ ... }}' }})
+              </div>
               <div class="card-body bg-light font-monospace">
                 &lt;p&gt;Hola, {{ '{{ nombre }}' }}&lt;/p&gt;
               </div>
               <div class="card-footer text-muted small">
-                Imprime el valor de la variable 'nombre'.
+                Imprime el valor de la variable <strong>nombre</strong>.
               </div>
             </div>
           </div>
 
           <div class="col-md-6">
             <div class="card h-100 border-0 shadow-sm">
-              <div class="card-header bg-success text-white fw-bold">2. Lógica (If / For)</div>
+              <div class="card-header bg-success text-white fw-bold">
+                2) Lógica (If / Else)
+              </div>
               <div class="card-body bg-light font-monospace">
                 {{ '{% if usuario.activo %}' }}<br>
-                  &nbsp;&nbsp;&lt;span&gt;Online&lt;/span&gt;<br>
+                &nbsp;&nbsp;&lt;span&gt;Online&lt;/span&gt;<br>
+                {{ '{% else %}' }}<br>
+                &nbsp;&nbsp;&lt;span&gt;Offline&lt;/span&gt;<br>
                 {{ '{% endif %}' }}
               </div>
               <div class="card-footer text-muted small">
-                Ejecuta lógica condicional.
+                Muestra contenido dependiendo de una condición.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-header bg-dark text-white fw-bold">
+                3) Bucles (For)
+              </div>
+              <div class="card-body bg-light font-monospace">
+                &lt;ul&gt;<br>
+                &nbsp;&nbsp;{{ '{% for item in lista %}' }}<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;{{ '{{ item }}' }}&lt;/li&gt;<br>
+                &nbsp;&nbsp;{{ '{% endfor %}' }}<br>
+                &lt;/ul&gt;
+              </div>
+              <div class="card-footer text-muted small">
+                Recorre listas/colecciones enviadas desde Python.
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+              <div class="card-header bg-warning fw-bold">
+                4) Reutilizar plantillas (extends / block)
+              </div>
+              <div class="card-body bg-light font-monospace">
+                {{ "{% extends 'base.html' %}" }}<br>
+                {{ "{% block content %}" }}<br>
+                &nbsp;&nbsp;&lt;h1&gt;Mi página&lt;/h1&gt;<br>
+                {{ "{% endblock %}" }}
+              </div>
+              <div class="card-footer text-muted small">
+                Mantienes un layout general y solo cambias el contenido.
               </div>
             </div>
           </div>
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="integracion-python">Ejemplo Completo</h3>
-        <p>Imagina que enviamos una lista de frutas desde Python:</p>
-
-        <p class="fw-bold text-primary">En Python (app.py):</p>
-        <div class="bg-dark text-white p-3 rounded mb-3">
-<code>frutas = ["Manzana", "Pera", "Uva"]
-return render_template("lista.html", lista=frutas)</code>
+        <div class="alert alert-info my-4 d-flex align-items-center">
+          <i class="bi bi-lightbulb-fill fs-4 me-3"></i>
+          <div>
+            <strong>Tip:</strong> En Flask, el backend (Python) no debería escribir HTML manualmente.
+            Lo correcto es renderizar plantillas con <code>render_template()</code>.
+          </div>
         </div>
 
-        <p class="fw-bold text-primary">En HTML (lista.html):</p>
+        <!-- ========================================================= -->
+        <!-- 4) EJEMPLO COMPLETO -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-3" id="integracion-python">Ejemplo Completo</h3>
+        <p>
+          Imagina que quieres mostrar una lista de frutas y resaltar si están disponibles o no.
+        </p>
+
+        <p class="fw-bold text-primary mb-2">En Python (app.py):</p>
+        <div class="bg-dark text-white p-3 rounded mb-3">
+<pre class="mb-0"><code class="language-python">from flask import render_template
+
+@app.route("/frutas")
+def frutas():
+    items = [
+        {"nombre": "Manzana", "disponible": True},
+        {"nombre": "Pera", "disponible": False},
+        {"nombre": "Uva", "disponible": True}
+    ]
+    return render_template("lista_frutas.html", lista=items)</code></pre>
+        </div>
+
+        <p class="fw-bold text-primary mb-2">En HTML (lista_frutas.html):</p>
         <div class="bg-light border p-3 rounded mb-4 font-monospace">
-&lt;ul&gt;<br>
+&lt;ul class="list-group"&gt;<br>
 &nbsp;&nbsp;{{ '{% for fruta in lista %}' }}<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;{{ '{{ fruta }}' }}&lt;/li&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;li class="list-group-item d-flex justify-content-between align-items-center"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '{{ fruta.nombre }}' }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '{% if fruta.disponible %}' }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="badge bg-success"&gt;Disponible&lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '{% else %}' }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="badge bg-danger"&gt;Agotada&lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ '{% endif %}' }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/li&gt;<br>
 &nbsp;&nbsp;{{ '{% endfor %}' }}<br>
 &lt;/ul&gt;
         </div>
 
+        <!-- ========================================================= -->
+        <!-- 5) TIMELINE (estilo historia) -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-4 text-center" id="timeline-jinja">
+          Evolución: de HTML estático a Web dinámica
+        </h3>
+        <p class="text-muted text-center mb-4">
+          Una mini línea de tiempo para entender cómo “nace” una página dinámica con Flask.
+        </p>
+
+        <style>
+          .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 2.5rem auto;
+          }
+          .timeline::after {
+            content: "";
+            position: absolute;
+            width: 5px;
+            background: #2563eb;
+            top: 0; bottom: 0;
+            left: 50%;
+            margin-left: -2.5px;
+            border-radius: 10px;
+          }
+          .timeline-item {
+            padding: 0.5rem 1.5rem;
+            position: relative;
+            width: 50%;
+          }
+          .timeline-item::after {
+            content: "";
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #2563eb;
+            border: 5px solid #e0e7ff;
+            top: 32px;
+            border-radius: 50%;
+            z-index: 1;
+            transition: all 0.3s ease;
+          }
+          .timeline-left { left: 0; text-align: right; }
+          .timeline-left::after { right: -11px; }
+          .timeline-right { left: 50%; text-align: left; }
+          .timeline-right::after { left: -11px; }
+
+          .timeline-content {
+            background: #f8fafc;
+            padding: 1.2rem;
+            border-radius: 1rem;
+            max-width: 430px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+          }
+          .timeline-year {
+            font-size: 1.05rem;
+            font-weight: 900;
+            color: #2563eb;
+            margin-bottom: 0.35rem;
+          }
+          .timeline-content h6 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 0.25rem;
+          }
+          .timeline-item:hover .timeline-content {
+            box-shadow: 0 14px 30px rgba(37, 99, 235, 0.22);
+            transform: translateY(-4px);
+            background: #ffffff;
+          }
+          .timeline-item:hover::after {
+            transform: scale(1.15);
+            background: #1d4ed8;
+          }
+          .timeline-left .timeline-content { margin-left: auto; }
+          .timeline-right .timeline-content { margin-right: auto; }
+
+          @media screen and (max-width: 768px) {
+            .timeline::after { left: 20px; }
+            .timeline-item {
+              width: 100%;
+              padding-left: 60px;
+              padding-right: 25px;
+              text-align: left;
+            }
+            .timeline-left, .timeline-right { left: 0; }
+            .timeline-item::after { left: 8px; }
+            .timeline-content { max-width: 100%; }
+          }
+        </style>
+
+        <div class="timeline">
+          <div class="timeline-item timeline-left">
+            <div class="timeline-content">
+              <div class="timeline-year">Paso 1</div>
+              <h6>HTML estático</h6>
+              <p class="text-muted mb-0">
+                El navegador carga un archivo con contenido fijo. Todos ven lo mismo.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-right">
+            <div class="timeline-content">
+              <div class="timeline-year">Paso 2</div>
+              <h6>Ruta en Flask</h6>
+              <p class="text-muted mb-0">
+                El usuario visita una URL y Flask ejecuta una función (endpoint).
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-left">
+            <div class="timeline-content">
+              <div class="timeline-year">Paso 3</div>
+              <h6>Datos desde Python</h6>
+              <p class="text-muted mb-0">
+                El backend prepara información (listas, diccionarios, consultas a BD).
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-right">
+            <div class="timeline-content">
+              <div class="timeline-year">Paso 4</div>
+              <h6>Jinja2 renderiza</h6>
+              <p class="text-muted mb-0">
+                La plantilla arma el HTML final con variables y lógica.
+              </p>
+            </div>
+          </div>
+
+          <div class="timeline-item timeline-left">
+            <div class="timeline-content">
+              <div class="timeline-year">Paso 5</div>
+              <h6>Respuesta final</h6>
+              <p class="text-muted mb-0">
+                Flask devuelve HTML ya armado al navegador. ¡Web dinámica lista!
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 6) CONCEPTOS CLAVE: HTTP + RUTAS + RESPUESTAS -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-3" id="http-basico">HTTP en 5 minutos (lo esencial)</h3>
+        <p>
+          Cuando navegas en una web, tu navegador y el servidor “conversan” usando <strong>HTTP</strong>.
+          Flask recibe la petición, ejecuta una función y devuelve una respuesta.
+        </p>
+
+        <div class="row g-4 mt-2">
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-primary text-white fw-bold">📨 Request (Petición)</div>
+              <div class="card-body">
+                <ul class="mb-0">
+                  <li><strong>Método:</strong> GET / POST</li>
+                  <li><strong>URL:</strong> /teoria/html-python-web</li>
+                  <li><strong>Headers:</strong> info extra</li>
+                  <li><strong>Body:</strong> datos (en POST)</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-success text-white fw-bold">🧠 Flask (Lógica)</div>
+              <div class="card-body">
+                <ul class="mb-0">
+                  <li>Lee datos del request</li>
+                  <li>Procesa reglas del sistema</li>
+                  <li>Consulta BD (si aplica)</li>
+                  <li>Prepara variables para Jinja2</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="card border-0 shadow-sm h-100">
+              <div class="card-header bg-dark text-white fw-bold">📦 Response (Respuesta)</div>
+              <div class="card-body">
+                <ul class="mb-0">
+                  <li><strong>Status:</strong> 200, 404, 500…</li>
+                  <li><strong>HTML:</strong> página renderizada</li>
+                  <li><strong>JSON:</strong> APIs</li>
+                  <li><strong>Redirect:</strong> enviar a otra ruta</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-info my-4 d-flex align-items-center">
+          <i class="bi bi-info-circle-fill fs-4 me-3"></i>
+          <div>
+            <strong>Regla práctica:</strong>
+            <span class="badge bg-primary">GET</span> para <strong>ver</strong> (mostrar páginas),
+            <span class="badge bg-success">POST</span> para <strong>enviar</strong> (formularios).
+          </div>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 7) JINJA2 PRO: FILTROS + EJEMPLOS -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-3" id="jinja-filtros">Jinja2 Pro: filtros útiles (para HTML más limpio)</h3>
+        <p class="text-muted">
+          Los filtros te ayudan a formatear datos sin ensuciar Python. Se usan así:
+          <code>{{ "{{ variable | filtro }}" }}</code>
+        </p>
+
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle">
+            <thead class="table-light">
+              <tr>
+                <th style="width: 25%;">Filtro</th>
+                <th style="width: 35%;">Ejemplo</th>
+                <th>¿Para qué sirve?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>upper</code></td>
+                <td><code>{{ "{{ nombre | upper }}" }}</code></td>
+                <td>Pone texto en MAYÚSCULAS.</td>
+              </tr>
+              <tr>
+                <td><code>lower</code></td>
+                <td><code>{{ "{{ nombre | lower }}" }}</code></td>
+                <td>Pone texto en minúsculas.</td>
+              </tr>
+              <tr>
+                <td><code>length</code></td>
+                <td><code>{{ "{{ lista | length }}" }}</code></td>
+                <td>Cuenta elementos en listas.</td>
+              </tr>
+              <tr>
+                <td><code>default</code></td>
+                <td><code>{{ "{{ email | default('Sin correo') }}" }}</code></td>
+                <td>Evita errores si viene vacío/None.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 8) EJEMPLO REAL: TABLA DINÁMICA + EMPTY STATE -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-3" id="ejemplo-tabla">Ejemplo real: tabla dinámica (con “estado vacío”)</h3>
+        <p>
+          Esto es súper típico en sistemas (CRUD): mostrar una tabla desde Python.
+        </p>
+
+        <p class="fw-bold text-primary mb-2">Python (ruta que envía datos):</p>
+        <div class="bg-dark text-white p-3 rounded mb-3">
+<pre class="mb-0"><code class="language-python">@app.route("/usuarios")
+def usuarios():
+    data = [
+        {"nombre": "Ana", "rol": "Admin", "activo": True},
+        {"nombre": "Luis", "rol": "Editor", "activo": False},
+        {"nombre": "Sofía", "rol": "Viewer", "activo": True},
+    ]
+    return render_template("usuarios.html", usuarios=data)</code></pre>
+        </div>
+
+        <p class="fw-bold text-primary mb-2">HTML (usuarios.html):</p>
+        <div class="bg-light border p-3 rounded mb-4 font-monospace">
+{{ "{% if usuarios %}" }}<br>
+&nbsp;&nbsp;&lt;table class="table table-striped"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;thead&gt;&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Nombre&lt;/th&gt;&lt;th&gt;Rol&lt;/th&gt;&lt;th&gt;Estado&lt;/th&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;&lt;/thead&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;tbody&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{{ "{% for u in usuarios %}" }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ "{{ u.nombre }}" }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;{{ "{{ u.rol }}" }}&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "{% if u.activo %}" }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="badge bg-success"&gt;Activo&lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "{% else %}" }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;span class="badge bg-secondary"&gt;Inactivo&lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ "{% endif %}" }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/td&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{{ "{% endfor %}" }}<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;/tbody&gt;<br>
+&nbsp;&nbsp;&lt;/table&gt;<br>
+{{ "{% else %}" }}<br>
+&nbsp;&nbsp;&lt;div class="alert alert-warning"&gt;No hay usuarios para mostrar.&lt;/div&gt;<br>
+{{ "{% endif %}" }}
+        </div>
+
+        <!-- ========================================================= -->
+        <!-- 9) CUESTIONARIO (estilo Historia) -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-4 text-center" id="cuestionario-web">
+          🧠 Cuestionario de Aprendizaje – HTML + Flask + Jinja2
+        </h3>
+        <p class="text-muted text-center mb-4">
+          Responde cada pregunta para avanzar. Cada pregunta solo puede responderse una vez.
+        </p>
+
+        <style>
+          .quiz-card-web {
+            background: linear-gradient(135deg, #f8fafc, #ffffff);
+            border-radius: 1.2rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+            padding: 2rem;
+            max-width: 720px;
+            margin: auto;
+          }
+          .quiz-option-web {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 0.6rem;
+          }
+          .quiz-option-web.correct { background-color: #22c55e !important; color: #fff; }
+          .quiz-option-web.wrong   { background-color: #ef4444 !important; color: #fff; }
+          .quiz-progress-web { font-size: 0.9rem; color: #555; }
+        </style>
+
+        <div class="quiz-card-web">
+          <div class="quiz-progress-web mb-2">
+            Pregunta <span id="numPreguntaWeb"></span> de <span id="totalPreguntasWeb"></span>
+          </div>
+
+          <h5 class="fw-bold mb-3" id="preguntaTituloWeb"></h5>
+          <div id="opcionesWeb"></div>
+
+          <div id="feedbackWeb" class="alert d-none mt-3"></div>
+          <div id="solucionWeb" class="alert alert-info d-none mt-2"></div>
+
+          <div class="text-end mt-3">
+            <button id="btnSiguienteWeb" class="btn btn-primary d-none" onclick="siguientePreguntaWeb()">
+              Siguiente →
+            </button>
+          </div>
+        </div>
+
+        <script>
+          const preguntasWeb = [
+            {
+              titulo: "¿Qué hace render_template() en Flask?",
+              opciones: [
+                { texto: "Convierte Python a JavaScript automáticamente", correcta: false },
+                { texto: "Renderiza una plantilla HTML con datos", correcta: true },
+                { texto: "Crea una base de datos", correcta: false }
+              ],
+              solucion: "render_template() toma una plantilla Jinja2 y la devuelve como HTML final, usando variables enviadas desde Python."
+            },
+            {
+              titulo: "¿Qué etiqueta Jinja2 imprime una variable en HTML?",
+              opciones: [
+                { texto: "{{ '{{ variable }}' }}", correcta: true },
+                { texto: "{{ '{# variable #}' }}", correcta: false },
+                { texto: "[[ variable ]]", correcta: false }
+              ],
+              solucion: "Para imprimir variables se usa {{ '{{ ... }}' }}. Para lógica se usan {{ '{% ... %}' }}."
+            },
+            {
+              titulo: "¿Cuál es el uso recomendado de GET y POST?",
+              opciones: [
+                { texto: "GET para enviar contraseñas, POST para ver páginas", correcta: false },
+                { texto: "GET para ver/consultar, POST para enviar datos", correcta: true }
+              ],
+              solucion: "GET consulta/visualiza recursos. POST envía datos (formularios) para crear/guardar."
+            },
+            {
+              titulo: "¿Qué hace {{ '{% for x in lista %}' }} ... {{ '{% endfor %}' }}?",
+              opciones: [
+                { texto: "Repite un bloque por cada elemento de la lista", correcta: true },
+                { texto: "Borra los elementos de la lista", correcta: false }
+              ],
+              solucion: "El for permite iterar sobre listas/diccionarios enviados desde Python y generar HTML repetido."
+            }
+          ];
+
+          let indiceWeb = 0;
+          let puntajeWeb = 0;
+          let respondidaWeb = false;
+
+          function cargarPreguntaWeb() {
+            respondidaWeb = false;
+            document.getElementById("feedbackWeb").classList.add("d-none");
+            document.getElementById("solucionWeb").classList.add("d-none");
+            document.getElementById("btnSiguienteWeb").classList.add("d-none");
+
+            const p = preguntasWeb[indiceWeb];
+            document.getElementById("preguntaTituloWeb").textContent = p.titulo;
+            document.getElementById("numPreguntaWeb").textContent = indiceWeb + 1;
+            document.getElementById("totalPreguntasWeb").textContent = preguntasWeb.length;
+
+            const cont = document.getElementById("opcionesWeb");
+            cont.innerHTML = "";
+
+            p.opciones.forEach(op => {
+              const b = document.createElement("button");
+              b.className = "btn btn-outline-primary quiz-option-web";
+              b.textContent = op.texto;
+              b.onclick = () => responderWeb(b, op.correcta, p.solucion);
+              cont.appendChild(b);
+            });
+          }
+
+          function responderWeb(btn, correcta, solucion) {
+            if (respondidaWeb) return;
+            respondidaWeb = true;
+
+            const feedback = document.getElementById("feedbackWeb");
+            const solucionDiv = document.getElementById("solucionWeb");
+
+            document.querySelectorAll(".quiz-option-web").forEach(b => b.disabled = true);
+
+            if (correcta) {
+              puntajeWeb++;
+              btn.classList.add("correct");
+              feedback.className = "alert alert-success mt-3";
+              feedback.textContent = "✔️ Respuesta correcta.";
+            } else {
+              btn.classList.add("wrong");
+              feedback.className = "alert alert-warning mt-3";
+              feedback.textContent = "❌ Respuesta incorrecta.";
+              solucionDiv.textContent = solucion;
+              solucionDiv.classList.remove("d-none");
+            }
+
+            feedback.classList.remove("d-none");
+            document.getElementById("btnSiguienteWeb").classList.remove("d-none");
+          }
+
+          function siguientePreguntaWeb() {
+            indiceWeb++;
+            if (indiceWeb < preguntasWeb.length) {
+              cargarPreguntaWeb();
+            } else {
+              mostrarResultadoWeb();
+            }
+          }
+
+          function mostrarResultadoWeb() {
+            const nota = Math.round((puntajeWeb / preguntasWeb.length) * 10);
+
+            document.querySelector(".quiz-card-web").innerHTML = `
+              <div class="text-center">
+                <h4 class="fw-bold mb-3">📊 Resultado Final</h4>
+                <div class="display-4 fw-bold text-primary mb-2">${nota}/10</div>
+                <p class="text-muted">Respuestas correctas: ${puntajeWeb} de ${preguntasWeb.length}</p>
+                <div class="alert ${nota >= 7 ? 'alert-success' : 'alert-warning'} mt-4">
+                  ${nota >= 7
+                    ? '🎉 ¡Excelente! Ya entiendes cómo Flask y Jinja2 vuelven dinámico el HTML.'
+                    : '📘 Buen intento. Revisa la teoría y vuelve a intentarlo.'}
+                </div>
+                <button class="btn btn-outline-primary mt-3" onclick="reiniciarQuizWeb()">
+                  🔁 Realizar la evaluación nuevamente
+                </button>
+              </div>
+            `;
+          }
+
+          function reiniciarQuizWeb() {
+            indiceWeb = 0;
+            puntajeWeb = 0;
+            location.reload();
+          }
+
+          cargarPreguntaWeb();
+        </script>
+
+        <!-- ========================================================= -->
+        <!-- 10) MINI-JUEGO (estilo Historia) -->
+        <!-- ========================================================= -->
+        <h3 class="fw-bold mt-5 mb-4 text-center" id="mini-juego-web">
+          🎮 Mini-juego: Empareja método HTTP con su uso
+        </h3>
+        <p class="text-muted text-center mb-4">
+          Arrastra cada tarjeta (GET / POST / PUT / DELETE) al caso correcto.
+        </p>
+
+        <style>
+          .game-container-web { max-width: 900px; margin: auto; }
+          .pool-web, .drop-web {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            min-height: 140px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.08);
+          }
+          .card-web {
+            background: #fff;
+            border-radius: 0.9rem;
+            padding: 0.9rem 1.1rem;
+            margin-bottom: 0.7rem;
+            cursor: grab;
+            box-shadow: 0 5px 14px rgba(0,0,0,0.12);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            font-size: 0.95rem;
+          }
+          .card-web:active { cursor: grabbing; transform: scale(1.05); }
+          .slot-web {
+            border: 2px dashed #2563eb;
+            border-radius: 0.9rem;
+            padding: 0.9rem;
+            margin-bottom: 0.9rem;
+            min-height: 70px;
+            background: #fff;
+          }
+          .success-web { background: #dcfce7 !important; border-color: #22c55e; }
+          .error-web   { background: #fee2e2 !important; border-color: #ef4444; }
+        </style>
+
+        <div class="game-container-web">
+          <h6 class="fw-bold mb-2">🧩 Tarjetas disponibles</h6>
+          <div class="pool-web mb-4" id="poolWeb">
+            <div class="card-web" draggable="true" data-order="1"><strong>GET</strong> – Consultar/mostrar datos</div>
+            <div class="card-web" draggable="true" data-order="2"><strong>POST</strong> – Enviar/crear datos</div>
+            <div class="card-web" draggable="true" data-order="3"><strong>PUT</strong> – Actualizar datos</div>
+            <div class="card-web" draggable="true" data-order="4"><strong>DELETE</strong> – Eliminar datos</div>
+          </div>
+
+          <h6 class="fw-bold mb-2">🧭 Casos (suelta aquí)</h6>
+
+          <div class="slot-web" data-position="1">
+            📄 “Quiero ver la lista de productos”
+          </div>
+          <div class="slot-web" data-position="2">
+            📝 “Quiero registrar un usuario desde un formulario”
+          </div>
+          <div class="slot-web" data-position="3">
+            ✏️ “Quiero editar el perfil del usuario”
+          </div>
+          <div class="slot-web" data-position="4">
+            🗑️ “Quiero borrar un registro”
+          </div>
+
+          <div class="text-center mt-3">
+            <button class="btn btn-primary me-2" onclick="verificarOrdenWeb()">✅ Verificar</button>
+            <button class="btn btn-outline-secondary" onclick="reiniciarJuegoWeb()">🔁 Reiniciar</button>
+          </div>
+
+          <div id="resultadoJuegoWeb" class="alert d-none mt-4 text-center"></div>
+        </div>
+
+        <script>
+          let draggedWeb = null;
+
+          document.querySelectorAll(".card-web").forEach(card => {
+            card.addEventListener("dragstart", () => { draggedWeb = card; });
+          });
+
+          document.querySelectorAll(".slot-web").forEach(slot => {
+            slot.addEventListener("dragover", e => e.preventDefault());
+            slot.addEventListener("drop", () => {
+              if (slot.querySelector(".card-web")) return;
+              if (draggedWeb) slot.appendChild(draggedWeb);
+            });
+          });
+
+          function verificarOrdenWeb() {
+            let ok = true;
+
+            document.querySelectorAll(".slot-web").forEach(slot => {
+              slot.classList.remove("success-web", "error-web");
+              const card = slot.querySelector(".card-web");
+              if (!card || card.dataset.order !== slot.dataset.position) {
+                ok = false;
+                slot.classList.add("error-web");
+              } else {
+                slot.classList.add("success-web");
+              }
+            });
+
+            const r = document.getElementById("resultadoJuegoWeb");
+            r.classList.remove("d-none");
+
+            if (ok) {
+              r.className = "alert alert-success mt-4 text-center";
+              r.textContent = "🎉 ¡Perfecto! Entendiste el uso de los métodos HTTP.";
+            } else {
+              r.className = "alert alert-warning mt-4 text-center";
+              r.textContent = "❌ Aún no. Revisa qué hace cada método (GET/POST/PUT/DELETE) e intenta otra vez.";
+            }
+          }
+
+          function reiniciarJuegoWeb() {
+            const pool = document.getElementById("poolWeb");
+            document.querySelectorAll(".card-web").forEach(c => pool.appendChild(c));
+            document.querySelectorAll(".slot-web").forEach(s => s.classList.remove("success-web", "error-web"));
+            document.getElementById("resultadoJuegoWeb").classList.add("d-none");
+          }
+        </script>
+
+        <!-- ========================================================= -->
+        <!-- 11) NAV BTNS -->
+        <!-- ========================================================= -->
         <div class="d-flex justify-content-between mt-5 pt-4 border-top">
-           <a href="{{ url_for('teoria_tema', slug='historia-python') }}" class="btn btn-outline-secondary rounded-pill px-4">
-             <i class="bi bi-arrow-left me-2"></i> Anterior
-           </a>
-           <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-primary rounded-pill px-4">
-             Siguiente: Sintaxis <i class="bi bi-arrow-right ms-2"></i>
-           </a>
+          <a href="{{ url_for('teoria_tema', slug='historia-python') }}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-2"></i> Anterior
+          </a>
+          <a href="{{ url_for('teoria_tema', slug='sintaxis-comentarios') }}" class="btn btn-primary rounded-pill px-4">
+            Siguiente: Sintaxis <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
 
       </div>

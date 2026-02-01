@@ -1271,65 +1271,42 @@ def home():
 </div>
 
 <script>
-const preguntas = [
-  {
-    titulo: "¿Quién creó el lenguaje de programación Python?",
-    opciones: [
-      { texto: "Dennis Ritchie", correcta: false },
-      { texto: "Guido van Rossum", correcta: true },
-      { texto: "Linus Torvalds", correcta: false }
-    ],
-    solucion: "Python fue creado por Guido van Rossum en 1989."
-  },
-  {
-    titulo: "¿En qué año comenzó el desarrollo de Python?",
-    opciones: [
-      { texto: "1989", correcta: true },
-      { texto: "1995", correcta: false }
-    ],
-    solucion: "Guido van Rossum inició Python en 1989 durante las vacaciones de Navidad."
-  },
-  {
-    titulo: "¿De dónde proviene el nombre 'Python'?",
-    opciones: [
-      { texto: "De la serpiente", correcta: false },
-      { texto: "De un grupo de comedia británico", correcta: true }
-    ],
-    solucion: "El nombre proviene del grupo Monty Python’s Flying Circus."
-  },
-  {
-    titulo: "¿Qué versión introdujo cambios no compatibles con versiones anteriores?",
-    opciones: [
-      { texto: "Python 2", correcta: false },
-      { texto: "Python 3", correcta: true }
-    ],
-    solucion: "Python 3 rompió compatibilidad para corregir errores estructurales."
-  },
-  {
-    titulo: "¿En qué año dejó de tener soporte Python 2?",
-    opciones: [
-      { texto: "2015", correcta: false },
-      { texto: "2020", correcta: true }
-    ],
-    solucion: "Python 2 dejó de recibir soporte oficial en 2020."
-  },
-  {
-    titulo: "¿Qué organización gestiona actualmente Python?",
-    opciones: [
-      { texto: "Python Software Foundation", correcta: true },
-      { texto: "Linux Foundation", correcta: false }
-    ],
-    solucion: "La Python Software Foundation gestiona el desarrollo del lenguaje."
-  },
-  {
-    titulo: "¿Cuál es una razón clave del éxito de Python?",
-    opciones: [
-      { texto: "Sintaxis clara y legible", correcta: true },
-      { texto: "Uso exclusivo en videojuegos", correcta: false }
-    ],
-    solucion: "La simplicidad y legibilidad han impulsado la adopción de Python."
-  }
-];
+  const preguntasWeb = [
+    {
+      titulo: "¿Qué hace render_template() en Flask?",
+      opciones: [
+        { texto: "Convierte Python a JavaScript automáticamente", correcta: false },
+        { texto: "Renderiza una plantilla HTML con datos", correcta: true },
+        { texto: "Crea una base de datos", correcta: false }
+      ],
+      solucion: "render_template() toma una plantilla Jinja2 y la devuelve como HTML final, usando variables enviadas desde Python."
+    },
+    {
+      titulo: "¿Qué etiqueta Jinja2 imprime una variable en HTML?",
+      opciones: [
+        { texto: "{{ '{{ variable }}' }}", correcta: true },
+        { texto: "{{ '{# variable #}' }}", correcta: false },
+        { texto: "[[ variable ]]", correcta: false }
+      ],
+      solucion: "Para imprimir variables se usa {{ '{{ ... }}' }}. Para lógica se usan {{ '{% ... %}' }}."
+    },
+    {
+      titulo: "¿Cuál es el uso recomendado de GET y POST?",
+      opciones: [
+        { texto: "GET para enviar contraseñas, POST para ver páginas", correcta: false },
+        { texto: "GET para ver/consultar, POST para enviar datos", correcta: true }
+      ],
+      solucion: "GET consulta/visualiza recursos. POST envía datos (formularios) para crear/guardar."
+    },
+    {
+      titulo: "¿Qué hace {{ '{% for x in lista %}' }} ... {{ '{% endfor %}' }}?",
+      opciones: [
+        { texto: "Repite un bloque por cada elemento de la lista", correcta: true },
+        { texto: "Borra los elementos de la lista", correcta: false }
+      ],
+      solucion: "El for permite iterar sobre listas/diccionarios enviados desde Python y generar HTML repetido."
+    }
+  ];
 
 let indice = 0;
 let puntaje = 0;

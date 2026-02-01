@@ -43,9 +43,16 @@ TEMAS = [
         "titulo": "3. HTML y Python (Web)",
         "archivo": "teoria/teoria_htmlpyhon.html",
         "subtemas": [
-            {"id": "que-es-html", "titulo": "El desafío de las páginas estáticas"},
-            {"id": "estructura-basica", "titulo": "Sintaxis Básica de Jinja2"},
-            {"id": "integracion-python", "titulo": "Ejemplo Completo"},
+            {"id": "que-es-html", "titulo": "Páginas estáticas"},
+            {"id": "flujo-web", "titulo": "Flujo Web"},
+            {"id": "estructura-basica", "titulo": "Sintaxis Jinja2"},
+            {"id": "integracion-python", "titulo": "Integración Python"},
+            {"id": "timeline-jinja", "titulo": "Evolución Web"},
+            {"id": "http-basico", "titulo": "HTTP básico"},
+            {"id": "jinja-filtros", "titulo": "Filtros Jinja2"},
+            {"id": "ejemplo-tabla", "titulo": "Tabla dinámica"},
+            {"id": "cuestionario-web", "titulo": "Cuestionario"},
+            {"id": "mini-juego-web", "titulo": "Mini-juego"}
         ]
     },
     {
@@ -54,7 +61,13 @@ TEMAS = [
         "archivo": "teoria/teoria_sintaxisComentarios.html",
         "subtemas": [
             {"id": "indentacion", "titulo": "La Indentación"},
-            {"id": "comentarios", "titulo": "Comentarios"},
+            {"id": "bloques", "titulo": "Bloques y dos puntos"},
+            {"id": "errores-comunes", "titulo": "Errores comunes"},
+            {"id": "comentarios-python", "titulo": "Comentarios en Python"},
+            {"id": "comentarios-html", "titulo": "Comentarios en HTML"},
+            {"id": "comparacion", "titulo": "Comparación rápida"},
+            {"id": "quiz-sintaxis", "titulo": "Cuestionario"},
+            {"id": "mini-juego-sintaxis", "titulo": "Mini-juego"}
         ]
     },
     {
