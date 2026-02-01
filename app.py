@@ -12,8 +12,8 @@ TEMAS = [
         "subtemas": [
             {"id": "que-es-backend", "titulo": "¿Qué es el Backend?"},
             {"id": "arquitectura-cliente-servidor", "titulo": "Arquitectura Cliente–Servidor"},
-            {"id": "flujo-peticion", "titulo": "Arquitectura Cliente–Servidor"},
-            {"id": "estructura-proyecto", "titulo": "Flujo de una Petición Web"},
+            {"id": "flujo-peticion", "titulo": "Flujo de una Petición Web"},
+            {"id": "estructura-proyecto", "titulo": "Estructura de un Proyecto Profesional"},
             {"id": "sistema-rutas", "titulo": "El Sistema de Rutas"},
             {"id": "backend-vs-herramientas", "titulo": "Backend: Concepto vs Herramienta"},
             {"id": "errores-backend", "titulo": "Errores Comunes en el Desarrollo Backend"},
@@ -27,9 +27,15 @@ TEMAS = [
         "titulo": "2. Historia de Python",
         "archivo": "teoria/teoria_historia.html",
         "subtemas": [
-            {"id": "origenes", "titulo": "El Origen (1989)"},
-            {"id": "evolucao", "titulo": "El Zen de Python"},
-            {"id": "comunidad", "titulo": "Python 2 vs Python 3"},
+            {"id": "que-es-python", "titulo": "¿Qué es Python?"},
+            {"id": "HistoriaPython", "titulo": "Historia de Python"},
+            {"id": "arquitectura-web-python", "titulo": "Arquitectura Web de Python"},
+            {"id": "html-motores-plantillas", "titulo": "HTML y Motores de Plantillas"},
+            {"id": "gigantes-python", "titulo": "Gigantes construidos con Python"},
+            {"id": "ecosistema-frameworks", "titulo": "Ecosistema de Frameworks en Python"},
+            {"id": "ventajas-desventajas-python", "titulo": "Ventajas y Desventajas de Python"},
+            {"id": "cuestionario-historia-python", "titulo": "Cuestionario de Aprendizaje"},
+            {"id": "Mini-juego-evolucion-python", "titulo": "Mini-juego: Reconstruye la evolución de Python"},
         ]
     },
     {
