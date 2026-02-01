@@ -3,117 +3,796 @@
 {% block title %}Tipos de Datos - Python Academy{% endblock %}
 
 {% block content %}
+
+<style>
+
+  /* ===== CODE INLINE (texto dentro de párrafos) ===== */
+  p code,
+  li code,
+  span code {
+    background-color: #f1f5f9;   /* gris claro */
+    color: #0f172a;              /* texto oscuro */
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* =========================================================
+   INLINE CODE (en texto): aplica a TODO <code> excepto bloques <pre>
+   ========================================================= */
+  :not(pre) > code {
+    background-color: #f1f5f9;   /* gris claro */
+    color: #0f172a;              /* texto oscuro */
+    padding: 2px 6px;
+    border-radius: 6px;
+    font-size: 0.95em;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  /* =========================================================
+    BLOQUES GRANDES (en tu code-card): no tocar el fondo oscuro
+    ========================================================= */
+  .code-card pre code {
+    background: transparent !important;
+    color: #f9fafb !important;
+  }
+
+
+  /* ===================== SIDEBAR ===================== */
+  .sidebar-nav{
+    position: sticky;
+    top: 110px;
+    padding: 18px;
+    border-radius: 14px;
+    background: #ffffff;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.04);
+  }
+  .sidebar-nav ul{ list-style: none; padding-left: 0; margin: 0; }
+  .sidebar-nav li{ margin-bottom: 10px; }
+  .sidebar-nav a{
+    display: block;
+    padding: 10px 12px;
+    border-radius: 12px;
+    text-decoration: none;
+    color: #222;
+    font-weight: 600;
+    background: #f6f7fb;
+    border: 1px solid rgba(0,0,0,.05);
+    transition: transform .12s ease, background .12s ease;
+  }
+  .sidebar-nav a:hover{ transform: translateY(-1px); }
+  .sidebar-nav a.active{
+    background: #0d6efd;
+    color: #fff;
+    border-color: transparent;
+  }
+
+  /* ===================== CODE CARD ===================== */
+  .code-card{
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    background: #111827;
+  }
+  .code-card-header{
+    padding: 12px 16px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,255,255,.06);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .code-dots{ display:flex; gap:7px; align-items:center; }
+  .dot{ width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.25); }
+  .code-title{
+    color: rgba(255,255,255,.85);
+    font-weight: 700;
+    font-size: .95rem;
+    margin: 0;
+  }
+  pre{
+    margin: 0;
+    padding: 18px 18px 16px;
+    overflow: auto;
+  }
+  code{ color: #ffffff; }
+
+  .play-actions{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 14px 16px 16px;
+    background: rgba(255,255,255,.04);
+    border-top: 1px solid rgba(255,255,255,.10);
+  }
+
+  /* ===================== CONSOLE OUTPUT ===================== */
+  .console{
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: #020617;
+    color: #ffffff;
+    padding: 14px;
+    min-height: 70px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    white-space: pre-wrap;
+  }
+
+  .console-badge{
+    display:inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: .8rem;
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(255,255,255,.8);
+    margin-bottom: 10px;
+    background: rgba(255,255,255,.04);
+  }
+
+  /* Fix visibilidad resaltado (Prism / highlight) */
+  .code-card pre code{
+    color: #f9fafb !important;
+    opacity: 1 !important;
+  }
+  .code-card .token.comment{ color: #94a3b8 !important; }
+  .code-card .token.string{ color: #86efac !important; }
+  .code-card .token.number{ color: #facc15 !important; }
+  .code-card .token.keyword{ color: #60a5fa !important; }
+
+  /* ===================== CALLOUTS ===================== */
+  .callout{
+    border-radius: 14px;
+    padding: 14px 16px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+  }
+  .callout-warning{
+    border-left: 6px solid #f59e0b;
+    background: #fff7ed;
+  }
+  .callout-info{
+    border-left: 6px solid #0d6efd;
+    background: #eff6ff;
+  }
+
+  /* ===================== QUIZ ===================== */
+  .quiz-card {
+    background: linear-gradient(135deg, #f8fafc, #ffffff);
+    border-radius: 1.2rem;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    padding: 2rem;
+    max-width: 760px;
+    margin: auto;
+  }
+
+  .quiz-option {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 0.6rem;
+    border-radius: 0.9rem;
+    padding: 0.9rem 1rem;
+    transition: transform .12s ease, box-shadow .12s ease;
+  }
+  .quiz-option:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.08);
+  }
+  .quiz-option.correct {
+    background-color: #22c55e !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+  .quiz-option.wrong {
+    background-color: #ef4444 !important;
+    color: white !important;
+    border-color: transparent !important;
+  }
+
+  .quiz-progress { font-size: 0.9rem; color: #555; }
+  .quiz-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #1e3a8a;
+    font-weight: 700;
+    font-size: 0.9rem;
+    border: 1px solid rgba(30,58,138,.12);
+  }
+  .quiz-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+</style>
+
 <section class="py-5 bg-light border-bottom">
   <div class="container text-center">
     <span class="badge bg-primary mb-3">TEMA 6</span>
-    <h1 class="display-5 fw-bold text-dark">Tipos de Datos Primitivos</h1>
-    <p class="lead text-muted mx-auto" style="max-width: 700px;">
-      Los bloques fundamentales de la información: Texto, Números y Lógica.
+    <h1 class="display-5 fw-bold text-dark">Tipos de Datos en Python</h1>
+    <p class="lead text-muted mx-auto" style="max-width: 820px;">
+      Aprende los tipos básicos: <code>int</code>, <code>float</code>, <code>bool</code>, <code>str</code> y <code>None</code>.
+      En cada sección tendrás un ejemplo interactivo con su salida y el tipo de dato.
     </p>
   </div>
 </section>
 
 <section class="section py-5">
   <div class="container">
-    <div class="row justify-content-start">
-      <!-- Sidebar Navigation -->
+    <div class="row justify-content-start g-4">
+
+      <!-- Sidebar -->
       <div class="col-lg-3 d-none d-lg-block">
         <nav class="sidebar-nav">
-          <h5><i class="bi bi-list-check me-2"></i>Contenido</h5>
+          <h5 class="mb-3"><i class="bi bi-list-check me-2"></i>Contenido</h5>
           <ul>
             {% for subtema in tema.subtemas %}
-            <li>
-              <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
-                {{ subtema.titulo }}
-              </a>
-            </li>
+              <li>
+                <a href="#{{ subtema.id }}" class="{% if loop.first %}active{% endif %}">
+                  {{ loop.index }}. {{ subtema.titulo }}
+                </a>
+              </li>
             {% endfor %}
           </ul>
         </nav>
       </div>
 
-      <!-- Main Content -->
+      <!-- Main -->
       <div class="col-lg-8">
 
-        <p class="mb-5">En Python todo es un objeto, pero existen tipos de datos primitivos esenciales que usarás el 99% del tiempo.</p>
+        <!-- INTRO -->
+        <h3 class="fw-bold mb-3" id="intro">1. ¿Qué es un tipo de dato?</h3>
+        <p>
+          Un <strong>tipo de dato</strong> define qué clase de valor estás manejando (número, texto, verdadero/falso, etc.).
+          Esto importa porque no puedes hacer las mismas operaciones con todo.
+        </p>
+        <p>
+          En Python, los tipos de datos no se declaran de forma explícita.
+          El lenguaje utiliza tipado dinámico, lo que significa que Python determina automáticamente el tipo de dato según el valor asignado a la variable, sin necesidad de indicarlo manualmente.
+        </p>
 
-        <h3 class="fw-bold mb-3" id="numeros">Tipos Primitivos</h3>
-        <div class="row g-4">
-            
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="badge bg-warning text-dark me-2">str</span>
-                            <h5 class="fw-bold mb-0">String (Texto)</h5>
-                        </div>
-                        <p class="text-muted small">Cadenas de texto entre comillas simples o dobles.</p>
-                        <code class="d-block bg-light p-2 rounded">x = "Hola Mundo"</code>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="badge bg-primary me-2">int</span>
-                            <h5 class="fw-bold mb-0">Integer (Entero)</h5>
-                        </div>
-                        <p class="text-muted small">Números enteros sin decimales, positivos o negativos.</p>
-                        <code class="d-block bg-light p-2 rounded">edad = 25</code>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="badge bg-info text-dark me-2">float</span>
-                            <h5 class="fw-bold mb-0">Float (Flotante)</h5>
-                        </div>
-                        <p class="text-muted small">Números con punto decimal.</p>
-                        <code class="d-block bg-light p-2 rounded">precio = 19.99</code>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card h-100 shadow-sm border-0">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-3">
-                            <span class="badge bg-success me-2">bool</span>
-                            <h5 class="fw-bold mb-0">Boolean (Lógico)</h5>
-                        </div>
-                        <p class="text-muted small">Solo dos valores posibles. Nota la mayúscula.</p>
-                        <code class="d-block bg-light p-2 rounded">activo = True</code>
-                    </div>
-                </div>
-            </div>
-
+        <div class="callout callout-info mb-4">
+          <strong>Tip clave:</strong> usa <code>type()</code> para ver el tipo de cualquier valor.
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="cadenas">Verificar el tipo</h3>
-        <p>Puedes usar la función <code>type()</code> para saber qué es una variable.</p>
-        <div class="bg-dark text-white p-3 rounded">
-            <code>print(type(10)) &nbsp;&nbsp;&nbsp;# &lt;class 'int'&gt;</code><br>
-            <code>print(type(3.14)) # &lt;class 'float'&gt;</code>
+        <!-- ===================================================== -->
+        <!-- 2) INT -->
+        <!-- ===================================================== -->
+        <h3 class="fw-bold mt-5 mb-3" id="int">2. <code>int</code> (enteros)</h3>
+        <p>
+          Guarda números <strong>sin decimales</strong>. Se usa para conteos, edades, cantidades, etc.
+        </p>
+
+        <div class="callout callout-warning mb-4">
+          <strong>Error típico:</strong> pensar que "20" (texto) es igual que 20 (número). No lo es.
         </div>
 
-        <h3 class="fw-bold mt-5 mb-3" id="booleanos">Booleanos</h3>
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo int: suma y type()</p>
+          </div>
 
+<pre><code class="language-python" id="code-td-1">edad = 20
+extra = 5
+total = edad + extra
+
+print("edad:", edad, type(edad))
+print("extra:", extra, type(extra))
+print("total:", total, type(total))</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutarTD(1)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrarTD(1)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-td-1" class="mb-4 d-none">
+          <div class="console" id="output-td-1">Salida pendiente...</div>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- 3) FLOAT -->
+        <!-- ===================================================== -->
+        <h3 class="fw-bold mt-5 mb-3" id="float">3. <code>float</code> (decimales)</h3>
+        <p>
+          Guarda números con decimales. Útil para promedios, precios, medidas.
+          Pero puede tener <strong>imprecisiones</strong> por representación binaria.
+        </p>
+
+        <div class="callout callout-danger mb-4">
+          <strong>Ejemplo clásico:</strong> <code>0.1 + 0.2</code> puede mostrar <code>0.30000000000000004</code>.
+        </div>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo float: precisión e type()</p>
+          </div>
+
+<pre><code class="language-python" id="code-td-2">a = 0.1
+b = 0.2
+suma = a + b
+
+print("a:", a, type(a))
+print("b:", b, type(b))
+print("suma:", suma, type(suma))
+print("¿suma == 0.3?:", suma == 0.3, type(suma == 0.3))</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutarTD(2)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrarTD(2)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-td-2" class="mb-4 d-none">
+          <div class="console" id="output-td-2">Salida pendiente...</div>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- 4) BOOL -->
+        <!-- ===================================================== -->
+        <h3 class="fw-bold mt-5 mb-3" id="bool">4. <code>bool</code> (True / False)</h3>
+        <p>
+          Representa verdadero o falso. Se usa en condiciones.
+          Un booleano también puede aparecer como resultado de comparaciones.
+        </p>
+
+        <div class="callout callout-info mb-4">
+          <strong>Dato importante:</strong> <code>type(True)</code> es <code>bool</code>, pero <code>True</code> puede comportarse como 1 en sumas.
+        </div>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo bool: comparaciones y “trampa” True=1</p>
+          </div>
+
+<pre><code class="language-python" id="code-td-3">activo = True
+comparacion = (10 > 3)
+suma_bool = True + True
+
+print("activo:", activo, type(activo))
+print("comparacion (10 > 3):", comparacion, type(comparacion))
+print("True + True:", suma_bool, type(suma_bool))</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutarTD(3)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrarTD(3)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-td-3" class="mb-4 d-none">
+          <div class="console" id="output-td-3">Salida pendiente...</div>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- 5) STR -->
+        <!-- ===================================================== -->
+        <h3 class="fw-bold mt-5 mb-3" id="str">5. <code>str</code> (texto)</h3>
+        <p>
+          Guarda texto. Un string se define con comillas: <code>"Hola"</code> o <code>'Hola'</code>.
+          Con strings, el signo <code>+</code> concatena (une texto).
+        </p>
+
+        <div class="callout callout-warning mb-4">
+          <strong>Error típico:</strong> "10" + "5" no suma: concatena → "105".
+        </div>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo str: concatenación y type()</p>
+          </div>
+
+<pre><code class="language-python" id="code-td-4">a = "10"
+b = "5"
+concat = a + b
+
+print("a:", a, type(a))
+print("b:", b, type(b))
+print("a + b:", concat, type(concat))</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutarTD(4)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrarTD(4)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-td-4" class="mb-4 d-none">
+          <div class="console" id="output-td-4">Salida pendiente...</div>
+        </div>
+
+        <!-- ===================================================== -->
+        <!-- 6) NONE -->
+        <!-- ===================================================== -->
+        <h3 class="fw-bold mt-5 mb-3" id="none">6. <strong>None</strong> (sin valor)</h3>
+        <p>
+          <strong>None</strong> significa “no hay valor”. Su tipo es <code>NoneType</code>.
+          Es útil cuando quieres indicar que algo todavía no existe o está vacío.
+        </p>
+
+        <div class="callout callout-info mb-4">
+          <strong>Buena práctica:</strong> para comprobarlo se usa <code>is None</code> (no <code>== None</code>).
+        </div>
+
+        <div class="code-card mb-3">
+          <div class="code-card-header">
+            <div class="code-dots" aria-hidden="true">
+              <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            </div>
+            <p class="code-title">Ejemplo None: type() y comparación correcta</p>
+          </div>
+
+<pre><code class="language-python" id="code-td-5">x = None
+
+print("x:", x, type(x))
+print("¿x is None?:", x is None, type(x is None))
+print("¿x == None?:", x == None, type(x == None))  # funciona, pero NO es lo recomendado</code></pre>
+
+          <div class="play-actions">
+            <button class="btn btn-success rounded-pill px-4" onclick="simEjecutarTD(5)">
+              <i class="bi bi-play-fill me-1"></i> Ejecutar
+            </button>
+            <button class="btn btn-outline-light rounded-pill px-4" onclick="simMostrarTD(5)">
+              <i class="bi bi-terminal me-1"></i> Mostrar resultado
+            </button>
+          </div>
+        </div>
+
+        <div id="output-wrap-td-5" class="mb-4 d-none">
+          <div class="console" id="output-td-5">Salida pendiente...</div>
+        </div>
+
+        <!-- VIDEO  -->
+        <h3 class="fw-bold mt-5 mb-3" id="video">7. Video de apoyo</h3>
+        <p class="text-muted">Refuerza el tema con este video:</p>
+
+        <div class="ratio ratio-16x9 rounded-4 overflow-hidden border">
+          <iframe
+            src="https://www.youtube.com/embed/22gv7arOT8Q"
+            title="Tipos de datos en Python"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
+        </div>
+
+        <!-- CUESTIONARIO  -->
+        <div class="mt-5 pt-4 border-top" id="cuestionario">
+          <h3 class="fw-bold mb-3 text-center"> Cuestionario Final – Tipos de Datos</h3>
+
+          <p class="text-muted text-center mb-4">
+            Responde cada pregunta para avanzar. Cada pregunta solo puede responderse una vez.
+          </p>
+
+          <div class="quiz-card">
+            <div class="quiz-meta mb-3">
+              <div class="quiz-progress">
+                Pregunta <span id="numPreguntaTDQ"></span> de <span id="totalPreguntasTDQ"></span>
+              </div>
+              <span class="quiz-badge">
+                <i class="bi bi-award"></i> Evaluación final
+              </span>
+            </div>
+
+            <h5 class="fw-bold mb-3" id="preguntaTituloTDQ"></h5>
+
+            <div id="opcionesTDQ"></div>
+
+            <div id="feedbackTDQ" class="alert d-none mt-3 mb-2"></div>
+
+            <div id="solucionTDQ" class="alert alert-info d-none mt-2"></div>
+
+            <div class="text-end mt-3">
+              <button id="btnSiguienteTDQ" class="btn btn-primary d-none" onclick="siguientePreguntaTDQ()">
+                Siguiente →
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- NAV  -->
         <div class="d-flex justify-content-between mt-5 pt-4 border-top">
-           <a href="{{ url_for('teoria_tema', slug='variables-constantes') }}" class="btn btn-outline-secondary rounded-pill px-4">
-             <i class="bi bi-arrow-left me-2"></i> Anterior
-           </a>
-           <a href="{{ url_for('teoria_tema', slug='operadores') }}" class="btn btn-primary rounded-pill px-4">
-             Siguiente: Operadores <i class="bi bi-arrow-right ms-2"></i>
-           </a>
+          <a href="{{ url_for('teoria_tema', slug='variables-constantes') }}" class="btn btn-outline-secondary rounded-pill px-4">
+            <i class="bi bi-arrow-left me-2"></i> Anterior
+          </a>
+          <a href="{{ url_for('teoria_tema', slug='operadores') }}" class="btn btn-primary rounded-pill px-4">
+            Siguiente: Operadores <i class="bi bi-arrow-right ms-2"></i>
+          </a>
         </div>
 
       </div>
     </div>
   </div>
 </section>
+
+<script>
+
+  const resultadosTD = {
+    1: `edad: 20 <class 'int'>
+extra: 5 <class 'int'>
+total: 25 <class 'int'>`,
+
+    2: `a: 0.1 <class 'float'>
+b: 0.2 <class 'float'>
+suma: 0.30000000000000004 <class 'float'>
+¿suma == 0.3?: False <class 'bool'>`,
+
+    3: `activo: True <class 'bool'>
+comparacion (10 > 3): True <class 'bool'>
+True + True: 2 <class 'int'>`,
+
+    4: `a: 10 <class 'str'>
+b: 5 <class 'str'>
+a + b: 105 <class 'str'>`,
+
+    5: `x: None <class 'NoneType'>
+¿x is None?: True <class 'bool'>
+¿x == None?: True <class 'bool'>`
+  };
+
+  const estadoTD = { 1:false, 2:false, 3:false, 4:false, 5:false };
+
+  function simEjecutarTD(id){
+    const wrap = document.getElementById(`output-wrap-td-${id}`);
+    const out  = document.getElementById(`output-td-${id}`);
+    wrap.classList.remove("d-none");
+    estadoTD[id] = true;
+
+    out.innerHTML = `<span class="console-badge">Simulación</span>\nEjecutando código...\n✅ Listo. Pulsa “Mostrar resultado” para verlo.`;
+  }
+
+
+  function simMostrarTD(id){
+    const wrap = document.getElementById(`output-wrap-td-${id}`);
+    const out  = document.getElementById(`output-td-${id}`);
+    wrap.classList.remove("d-none");
+
+    if(!estadoTD[id]){
+      out.innerHTML = `<span class="console-badge">Simulación</span>\nPrimero presiona “Ejecutar”.`;
+      return;
+    }
+
+    out.innerHTML = `<span class="console-badge">Simulación</span>\n`;
+
+    out.append(document.createTextNode(resultadosTD[id] || "Sin resultado."));
+  }
+
+
+  // Sidebar active
+  document.querySelectorAll(".sidebar-nav a").forEach(a => {
+    a.addEventListener("click", () => {
+      document.querySelectorAll(".sidebar-nav a").forEach(x => x.classList.remove("active"));
+      a.classList.add("active");
+    });
+  });
+
+  /* ===================== QUIZ (ALTA COMPLEJIDAD) ===================== */
+  const preguntasTDQ = [
+    {
+      titulo: "1) ¿Qué imprime exactamente este código?\n\nprint(type(10))",
+      opciones: [
+        { texto: "A) int", correcta: false },
+        { texto: "B) <class 'int'>", correcta: true },
+        { texto: "C) integer", correcta: false }
+      ],
+      solucion: "✅ type(10) imprime <class 'int'>, no solo 'int'."
+    },
+    {
+      titulo: "2) ¿Qué ocurre con esto?\n\nprint('10' + 5)",
+      opciones: [
+        { texto: "A) Imprime 15", correcta: false },
+        { texto: "B) Imprime 105", correcta: false },
+        { texto: "C) Da TypeError", correcta: true }
+      ],
+      solucion: "✅ TypeError: no se puede sumar str con int directamente."
+    },
+    {
+      titulo: "3) ¿Cuál es el tipo de: (0.1 + 0.2)?",
+      opciones: [
+        { texto: "A) int", correcta: false },
+        { texto: "B) float", correcta: true },
+        { texto: "C) bool", correcta: false }
+      ],
+      solucion: "✅ Es float, aunque se muestre con muchos decimales."
+    },
+    {
+      titulo: "4) ¿Qué imprime?\n\nprint(True + True)",
+      opciones: [
+        { texto: "A) TrueTrue", correcta: false },
+        { texto: "B) 2", correcta: true },
+        { texto: "C) Error", correcta: false }
+      ],
+      solucion: "✅ True se comporta como 1 en sumas. 1+1=2."
+    },
+    {
+      titulo: "5) ¿Cuál comparación es la recomendada para None?",
+      opciones: [
+        { texto: "A) x == None", correcta: false },
+        { texto: "B) x is None", correcta: true },
+        { texto: "C) type(x) == None", correcta: false }
+      ],
+      solucion: "✅ La recomendada es 'is None'."
+    },
+    {
+      titulo: "6) ¿Qué imprime?\n\na='10'\nb='5'\nprint(a+b, type(a+b))",
+      opciones: [
+        { texto: "A) 15 <class 'int'>", correcta: false },
+        { texto: "B) 105 <class 'str'>", correcta: true },
+        { texto: "C) Error", correcta: false }
+      ],
+      solucion: "✅ Concatenación de strings: '105' y su tipo es str."
+    },
+    {
+      titulo: "7) ¿Qué imprime?\n\nprint(type(None))",
+      opciones: [
+        { texto: "A) <class 'None'>", correcta: false },
+        { texto: "B) <class 'NoneType'>", correcta: true },
+        { texto: "C) NoneType()", correcta: false }
+      ],
+      solucion: "✅ type(None) devuelve <class 'NoneType'>."
+    },
+    {
+      titulo: "8) ¿Cuál afirmación es verdadera?",
+      opciones: [
+        { texto: "A) 10 y '10' son el mismo dato", correcta: false },
+        { texto: "B) 10 es int y '10' es str", correcta: true },
+        { texto: "C) '10' es float", correcta: false }
+      ],
+      solucion: "✅ 10 es int. '10' es str."
+    },
+    {
+      titulo: "9) ¿Qué tipo devuelve una comparación como (5 > 2)?",
+      opciones: [
+        { texto: "A) bool", correcta: true },
+        { texto: "B) int", correcta: false },
+        { texto: "C) str", correcta: false }
+      ],
+      solucion: "✅ Las comparaciones devuelven bool."
+    },
+    {
+      titulo: "10) ¿Qué salida es más probable?\n\nprint(0.1 + 0.2 == 0.3)",
+      opciones: [
+        { texto: "A) True", correcta: false },
+        { texto: "B) False", correcta: true },
+        { texto: "C) Error", correcta: false }
+      ],
+      solucion: "✅ Puede dar False por precisión float."
+    }
+  ];
+
+  let indiceTDQ = 0;
+  let puntajeTDQ = 0;
+  let respondidaTDQ = false;
+
+  document.getElementById("totalPreguntasTDQ").textContent = preguntasTDQ.length;
+
+  function cargarPreguntaTDQ() {
+    const p = preguntasTDQ[indiceTDQ];
+    respondidaTDQ = false;
+
+    document.getElementById("numPreguntaTDQ").textContent = indiceTDQ + 1;
+    document.getElementById("preguntaTituloTDQ").textContent = p.titulo;
+
+    const opcionesDiv = document.getElementById("opcionesTDQ");
+    opcionesDiv.innerHTML = "";
+
+    p.opciones.forEach(op => {
+      const btn = document.createElement("button");
+      btn.className = "btn btn-outline-secondary quiz-option";
+      btn.textContent = op.texto;
+      btn.onclick = () => responderTDQ(btn, op.correcta, p.solucion);
+      opcionesDiv.appendChild(btn);
+    });
+
+    document.getElementById("feedbackTDQ").classList.add("d-none");
+    document.getElementById("solucionTDQ").classList.add("d-none");
+    document.getElementById("btnSiguienteTDQ").classList.add("d-none");
+  }
+
+  function responderTDQ(btn, correcta, solucion) {
+    if (respondidaTDQ) return;
+    respondidaTDQ = true;
+
+    const feedback = document.getElementById("feedbackTDQ");
+    const solucionDiv = document.getElementById("solucionTDQ");
+
+    document.querySelectorAll("#opcionesTDQ .quiz-option").forEach(b => b.disabled = true);
+
+    if (correcta) {
+      puntajeTDQ++;
+      btn.classList.add("correct");
+      feedback.className = "alert alert-success mt-3 mb-2";
+      feedback.textContent = "✔️ Respuesta correcta.";
+    } else {
+      btn.classList.add("wrong");
+      feedback.className = "alert alert-warning mt-3 mb-2";
+      feedback.textContent = "❌ Respuesta incorrecta.";
+      solucionDiv.textContent = solucion;
+      solucionDiv.classList.remove("d-none");
+    }
+
+    feedback.classList.remove("d-none");
+    document.getElementById("btnSiguienteTDQ").classList.remove("d-none");
+  }
+
+  function siguientePreguntaTDQ() {
+    indiceTDQ++;
+    if (indiceTDQ < preguntasTDQ.length) {
+      cargarPreguntaTDQ();
+    } else {
+      mostrarResultadoTDQ();
+    }
+  }
+
+  function mostrarResultadoTDQ() {
+    const nota = Math.round((puntajeTDQ / preguntasTDQ.length) * 10);
+
+    document.querySelector(".quiz-card").innerHTML = `
+      <div class="text-center">
+        <h4 class="fw-bold mb-3">📊 Resultado Final</h4>
+
+        <div class="display-4 fw-bold text-primary mb-2">
+          ${nota}/10
+        </div>
+
+        <p class="text-muted mb-1">
+          Respuestas correctas: ${puntajeTDQ} de ${preguntasTDQ.length}
+        </p>
+
+        <div class="alert ${nota >= 8 ? 'alert-success' : (nota >= 6 ? 'alert-warning' : 'alert-danger')} mt-4">
+          ${nota >= 8
+            ? '🏆 Excelente. Dominas los tipos básicos y sus trampas.'
+            : (nota >= 6
+                ? '📘 Vas bien, pero repasa float, None y str vs int.'
+                : '⚠️ Te recomiendo repasar la teoría y volver a intentarlo.')}
+        </div>
+
+        <button class="btn btn-outline-primary mt-3" onclick="reiniciarQuizTDQ()">
+          🔁 Realizar la evaluación nuevamente
+        </button>
+      </div>
+    `;
+  }
+
+  function reiniciarQuizTDQ() {
+    indiceTDQ = 0;
+    puntajeTDQ = 0;
+    location.reload();
+  }
+
+  cargarPreguntaTDQ();
+</script>
+
 {% endblock %}
