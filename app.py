@@ -77,9 +77,14 @@ TEMAS = [
         "titulo": "6. Tipos de Datos",
         "archivo": "teoria/teoria_tiposDatos.html",
         "subtemas": [
-            {"id": "numeros", "titulo": "Tipos Primitivos"},
-            {"id": "cadenas", "titulo": "Verificar el tipo"},
-            {"id": "booleanos", "titulo": "Booleanos"},
+            {"id": "intro", "titulo": "¿Qué es un tipo de dato?"},
+            {"id": "int", "titulo": "Enteros"},
+            {"id": "float", "titulo": "Decimales"},
+            {"id": "bool", "titulo": "Booleano"},
+            {"id": "str", "titulo": "Texto"},
+            {"id": "none", "titulo": "None"},
+            {"id": "video", "titulo": "Video"},
+            {"id": "cuestionario", "titulo": "Cuestionario"},
         ]
     },
     {
