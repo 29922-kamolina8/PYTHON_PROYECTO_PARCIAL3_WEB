@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Ejercicios · Python Academy{% endblock %}
+
+{% block content %}
+
+<style>
+  /* Ajuste fino de las tarjetas de ejercicios */
+  .ejercicio-item{
+    max-width: 750px;          /* ancho cómodo y centrado */
+    width: 100%;
+    padding: 22px 26px;       /* aire interno */
+    gap: 40px;                /* separación texto ↔ botón */
+  }
+
+  .ejercicio-item h6{
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+
+  .ejercicio-item strong{
+    display: block;
+    font-size: 15px;
+    color: #212529;
+  }
+
+  .ejercicio-item .btn{
+    padding: 6px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+  }
+</style>
+
+<section class="section py-5">
+  <div class="container">
+    <div class="section-title text-center mb-5">
+      <h2>Ejercicios del Curso</h2>
+      <p>Selecciona un ejercicio para practicar</p>
+    </div>
+
+    <div class="list-group">
+      {% for e in ejercicios %}
+      <div class="list-group-item d-flex justify-content-between align-items-center mb-3 rounded shadow-sm mx-auto"
+           style="max-width: 750px; width:100%; padding:22px 26px; gap:40px;">
+        <div>
+          <h6 class="mb-1 text-primary fw-semibold">{{ e.tema }}</h6>
+          <strong>{{ e.titulo }}</strong>
+        </div>
+
+        <a href="{{ url_for('ver_ejercicio', slug=e.slug) }}" class="btn btn-outline-primary rounded-pill px-4">
+          Ver
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

@@ -28,23 +28,80 @@
 
       <nav id="navmenu" class="navmenu">
         <ul>
-          <li><a href="{{ url_for('home') }}" class="{{ 'active' if request.endpoint == 'home' else '' }}">Inicio</a></li>
-          
+
+          <!-- INICIO -->
+          <li>
+            <a href="{{ url_for('home') }}"
+              class="{{ 'active' if request.endpoint == 'home' else '' }}">
+              Inicio
+            </a>
+          </li>
+
+          <!-- TEORÍA -->
           <li class="dropdown">
-            <a href="{{ url_for('teoria_general') }}" class="{{ 'active' if 'teoria' in request.endpoint else '' }}">
-              <span>Teoría</span> <i class="bi bi-chevron-down toggle-dropdown"></i>
+            <a href="{{ url_for('teoria_general') }}"
+              class="{{ 'active' if 'teoria' in request.endpoint else '' }}">
+              <span>Teoría</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
             </a>
             <ul>
               {% for tema in lista_temas %}
-              <li><a href="{{ url_for('teoria_tema', slug=tema.slug) }}">{{ tema.titulo }}</a></li>
+                <li>
+                  <a href="{{ url_for('teoria_tema', slug=tema.slug) }}">
+                    {{ tema.titulo }}
+                  </a>
+                </li>
               {% endfor %}
             </ul>
           </li>
 
-          <li><a href="{{ url_for('home') }}#modulos">Ejercicios</a></li>
-          <li><a href="{{ url_for('home') }}#modulos">CRUD</a></li>
-          <li><a href="{{ url_for('home') }}#evaluacion">Evaluación</a></li>
+          <!-- EJERCICIOS -->
+          <li class="dropdown">
+            <a href="{{ url_for('ejercicios') }}"
+              class="{{ 'active' if 'ejercicio' in request.endpoint else '' }}">
+              <span>Ejercicios</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+
+            <ul>
+              {% for tema, ejercicios in ejercicios_por_tema.items() %}
+                <li class="dropdown">
+                  <a href="#">
+                    <span>{{ tema }}</span>
+                    <i class="bi bi-chevron-right toggle-dropdown"></i>
+                  </a>
+
+                  <ul>
+                    {% for ej in ejercicios %}
+                      <li>
+                        <a href="{{ url_for('ver_ejercicio', slug=ej.slug) }}">
+                          {{ ej.titulo }}
+                        </a>
+                      </li>
+                    {% endfor %}
+                  </ul>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+
+          <!-- CRUD -->
+          <li>
+            <a href="{{ url_for('home') }}#modulos">
+              CRUD
+            </a>
+          </li>
+
+          <!-- EVALUACIÓN -->
+          <li>
+            <a href="{{ url_for('home') }}#evaluacion">
+              Evaluación
+            </a>
+          </li>
+
         </ul>
+
+        <!-- BOTÓN MOBILE -->
         <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
       </nav>
 

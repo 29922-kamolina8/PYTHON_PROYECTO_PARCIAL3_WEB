@@ -1,4 +1,9 @@
 from flask import Flask, render_template, abort
+import sys
+import os
+import importlib.util
+from collections import defaultdict
+
 
 app = Flask(__name__)
 
@@ -19,7 +24,6 @@ TEMAS = [
             {"id": "errores-backend", "titulo": "Errores Comunes en el Desarrollo Backend"},
             {"id": "cuestionario", "titulo": "Cuestionario de Aprendizaje"},
             {"id": "juego", "titulo": "Mini-juego: Arma la Petición Backend"},
-            
         ]
     },
     {
@@ -162,11 +166,162 @@ TEMAS = [
     },
 ]
 
+# =========================
+# EJERCICIOS (aquí tú pones los 20)
+# =========================
+EJERCICIOS = [
+    # --- FORMULARIOS GET Y POST ---
+    {
+        "id": 1,
+        "slug": "ejercicio1",
+        "tema": "Procesamiento de formularios",
+        "titulo": "Formulario request.form",
+        "descripcion": "Desarrolla un formulario usando método POST.",
+        "practica": ["Formularios", "GET/POST", "Validación"],
+        "detalle_largo": ""
+    },
+    {
+        "id": 2,
+        "slug": "ejercicio2",
+        "tema": "Procesamiento de formularios",
+        "titulo": "Formulario request.files",
+        "descripcion": "Formulario POST con subida de archivos (files).",
+        "practica": ["Formularios", "POST", "Archivos"],
+        "detalle_largo": ""
+    },
+
+    # --- ESTRUCTURAS DE CONTROL ---
+    {
+        "id": 3,
+        "slug": "ejercicio3",
+        "tema": "Estructuras de Control",
+        "titulo": "Factorial",
+        "descripcion": "Cálculo de factorial usando estructuras de control.",
+    },
+    {
+        "id": 4,
+        "slug": "ejercicio4",
+        "tema": "Estructuras de Control",
+        "titulo": "Triángulo de Pascal",
+        "descripcion": "Generación del triángulo de Pascal.",
+    },
+    {
+        "id": 5,
+        "slug": "ejercicio5",
+        "tema": "Estructuras de Control",
+        "titulo": "Es primo",
+        "descripcion": "Determinar si un número es primo.",
+    },
+    {
+        "id": 6,
+        "slug": "ejercicio6",
+        "tema": "Estructuras de Control",
+        "titulo": "Cédula",
+        "descripcion": "Validación de cédula (según reglas definidas en el ejercicio).",
+    },
+    # --- ARREGLOS ---
+    {
+        "id": 7,
+        "slug": "ejercicio7",
+        "tema": "Arreglos",
+        "titulo": "Ejemplo 01",
+        "descripcion": "Ejercicio de práctica de estructuras de control (Ejemplo 01).",
+    },
+    {
+        "id": 8,
+        "slug": "ejercicio8",
+        "tema": "Arreglos",
+        "titulo": "Ejemplo 02",
+        "descripcion": "Ejercicio de práctica de estructuras de control (Ejemplo 02).",
+    },
+    {
+        "id": 9,
+        "slug": "ejercicio9",
+        "tema": "Arreglos",
+        "titulo": "Arreglo",
+        "descripcion": "Trabajo con arreglos/listas.",
+    },
+    {
+        "id": 10,
+        "slug": "ejercicio10",
+        "tema": "Arreglos",
+        "titulo": "Matriz",
+        "descripcion": "Manejo de matrices (listas anidadas).",
+    },
+    {
+        "id": 11,
+        "slug": "ejercicio11",
+        "tema": "Arreglos",
+        "titulo": "Cubo",
+        "descripcion": "Trabajo con arreglos 3D (cubo).",
+    },
+    {
+        "id": 12,
+        "slug": "ejercicio12",
+        "tema": "Arreglos",
+        "titulo": "Tablas dinámicas",
+        "descripcion": "Implementación de tablas dinámicas (parte específica).",
+    },
+
+    # --- POO ---
+    {
+        "id": 13,
+        "slug": "ejercicio13",
+        "tema": "POO",
+        "titulo": "Clases",
+        "descripcion": "Ejercicio de clases y objetos.",
+    },
+    {
+        "id": 14,
+        "slug": "ejercicio14",
+        "tema": "POO",
+        "titulo": "Herencia",
+        "descripcion": "Ejercicio de herencia en POO.",
+    },
+    {
+        "id": 15,
+        "slug": "ejercicio15",
+        "tema": "POO",
+        "titulo": "Abstracta",
+        "descripcion": "Clases abstractas (concepto y aplicación).",
+    },
+    {
+        "id": 16,
+        "slug": "ejercicio16",
+        "tema": "POO",
+        "titulo": "Interfaces",
+        "descripcion": "Simulación/uso de interfaces (según enfoque del curso).",
+    },
+    {
+        "id": 17,
+        "slug": "ejercicio17",
+        "tema": "POO",
+        "titulo": "Polimorfismo",
+        "descripcion": "Ejercicio de polimorfismo.",
+    },
+]
+
+def obtener_ejercicios_por_tema():
+    agrupados = defaultdict(list)
+    for ej in EJERCICIOS:
+        agrupados[ej["tema"]].append(ej)
+    return dict(agrupados)
+
+
+@app.context_processor
+def inject_global_data():
+    return {
+        "ejercicios_por_tema": obtener_ejercicios_por_tema()
+    }
+
 @app.context_processor
 def inject_temas():
     # Inyectamos la lista para el menú de base.html
     return dict(lista_temas=TEMAS)
 
+# =========================
+# RUTAS BASE
+# =========================
 @app.route("/")
 def home():
     return render_template("home.html")
@@ -181,6 +336,73 @@ def teoria_tema(slug):
     if not tema_actual:
         return render_template("home.html"), 404
     return render_template(tema_actual["archivo"], tema=tema_actual)
+
+# =========================
+# RUTAS EJERCICIOS
+# =========================
+@app.route("/ejercicios")
+def ejercicios():
+    return render_template("ejercicios.html", ejercicios=EJERCICIOS)
+
+@app.route("/ejercicios/<slug>")
+def ver_ejercicio(slug):
+    ejercicio = next((e for e in EJERCICIOS if e["slug"] == slug), None)
+    if not ejercicio:
+        abort(404)
+
+    template_path = f"ejercicios/{slug}/detalle.html"
+    if not os.path.exists(os.path.join("templates", template_path)):
+        abort(404)
+    idx = next((i for i, e in enumerate(EJERCICIOS) if e["slug"] == slug), None)
+    anterior = EJERCICIOS[idx - 1] if idx is not None and idx > 0 else None
+    siguiente = EJERCICIOS[idx + 1] if idx is not None and idx < len(EJERCICIOS) - 1 else None
+
+
+    return render_template(template_path, ejercicio=ejercicio, contenido=None,
+                        anterior=anterior, siguiente=siguiente)
+
+def cargar_modulo_ejercicio(slug):
+    """
+    Carga dinámicamente templates/ejercicios/<slug>/ejercicio.py
+    y devuelve el módulo. Permite múltiples archivos .py dentro de esa carpeta.
+    """
+    carpeta = os.path.join("templates", "ejercicios", slug)
+    archivo = os.path.join(carpeta, "ejercicio.py")
+
+    if not os.path.exists(archivo):
+        return None
+
+    # ✅ Para que el ejercicio pueda hacer: import clases / import utils / etc.
+    if carpeta not in sys.path:
+        sys.path.insert(0, carpeta)
+
+    spec = importlib.util.spec_from_file_location(f"{slug}_mod", archivo)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+@app.route("/ejercicios/<slug>/ejecutar", methods=["GET", "POST"])
+def ejecutar_ejercicio(slug):
+    ejercicio = next((e for e in EJERCICIOS if e["slug"] == slug), None)
+    if not ejercicio:
+        abort(404)
+
+    template_path = f"ejercicios/{slug}/detalle.html"
+    if not os.path.exists(os.path.join("templates", template_path)):
+        abort(404)
+
+    mod = cargar_modulo_ejercicio(slug)
+    if not mod or not hasattr(mod, "ejecutar"):
+        return "No existe ejercicio.py o falta la función ejecutar()", 404
+
+    contenido = mod.ejecutar()
+    idx = next((i for i, e in enumerate(EJERCICIOS) if e["slug"] == slug), None)
+    anterior = EJERCICIOS[idx - 1] if idx is not None and idx > 0 else None
+    siguiente = EJERCICIOS[idx + 1] if idx is not None and idx < len(EJERCICIOS) - 1 else None
+
+
+    return render_template(template_path, ejercicio=ejercicio, contenido=contenido,
+                       anterior=anterior, siguiente=siguiente)
 
 if __name__ == "__main__":
     app.run(debug=True)
