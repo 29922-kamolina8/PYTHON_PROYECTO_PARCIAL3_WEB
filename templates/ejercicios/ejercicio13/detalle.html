@@ -1,92 +1,92 @@
 {% extends "base.html" %}
 {% block title %}{{ ejercicio.titulo }} · Python Academy{% endblock %}
-
 {% block content %}
 
 <style>
-  .hero-ej{
-    background:#f8fafc;
-    border-bottom:1px solid rgba(0,0,0,.08);
-    padding:52px 0;
+  .hero-ej {
+    background: #f8fafc;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 52px 0;
   }
-  .hero-ej .badge{border-radius:999px;padding:8px 14px;font-weight:700;}
-  .hero-ej h1{font-weight:800;letter-spacing:-.02em;}
-  .hero-ej p{max-width:920px;margin:0 auto;}
-
-  .hero-top-actions{
-    display:flex;
-    justify-content:center;
-    margin-bottom:14px;
+  .hero-top-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
   }
-  .btn-pill{border-radius:999px;padding:10px 22px;font-weight:700;}
-  .btn-pill-sm{border-radius:999px;padding:8px 16px;font-weight:700;}
-
-  .ej-wrap{padding:36px 0 70px;}
-  .ej-panel{
-    border-radius:18px;border:1px solid rgba(0,0,0,.08);
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-    background:#fff;padding:26px;
+  .btn-pill {
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 700;
   }
-
-  /* Bloques tipo tarjeta */
-  .explain-card{
-    border:1px solid rgba(0,0,0,.08);
-    border-radius:16px;
-    padding:18px;
-    background:#fbfdff;
+  .btn-pill-sm {
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-weight: 700;
   }
-
-  /* Bloques de código */
-  .code-box{
-    background:#0b1220;
-    color:#e6edf3;
-    border-radius:14px;
-    padding:14px;
-    overflow:auto;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .ej-wrap {
+    padding: 36px 0 70px;
+  }
+  .ej-panel {
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background: #fff;
+    padding: 26px;
+  }
+  .explain-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+    background: #fbfdff;
+    margin-bottom: 18px;
+  }
+  .code-box {
+    background: #0b1220;
+    color: #e6edf3;
+    border-radius: 14px;
+    padding: 14px;
+    overflow: auto;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
     font-size: 0.92rem;
-    white-space: pre; /* respeta enter + espacios */
-    margin: 0;
+    white-space: pre;
   }
-
-  .hint{ font-size:.95rem; color:#556; }
-
-  /* Botón ejecutar */
-  .ej-actions{
-    margin-top:18px;
-    display:flex;
-    justify-content:center;
+  .hint {
+    font-size: 0.95rem;
+    color: #556;
   }
-
-  /* Formulario/Salida */
-  .form-shell{margin-top:22px;display:flex;justify-content:center;}
-  .form-card{
-    width:100%;
-    max-width:720px;
-    border-radius:18px;border:1px solid rgba(0,0,0,.08);
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-    background:#fff;padding:22px;
+  .ej-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
   }
-  .form-card *{max-width:100%;}
-
-  /* Navegación inferior */
-  .ej-nav-bottom{
-    margin-top:26px;
-    padding-top:18px;
-    border-top:1px solid rgba(0,0,0,.08);
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
+  .form-shell {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
   }
-  .ej-nav-bottom .btn{ min-width:170px; }
+  .form-card {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    background: #fff;
+    padding: 22px;
+  }
+  .ej-nav-bottom {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
 </style>
 
 <!-- HERO -->
 <section class="hero-ej">
   <div class="container text-center">
-
-    <!-- Volver al menú -->
     <div class="hero-top-actions">
       <a href="{{ url_for('ejercicios') }}" class="btn btn-outline-secondary btn-pill-sm">
         <i class="bi bi-arrow-left me-1"></i> Volver al menú
@@ -96,85 +96,356 @@
     <span class="badge bg-primary mb-3">{{ ejercicio.tema }}</span>
     <h1 class="display-5 mb-2">{{ ejercicio.titulo }}</h1>
 
-    <!-- ✅ Se mantiene la DESCRIPCIÓN CORTA -->
     <p class="lead text-muted">
-      {{ ejercicio.descripcion }}
+      Programación Orientada a Objetos usando clases, atributos,
+      métodos y constructor en Python.
     </p>
   </div>
 </section>
 
-<!-- CONTENIDO -->
 <section class="ej-wrap">
   <div class="container">
     <div class="ej-panel">
 
-      <!-- ✅ ENUNCIADO (EDITAR AQUÍ) -->
-      <div class="explain-card mb-4">
+      <!-- DEFINICIÓN -->
+      <div class="explain-card">
+        <h4 class="fw-bold mb-2">📘 ¿Qué es Programación Orientada a Objetos?</h4>
+        <p>
+          La Programación Orientada a Objetos (POO) es un paradigma que permite
+          modelar problemas del mundo real usando <strong>clases</strong> y
+          <strong>objetos</strong>. Cada objeto combina datos (atributos) y
+          comportamiento (métodos).
+        </p>
+      </div>
+
+      <!-- ENUNCIADO -->
+      <div class="explain-card">
         <h4 class="fw-bold mb-2">🧩 Enunciado</h4>
-
-        <!-- 👇 Tus compañeros cambian este texto -->
-        <p class="mb-2">
-          Aquí escribe el enunciado del ejercicio (qué se debe realizar y cuál es el objetivo).
-        </p>
-
-        <p class="mb-0 hint">
-          Objetivo: explica claramente qué aprenderá el estudiante con este ejercicio.
+        <p>
+          Crear una clase <strong>Figura</strong> que permita calcular el
+          <strong>área</strong> y el <strong>perímetro</strong> de una figura
+          geométrica según el tipo seleccionado por el usuario
+          (cuadrado, rectángulo o triángulo).
         </p>
       </div>
 
-      <!-- ✅ EXPLICACIÓN DEL CÓDIGO (EDITAR AQUÍ) -->
-      <div class="explain-card mb-4">
-        <h4 class="fw-bold mb-3">📌 Explicación del código (paso a paso)</h4>
-
-        <!-- ===== BLOQUE 1 ===== -->
-        <h5 class="fw-bold mb-2">1) ¿Qué hace el programa?</h5>
-        <p class="mb-3">
-          Describe en 2-3 líneas la lógica general del ejercicio.
-        </p>
-
-        <!-- ===== BLOQUE 2 ===== -->
-        <h5 class="fw-bold mb-2">2) Entradas del usuario</h5>
-        <p class="mb-2">
-          Explica qué datos ingresa el usuario y cómo se validan.
-        </p>
-
-        <pre class="code-box mb-3"><code># Ejemplo de bloque de código
-# Tus compañeros pegan aquí el código real (con indentación)
-numero = int(input("Ingrese un número: "))</code></pre>
-
-        <!-- ===== BLOQUE 3 ===== -->
-        <h5 class="fw-bold mb-2">3) Proceso / Cálculo</h5>
-        <p class="mb-2">
-          Explica la parte principal de la lógica (bucles, condicionales, funciones, etc.).
-        </p>
-
-        <pre class="code-box mb-3"><code># Ejemplo
-resultado = 1
-for i in range(1, numero + 1):
-    resultado *= i</code></pre>
-
-        <!-- ===== BLOQUE 4 ===== -->
-        <h5 class="fw-bold mb-2">4) Salida / Resultados</h5>
-        <p class="mb-2">
-          Explica qué se muestra al final y por qué.
-        </p>
-
-        <pre class="code-box"><code>print("El resultado es:", resultado)</code></pre>
-
-        <p class="hint mt-3 mb-0">
-          Consejo: No se salten pasos. Explicar “por qué” es más importante que solo pegar código.
-        </p>
+      <!-- JUSTIFICACIÓN -->
+      <div class="explain-card">
+        <h4 class="fw-bold mb-2">🧠 ¿Por qué este ejercicio es POO?</h4>
+        <ul>
+          <li>Se define una <strong>clase</strong> como molde</li>
+          <li>Se crean <strong>objetos</strong> a partir de la clase</li>
+          <li>Los cálculos se encapsulan en <strong>métodos</strong></li>
+          <li>Los datos se almacenan como <strong>atributos</strong></li>
+        </ul>
       </div>
 
-      <!-- ✅ BOTÓN EJECUTAR -->
-      <div class="ej-actions">
-        <a href="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario"
-           class="btn btn-primary btn-pill btn-lg">
-          Ejecutar ejercicio
-        </a>
+      <!-- EXPLICACIÓN POR FUNCIONES -->
+   
+<div class="explain-card mb-4">
+  <h4 class="fw-bold mb-3">📌 Explicación detallada del código (párrafo en párrafo)</h4>
+
+  <!-- 1 -->
+  <h5 class="fw-bold">1) Importación de librerías necesarias</h5>
+  <p>
+    <code>import math</code> se utiliza para acceder a funciones matemáticas avanzadas,
+    específicamente <code>sqrt()</code>, que es necesaria para calcular el área del
+    triángulo usando la fórmula de Herón.  
+    <code>request</code> permite obtener los datos enviados por el formulario HTML,
+    haciendo posible que el usuario ingrese los valores de los lados.
+  </p>
+  <pre class="code-box">import math
+from flask import request</pre>
+
+  <!-- 2 -->
+  <h5 class="fw-bold mt-4">2) Definición de la clase <code>Figura</code></h5>
+  <p>
+    La clase <code>Figura</code> representa el concepto general de una figura geométrica.
+    Funciona como un molde que permite crear objetos de tipo cuadrado, rectángulo o
+    triángulo. Esta clase encapsula los datos (lados) y el comportamiento
+    (cálculo de área y perímetro), aplicando Programación Orientada a Objetos.
+  </p>
+  <pre class="code-box">class Figura:</pre>
+
+  <!-- 3 -->
+  <h5 class="fw-bold mt-4">3) Constructor de la clase (<code>__init__</code>)</h5>
+  <p>
+    El constructor se ejecuta automáticamente al crear un objeto. Recibe el tipo
+    de figura y los lados necesarios. Dependiendo de la figura, algunos lados pueden
+    no existir. Además, se inicializan las variables de área y perímetro en cero,
+    preparando el objeto para realizar los cálculos posteriormente.
+  </p>
+  <pre class="code-box">def __init__(self, tipo, l1, l2=None, l3=None):
+    self.tipo = tipo
+    self.l1 = l1
+    self.l2 = l2
+    self.l3 = l3
+    self.area = 0
+    self.perimetro = 0</pre>
+
+  <!-- 4 -->
+  <h5 class="fw-bold mt-4">4) Método para calcular el perímetro</h5>
+  <p>
+    Este método determina el perímetro de la figura según su tipo.  
+    Se utiliza una estructura condicional para aplicar la fórmula correcta:
+    cuatro lados iguales para el cuadrado, suma de pares para el rectángulo
+    y suma de los tres lados para el triángulo.  
+    El resultado se guarda dentro del objeto.
+  </p>
+  <pre class="code-box">def calcular_perimetro(self):
+    if self.tipo == "cuadrado":
+        self.perimetro = self.l1 * 4
+    elif self.tipo == "rectangulo":
+        self.perimetro = (self.l1 * 2) + (self.l2 * 2)
+    elif self.tipo == "triangulo":
+        self.perimetro = self.l1 + self.l2 + self.l3
+    return self.perimetro</pre>
+
+  <!-- 5 -->
+  <h5 class="fw-bold mt-4">5) Método para calcular el área</h5>
+  <p>
+    El método <code>calcular_area()</code> obtiene el área dependiendo del tipo de figura.
+    Para el cuadrado y rectángulo se aplican fórmulas directas.  
+    En el caso del triángulo, primero se calcula el perímetro y luego se aplica
+    la fórmula de Herón, lo que demuestra reutilización de métodos dentro de la clase.
+  </p>
+  <pre class="code-box">def calcular_area(self):
+    if self.tipo == "cuadrado":
+        self.area = self.l1 ** 2
+    elif self.tipo == "rectangulo":
+        self.area = self.l1 * self.l2
+    elif self.tipo == "triangulo":
+        self.calcular_perimetro()
+        s = self.perimetro / 2
+        self.area = math.sqrt(
+            s * (s - self.l1) * (s - self.l2) * (s - self.l3)
+        )
+    return self.area</pre>
+
+  <!-- 6 -->
+  <h5 class="fw-bold mt-4">6) Función <code>ejecutar()</code> como punto de entrada</h5>
+  <p>
+    Esta función es llamada por la plataforma Flask cuando el usuario presiona
+    el botón “Ejecutar ejercicio”. Actúa como puente entre la interfaz (HTML)
+    y la lógica en Python. Desde aquí se controla la lectura de datos,
+    la creación del objeto y la visualización del resultado.
+  </p>
+  <pre class="code-box">def ejecutar():</pre>
+
+  <!-- 7 -->
+  <h5 class="fw-bold mt-4">7) Lectura de datos enviados por el formulario</h5>
+  <p>
+    En este bloque se recuperan los valores ingresados por el usuario desde el formulario.
+    Dependiendo de la figura seleccionada, se leen uno, dos o tres lados.
+    Los valores se convierten a tipo numérico para poder realizar cálculos matemáticos.
+  </p>
+  <pre class="code-box">tipo = request.form["tipo"]
+l1 = float(request.form["lado1"])
+l2 = request.form.get("lado2")
+l3 = request.form.get("lado3")
+
+l2 = float(l2) if l2 else None
+l3 = float(l3) if l3 else None</pre>
+
+  <!-- 8 -->
+  <h5 class="fw-bold mt-4">8) Creación del objeto Figura</h5>
+  <p>
+    Aquí se instancia la clase <code>Figura</code>, creando un objeto real
+    a partir de los datos ingresados por el usuario.  
+    Este paso es clave porque demuestra cómo la teoría de clases se convierte
+    en un objeto funcional que puede ejecutar métodos.
+  </p>
+  <pre class="code-box">figura = Figura(tipo, l1, l2, l3)</pre>
+
+  <!-- 9 -->
+  <h5 class="fw-bold mt-4">9) Ejecución de métodos del objeto</h5>
+  <p>
+    Una vez creado el objeto, se llaman a sus métodos para calcular el área
+    y el perímetro. Cada método utiliza los atributos internos del objeto,
+    mostrando claramente el uso de encapsulación y reutilización de código.
+  </p>
+  <pre class="code-box">area = figura.calcular_area()
+perimetro = figura.calcular_perimetro()</pre>
+
+  <!-- 10 -->
+  <h5 class="fw-bold mt-4">10) Presentación del resultado</h5>
+  <p>
+    Finalmente, se devuelve un bloque HTML con el resultado del cálculo.
+    Este resultado se muestra de forma clara y visual al usuario,
+    cerrando el ciclo completo: entrada de datos → procesamiento → salida.
+  </p>
+  <pre class="code-box">return f"""
+<div class='alert alert-success'>
+  <h4>Resultado del cálculo</h4>
+  <p><strong>Figura:</strong> {tipo.capitalize()}</p>
+  <p><strong>Área:</strong> {area:.2f}</p>
+  <p><strong>Perímetro:</strong> {perimetro:.2f}</p>
+</div>
+"""</pre>
+
+</div>
+
+
+<!-- CÓDIGO COMPLETO -->
+<div class="explain-card mb-4">
+  <h4 class="fw-bold">💻 Código completo del ejercicio (Python)</h4>
+  <p class="hint">
+    Este código corresponde al archivo <code>ejercicio.py</code> completo.
+    Implementa Programación Orientada a Objetos (POO) para el cálculo de área y
+    perímetro de figuras geométricas.
+  </p>
+
+  <pre class="code-box">{% raw %}
+import math
+from flask import request
+
+# =====================================================
+# CLASE FIGURA
+# Implementa POO para el cálculo de área y perímetro
+# =====================================================
+
+class Figura:
+    def __init__(self, tipo, lado1, lado2=None, lado3=None):
+        self.tipo = tipo
+        self.lado1 = lado1
+        self.lado2 = lado2
+        self.lado3 = lado3
+        self.area = 0
+        self.perimetro = 0
+
+    def calcular_perimetro(self):
+        if self.tipo == "cuadrado":
+            self.perimetro = self.lado1 * 4
+
+        elif self.tipo == "rectangulo":
+            self.perimetro = (self.lado1 * 2) + (self.lado2 * 2)
+
+        elif self.tipo == "triangulo":
+            self.perimetro = self.lado1 + self.lado2 + self.lado3
+
+        return self.perimetro
+
+    def calcular_area(self):
+        if self.tipo == "cuadrado":
+            self.area = self.lado1 ** 2
+
+        elif self.tipo == "rectangulo":
+            self.area = self.lado1 * self.lado2
+
+        elif self.tipo == "triangulo":
+            self.calcular_perimetro()
+            sp = self.perimetro / 2
+            self.area = math.sqrt(
+                sp * (sp - self.lado1) *
+                (sp - self.lado2) *
+                (sp - self.lado3)
+            )
+
+        return self.area
+
+
+# =====================================================
+# FUNCIÓN EJECUTAR (PUNTO DE ENTRADA DEL EJERCICIO)
+# =====================================================
+
+def ejecutar():
+
+    # ---------------------------------------------
+    # GET → no ejecuta el ejercicio
+    # ---------------------------------------------
+    if request.method == "GET":
+        return ""
+
+    # ---------------------------------------------
+    # POST → recibe datos del formulario
+    # ---------------------------------------------
+    tipo = request.form.get("tipo")
+    lado1 = float(request.form.get("lado1"))
+
+    lado2 = request.form.get("lado2")
+    lado3 = request.form.get("lado3")
+
+    lado2 = float(lado2) if lado2 else None
+    lado3 = float(lado3) if lado3 else None
+
+    # ---------------------------------------------
+    # CREACIÓN DEL OBJETO (POO)
+    # ---------------------------------------------
+    figura = Figura(tipo, lado1, lado2, lado3)
+
+    area = figura.calcular_area()
+    perimetro = figura.calcular_perimetro()
+
+    # ---------------------------------------------
+    # SALIDA HTML
+    # ---------------------------------------------
+    return f"""
+    <div class="alert alert-success text-center">
+        <h5 class="fw-bold mb-3">Resultado del cálculo</h5>
+
+        <p><strong>Figura:</strong> {tipo.capitalize()}</p>
+        <p><strong>Área:</strong> {area:.2f}</p>
+        <p><strong>Perímetro:</strong> {perimetro:.2f}</p>
+    </div>
+    """
+{% endraw %}</pre>
+</div>
+      
+
+
+<div class="explain-card mb-4">
+  <h4 class="fw-bold mb-3">🧮 Ingreso de datos</h4>
+
+  <form method="post"
+        action="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario">
+
+    <div class="mb-3">
+      <label class="form-label">Tipo de figura</label>
+      <select class="form-select" name="tipo" id="tipo" onchange="toggleLados()" required>
+        <option value="">Seleccione</option>
+        <option value="cuadrado">Cuadrado</option>
+        <option value="rectangulo">Rectángulo</option>
+        <option value="triangulo">Triángulo</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Lado 1</label>
+      <input type="number" step="any" name="lado1" class="form-control" required>
+    </div>
+
+    <div class="mb-3" id="lado2-box" style="display:none;">
+      <label>Lado 2</label>
+      <input type="number" step="any" name="lado2" class="form-control">
+    </div>
+
+    <div class="mb-3" id="lado3-box" style="display:none;">
+      <label>Lado 3</label>
+      <input type="number" step="any" name="lado3" class="form-control">
+    </div>
+
+    <div class="ej-actions">
+      <button class="btn btn-primary btn-pill btn-lg">
+        Ejecutar ejercicio
+      </button>
+    </div>
+  </form>
+</div>
+
+<script>
+function toggleLados() {
+  const tipo = document.getElementById("tipo").value;
+  document.getElementById("lado2-box").style.display =
+    (tipo === "rectangulo" || tipo === "triangulo") ? "block" : "none";
+  document.getElementById("lado3-box").style.display =
+    (tipo === "triangulo") ? "block" : "none";
+}
+</script>
+
       </div>
 
-      <!-- ✅ FORMULARIO / SALIDA (sale después del botón) -->
+
+      <!-- RESULTADO -->
       {% if contenido %}
       <div id="formulario" class="form-shell">
         <div class="form-card">
@@ -183,29 +454,21 @@ for i in range(1, numero + 1):
       </div>
       {% endif %}
 
-      <!-- ✅ ANTERIOR / SIGUIENTE -->
+      <!-- NAVEGACIÓN -->
       <div class="ej-nav-bottom">
-
         {% if anterior %}
-          <a href="{{ url_for('ver_ejercicio', slug=anterior['slug']) }}" class="btn btn-outline-primary btn-pill">
+          <a href="{{ url_for('ver_ejercicio', slug=anterior['slug']) }}"
+             class="btn btn-outline-primary btn-pill">
             <i class="bi bi-arrow-left me-1"></i> Anterior
           </a>
-        {% else %}
-          <button class="btn btn-outline-primary btn-pill" disabled>
-            <i class="bi bi-arrow-left me-1"></i> Anterior
-          </button>
         {% endif %}
 
         {% if siguiente %}
-          <a href="{{ url_for('ver_ejercicio', slug=siguiente['slug']) }}" class="btn btn-primary btn-pill">
+          <a href="{{ url_for('ver_ejercicio', slug=siguiente['slug']) }}"
+             class="btn btn-primary btn-pill">
             Siguiente <i class="bi bi-arrow-right ms-1"></i>
           </a>
-        {% else %}
-          <button class="btn btn-primary btn-pill" disabled>
-            Siguiente <i class="bi bi-arrow-right ms-1"></i>
-          </button>
         {% endif %}
-
       </div>
 
     </div>

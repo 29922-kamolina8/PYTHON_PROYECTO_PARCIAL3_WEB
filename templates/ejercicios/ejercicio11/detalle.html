@@ -4,7 +4,7 @@
 {% block content %}
 
 <style>
-  .hero-ej{
+.hero-ej{
     background:#f8fafc;
     border-bottom:1px solid rgba(0,0,0,.08);
     padding:52px 0;
@@ -102,70 +102,352 @@
     </p>
   </div>
 </section>
+  <section class="py-5">
+    <div class="container">
 
-<!-- CONTENIDO -->
-<section class="ej-wrap">
-  <div class="container">
-    <div class="ej-panel">
+      <div class="container">
 
-      <!-- ✅ ENUNCIADO (EDITAR AQUÍ) -->
+      <!-- DEFINICIÓN CLAVE -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold mb-2">📘 ¿Qué es un arreglo cúbico?</h4>
+
+        <p>
+          Un <strong>arreglo cúbico</strong> es una estructura de datos
+          <strong>tridimensional</strong>, donde la información se organiza
+          en tres niveles jerárquicos.
+        </p>
+
+        <p>
+          Matemáticamente, un arreglo cúbico se puede representar como:
+        </p>
+
+  <pre class="code-box">
+  arreglo[ dimensión_1 ][ dimensión_2 ][ dimensión_3 ]
+  </pre>
+
+        <p>
+          Cada dimensión representa un nivel diferente de agrupación de datos.
+          A diferencia de un arreglo bidimensional (filas y columnas),
+          el arreglo cúbico añade una <strong>tercera profundidad</strong>.
+        </p>
+      </div>
+          <!-- ENUNCIADO -->
       <div class="explain-card mb-4">
         <h4 class="fw-bold mb-2">🧩 Enunciado</h4>
 
-        <!-- 👇 Tus compañeros cambian este texto -->
-        <p class="mb-2">
-          Aquí escribe el enunciado del ejercicio (qué se debe realizar y cuál es el objetivo).
+        <p>
+          Desarrollar un programa que utilice arreglos y matrices
+          multidimensionales para representar países, provincias y ciudades.
+          El sistema debe recorrer dichas estructuras y generar dinámicamente
+          tablas HTML que muestren la información organizada.
         </p>
 
-        <p class="mb-0 hint">
-          Objetivo: explica claramente qué aprenderá el estudiante con este ejercicio.
+        <p class="hint mb-0">
+          Objetivo: Comprender el uso de arreglos indexados, arreglos asociativos
+          y recorridos tipo matriz aplicados a un entorno web.
         </p>
       </div>
 
-      <!-- ✅ EXPLICACIÓN DEL CÓDIGO (EDITAR AQUÍ) -->
+      <!-- POR QUÉ ES CÚBICO -->
       <div class="explain-card mb-4">
-        <h4 class="fw-bold mb-3">📌 Explicación del código (paso a paso)</h4>
+        <h4 class="fw-bold mb-2">🧠 ¿Por qué este ejercicio es un arreglo cúbico?</h4>
 
-        <!-- ===== BLOQUE 1 ===== -->
-        <h5 class="fw-bold mb-2">1) ¿Qué hace el programa?</h5>
-        <p class="mb-3">
-          Describe en 2-3 líneas la lógica general del ejercicio.
+        <p>
+          Este ejercicio es cúbico porque la información se organiza
+          en <strong>tres dimensiones claramente definidas</strong>:
         </p>
 
-        <!-- ===== BLOQUE 2 ===== -->
-        <h5 class="fw-bold mb-2">2) Entradas del usuario</h5>
-        <p class="mb-2">
-          Explica qué datos ingresa el usuario y cómo se validan.
-        </p>
+        <ul>
+          <li><strong>Primera dimensión:</strong> País</li>
+          <li><strong>Segunda dimensión:</strong> Provincia</li>
+          <li><strong>Tercera dimensión:</strong> Ciudad (cantón)</li>
+        </ul>
 
-        <pre class="code-box mb-3"><code># Ejemplo de bloque de código
-# Tus compañeros pegan aquí el código real (con indentación)
-numero = int(input("Ingrese un número: "))</code></pre>
+  <pre class="code-box">
+  Pais[PAIS][PROVINCIA][CIUDAD]
+  </pre>
 
-        <!-- ===== BLOQUE 3 ===== -->
-        <h5 class="fw-bold mb-2">3) Proceso / Cálculo</h5>
-        <p class="mb-2">
-          Explica la parte principal de la lógica (bucles, condicionales, funciones, etc.).
-        </p>
-
-        <pre class="code-box mb-3"><code># Ejemplo
-resultado = 1
-for i in range(1, numero + 1):
-    resultado *= i</code></pre>
-
-        <!-- ===== BLOQUE 4 ===== -->
-        <h5 class="fw-bold mb-2">4) Salida / Resultados</h5>
-        <p class="mb-2">
-          Explica qué se muestra al final y por qué.
-        </p>
-
-        <pre class="code-box"><code>print("El resultado es:", resultado)</code></pre>
-
-        <p class="hint mt-3 mb-0">
-          Consejo: No se salten pasos. Explicar “por qué” es más importante que solo pegar código.
+        <p>
+          Cada país contiene varias provincias y cada provincia contiene
+          varias ciudades. Esta relación jerárquica es lo que convierte
+          al ejercicio en un <strong>arreglo cúbico</strong>.
         </p>
       </div>
 
+      <!-- ESTRUCTURAS -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold mb-2">📂 Estructuras de datos utilizadas</h4>
+
+        <p>
+          Se utilizan dos tipos de arreglos:
+        </p>
+
+        <ul>
+          <li>Arreglos indexados para las ciudades</li>
+          <li>Arreglos asociativos para países y provincias</li>
+        </ul>
+
+  <pre class="code-box">
+  cantones = [
+    ["QUITO","CAYAMBE","RUMIÑAHUI"],
+    ["GUAYAQUIL","DAULE","SAMBORONDON","BAEZA"]
+  ]
+
+  Pais = {
+    "ECUADOR": {
+      "Pichincha": ["QUITO","CAYAMBE","RUMIÑAHUI"],
+      "Guayas": cantones[1]
+    }
+  }
+  </pre>
+      </div>
+
+      <!-- RECORRIDO -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold mb-2">🔁 Recorrido del arreglo cúbico</h4>
+
+        <p>
+          Para mostrar los datos en forma de tabla,
+          se realiza un recorrido tridimensional:
+        </p>
+
+        <ol>
+          <li>Se recorre cada país</li>
+          <li>Dentro de cada país, se recorren las provincias</li>
+          <li>Dentro de cada provincia, se recorren las ciudades</li>
+        </ol>
+
+  <pre class="code-box">
+  for pais in Pais:
+      for provincia in Pais[pais]:
+          for ciudad in Pais[pais][provincia]:
+              procesar ciudad
+  </pre>
+
+        <p>
+          Este recorrido es característico de los arreglos cúbicos,
+          ya que implica tres niveles de iteración.
+        </p>
+      </div>
+
+    <!-- EXPLICACIÓN -->
+   <div class="explain-card mb-4">
+  <h4 class="fw-bold mb-3">📌 Explicación del código (línea por línea)</h4>
+
+  <!-- BLOQUE 1 -->
+  <h5 class="fw-bold">1) Importación de librerías necesarias</h5>
+  <p>
+    Se importan los componentes requeridos del framework Flask para poder
+    manejar la interacción con el usuario y mostrar resultados dinámicos
+    en una aplicación web.
+  </p>
+  <ul>
+    <li><code>request</code>: permite obtener los datos enviados desde el formulario.</li>
+    <li><code>render_template_string</code>: permite renderizar HTML directamente desde Python.</li>
+  </ul>
+
+<pre class="code-box">
+from flask import request, render_template_string
+</pre>
+
+  <!-- BLOQUE 2 -->
+  <h5 class="fw-bold mt-4">2) Definición de la plantilla HTML base</h5>
+  <p>
+    Se define una plantilla HTML que controla dos estados del ejercicio:
+  </p>
+  <ul>
+    <li><strong>Estado inicial:</strong> muestra únicamente el formulario.</li>
+    <li><strong>Estado de ejecución:</strong> muestra el arreglo original y el arreglo con los cubos.</li>
+  </ul>
+  <p class="hint">
+    Esta estructura evita que el ejercicio se ejecute automáticamente al cargar la página.
+  </p>
+
+<pre class="code-box">
+HTML = """
+&lt;h4 class="mb-3 text-center"&gt;Ejemplo: Arreglos y Cálculo de Cubos&lt;/h4&gt;
+
+&lt;form method="post"&gt;
+  &lt;input type="text" name="numeros"&gt;
+  &lt;button type="submit"&gt;Ejecutar&lt;/button&gt;
+&lt;/form&gt;
+
+{% if mostrar %}
+  &lt;p&gt;Arreglo original: {{ lista }}&lt;/p&gt;
+  &lt;p&gt;Cubos calculados: {{ cubos }}&lt;/p&gt;
+{% endif %}
+"""
+</pre>
+
+  <!-- BLOQUE 3 -->
+  <h5 class="fw-bold mt-4">3) Recepción de datos desde el formulario</h5>
+  <p>
+    Cuando el usuario presiona el botón de ejecutar, los datos ingresados
+    en el formulario son enviados mediante una petición <strong>POST</strong>.
+    Estos datos se reciben como una cadena de texto.
+  </p>
+
+<pre class="code-box">
+numeros = request.form.get("numeros")
+</pre>
+
+  <!-- BLOQUE 4 -->
+  <h5 class="fw-bold mt-4">4) Conversión de texto a arreglo de enteros</h5>
+  <p>
+    La cadena ingresada por el usuario contiene números separados por comas.
+    Se utiliza una comprensión de listas para:
+  </p>
+  <ul>
+    <li>Separar la cadena usando <code>split(",")</code></li>
+    <li>Convertir cada valor a tipo entero</li>
+    <li>Almacenar los valores en un arreglo (lista)</li>
+  </ul>
+
+<pre class="code-box">
+lista = [int(n) for n in numeros.split(",")]
+</pre>
+
+  <!-- BLOQUE 5 -->
+  <h5 class="fw-bold mt-4">5) Declaración del arreglo para almacenar los cubos</h5>
+  <p>
+    Se declara un arreglo vacío llamado <code>cubos</code>.
+    En este arreglo se almacenará el resultado del cálculo
+    del cubo de cada número ingresado.
+  </p>
+
+<pre class="code-box">
+cubos = []
+</pre>
+
+  <!-- BLOQUE 6 -->
+  <h5 class="fw-bold mt-4">6) Recorrido del arreglo y cálculo del cubo</h5>
+  <p>
+    Se recorre el arreglo <code>lista</code> utilizando un ciclo <code>for</code>.
+    En cada iteración se calcula el cubo del número actual elevándolo
+    a la potencia de 3.
+  </p>
+  <p class="hint">
+    Matemáticamente: cubo = n × n × n
+  </p>
+
+<pre class="code-box">
+for n in lista:
+    cubos.append(n ** 3)
+</pre>
+
+  <!-- BLOQUE 7 -->
+  <h5 class="fw-bold mt-4">7) Envío de resultados a la vista</h5>
+  <p>
+    Finalmente, se envían el arreglo original y el arreglo con los cubos
+    a la plantilla HTML para ser mostrados al usuario.
+  </p>
+  <p>
+    Esto permite visualizar claramente la relación entre los datos de entrada
+    y los resultados obtenidos.
+  </p>
+
+<pre class="code-box">
+return render_template_string(
+    HTML,
+    mostrar=True,
+    lista=lista,
+    cubos=cubos
+)
+</pre>
+
+  <!-- BLOQUE 8 -->
+  <h5 class="fw-bold mt-4">8) Resultado final del ejercicio</h5>
+  <p>
+    El programa muestra:
+  </p>
+  <ul>
+    <li>El arreglo original ingresado por el usuario.</li>
+    <li>Un nuevo arreglo que contiene el cubo de cada elemento.</li>
+  </ul>
+
+  <p class="hint mt-3">
+    Este ejercicio refuerza conceptos fundamentales como:
+    arreglos indexados, recorridos secuenciales, operaciones matemáticas
+    y transformación de datos mediante programación estructurada.
+  </p>
+</div>
+
+
+        <div class="explain-card">
+      <h4 class="fw-bold">💻 Código completo del ejercicio (Python)</h4>
+      <p class="hint">
+        Analice cuidadosamente el código antes de ejecutar el ejercicio.
+      </p>
+
+<pre class="code-box">
+from flask import request, render_template_string
+
+HTML = """
+&lt;h4 class="text-center mb-3"&gt;TALLER - PAISES&lt;/h4&gt;
+
+{% if mostrar %}
+  {% for tabla in tablas %}
+    {{ tabla|safe }}
+  {% endfor %}
+{% else %}
+  &lt;div class="alert alert-secondary text-center"&gt;
+    Presione &lt;strong&gt;Ejecutar ejercicio&lt;/strong&gt; para visualizar las tablas.
+  &lt;/div&gt;
+{% endif %}
+"""
+
+def ejecutar():
+
+    cantones = [
+        ["QUITO","CAYAMBE","RUMIÑAHUI"],
+        ["GUAYAQUIL","DAULE","SAMBORONDON","BAEZA"],
+        ["CUENCA","LOJA"],
+        ["ROCAFUERTE","CHONE"]
+    ]
+
+    Pais = {
+        "ECUADOR": {
+            "Pichincha": ["QUITO","CAYAMBE","RUMIÑAHUI"],
+            "Guayas": cantones[1],
+            "Azuay": ["Cuenca"],
+            "Manabi": cantones[3],
+            "Tunguragua": ["Ambato"]
+        }
+    }
+
+    if request.method == "GET":
+        return render_template_string(HTML, mostrar=False)
+
+    tablas = []
+
+    for pais, info in Pais.items():
+        maxColum = max(len(v) for v in info.values())
+
+        html = f"&lt;b&gt;PAIS : {pais}&lt;/b&gt;&lt;br&gt;"
+        html += f"MAXCOLUM: {maxColum}&lt;br&gt;"
+        html += f"NUMERO DE PROVINCIAS: {len(info)}&lt;br&gt;&lt;br&gt;"
+
+        html += "&lt;table border='1'&gt;"
+        html += f"&lt;tr&gt;&lt;th colspan='{len(info)}'&gt;{pais}&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;"
+
+        for prov in info.keys():
+            html += f"&lt;th&gt;{prov}&lt;/th&gt;"
+        html += "&lt;/tr&gt;"
+
+        for f in range(maxColum):
+            html += "&lt;tr&gt;"
+            for data in info.values():
+                html += f"&lt;td&gt;{data[f] if f &lt; len(data) else ''}&lt;/td&gt;"
+            html += "&lt;/tr&gt;"
+
+        html += "&lt;/table&gt;&lt;br&gt;&lt;br&gt;"
+        tablas.append(html)
+
+    return render_template_string(HTML, mostrar=True, tablas=tablas)
+</pre>
+    </div>
+
+    <!-- BOTÓN -->
       <!-- ✅ BOTÓN EJECUTAR -->
       <div class="ej-actions">
         <a href="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario"
@@ -208,7 +490,7 @@ for i in range(1, numero + 1):
 
       </div>
 
-    </div>
+
   </div>
 </section>
 

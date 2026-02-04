@@ -1,94 +1,126 @@
-{% extends "base.html" %}
-{% block title %}{{ ejercicio.titulo }} · Python Academy{% endblock %}
-
-{% block content %}
+{% extends "base.html" %} {% block title %}{{ ejercicio.titulo }} · Python
+Academy{% endblock %} {% block content %}
 
 <style>
-  .hero-ej{
-    background:#f8fafc;
-    border-bottom:1px solid rgba(0,0,0,.08);
-    padding:52px 0;
+  .hero-ej {
+    background: #f8fafc;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 52px 0;
   }
-  .hero-ej .badge{border-radius:999px;padding:8px 14px;font-weight:700;}
-  .hero-ej h1{font-weight:800;letter-spacing:-.02em;}
-  .hero-ej p{max-width:920px;margin:0 auto;}
-
-  .hero-top-actions{
-    display:flex;
-    justify-content:center;
-    margin-bottom:14px;
+  .hero-ej .badge {
+    border-radius: 999px;
+    padding: 8px 14px;
+    font-weight: 700;
   }
-  .btn-pill{border-radius:999px;padding:10px 22px;font-weight:700;}
-  .btn-pill-sm{border-radius:999px;padding:8px 16px;font-weight:700;}
-
-  .ej-wrap{padding:36px 0 70px;}
-  .ej-panel{
-    border-radius:18px;border:1px solid rgba(0,0,0,.08);
-    box-shadow:0 10px 25px rgba(0,0,0,.05);
-    background:#fff;padding:26px;
+  .hero-ej h1 {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .hero-ej p {
+    max-width: 920px;
+    margin: 0 auto;
   }
 
-  /* Bloques tipo tarjeta */
-  .explain-card{
-    border:1px solid rgba(0,0,0,.08);
-    border-radius:16px;
-    padding:18px;
-    background:#fbfdff;
+  .hero-top-actions {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 14px;
+  }
+  .btn-pill {
+    border-radius: 999px;
+    padding: 10px 22px;
+    font-weight: 700;
+  }
+  .btn-pill-sm {
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-weight: 700;
   }
 
-  /* Bloques de código */
-  .code-box{
-    background:#0b1220;
-    color:#e6edf3;
-    border-radius:14px;
-    padding:14px;
-    overflow:auto;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  .ej-wrap {
+    padding: 36px 0 70px;
+  }
+  .ej-panel {
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    background: #fff;
+    padding: 26px;
+  }
+
+  .explain-card {
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 18px;
+    background: #fbfdff;
+  }
+
+  .code-box {
+    background: #0b1220;
+    color: #e6edf3;
+    border-radius: 14px;
+    padding: 14px;
+    overflow: auto;
+    font-family:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
     font-size: 0.92rem;
-    white-space: pre; /* respeta enter + espacios */
+    white-space: pre;
     margin: 0;
   }
 
-  .hint{ font-size:.95rem; color:#556; }
-
-  /* Botón ejecutar */
-  .ej-actions{
-    margin-top:18px;
-    display:flex;
-    justify-content:center;
+  .hint {
+    font-size: 0.95rem;
+    color: #556;
   }
 
-  /* Formulario/Salida */
-  .form-shell{margin-top:22px;display:flex;justify-content:center;}
-  .form-card{
-    width:100%;
-    max-width:720px;
-    border-radius:18px;border:1px solid rgba(0,0,0,.08);
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-    background:#fff;padding:22px;
+  .ej-actions {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
   }
-  .form-card *{max-width:100%;}
 
-  /* Navegación inferior */
-  .ej-nav-bottom{
-    margin-top:26px;
-    padding-top:18px;
-    border-top:1px solid rgba(0,0,0,.08);
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
+  .form-shell {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
   }
-  .ej-nav-bottom .btn{ min-width:170px; }
+  .form-card {
+    width: 100%;
+    max-width: 720px;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    background: #fff;
+    padding: 22px;
+  }
+
+  .ej-nav-bottom {
+    margin-top: 26px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .ej-nav-bottom .btn {
+    min-width: 170px;
+  }
+  .table-wrap {
+    width: 100%;
+    overflow-x: auto;
+  }
 </style>
 
 <!-- HERO -->
 <section class="hero-ej">
   <div class="container text-center">
-
-    <!-- Volver al menú -->
     <div class="hero-top-actions">
-      <a href="{{ url_for('ejercicios') }}" class="btn btn-outline-secondary btn-pill-sm">
+      <a
+        href="{{ url_for('ejercicios') }}"
+        class="btn btn-outline-secondary btn-pill-sm"
+      >
         <i class="bi bi-arrow-left me-1"></i> Volver al menú
       </a>
     </div>
@@ -96,118 +128,464 @@
     <span class="badge bg-primary mb-3">{{ ejercicio.tema }}</span>
     <h1 class="display-5 mb-2">{{ ejercicio.titulo }}</h1>
 
-    <!-- ✅ Se mantiene la DESCRIPCIÓN CORTA -->
     <p class="lead text-muted">
-      {{ ejercicio.descripcion }}
+      Generación de tablas dinámicas a partir de arreglos multidimensionales,
+      utilizando recorridos automáticos y control de filas y columnas.
     </p>
   </div>
 </section>
 
-<!-- CONTENIDO -->
 <section class="ej-wrap">
   <div class="container">
     <div class="ej-panel">
+      <!-- DEFINICIÓN -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold mb-2">📘 ¿Qué son las tablas dinámicas?</h4>
 
-      <!-- ✅ ENUNCIADO (EDITAR AQUÍ) -->
+        <p>
+          Una <strong>tabla dinámica</strong> es una tabla que no se construye
+          de forma fija, sino que se genera automáticamente a partir de los
+          datos contenidos en arreglos o matrices.
+        </p>
+
+        <p>
+          El número de filas, columnas y celdas depende directamente de la
+          información almacenada en las estructuras de datos.
+        </p>
+
+        <pre class="code-box">
+tabla[filas][columnas]  ← generadas dinámicamente
+</pre
+        >
+      </div>
+
+      <!-- ENUNCIADO -->
       <div class="explain-card mb-4">
         <h4 class="fw-bold mb-2">🧩 Enunciado</h4>
 
-        <!-- 👇 Tus compañeros cambian este texto -->
-        <p class="mb-2">
-          Aquí escribe el enunciado del ejercicio (qué se debe realizar y cuál es el objetivo).
+        <p>
+          Desarrollar un programa que represente países, provincias y ciudades
+          mediante arreglos multidimensionales y genere dinámicamente tablas
+          HTML que muestren esta información organizada por país.
         </p>
 
-        <p class="mb-0 hint">
-          Objetivo: explica claramente qué aprenderá el estudiante con este ejercicio.
+        <p class="hint mb-0">
+          Objetivo: Comprender cómo los arreglos permiten construir tablas
+          dinámicas sin definir previamente el número de filas y columnas.
         </p>
       </div>
 
-      <!-- ✅ EXPLICACIÓN DEL CÓDIGO (EDITAR AQUÍ) -->
+      <!-- JUSTIFICACIÓN -->
       <div class="explain-card mb-4">
-        <h4 class="fw-bold mb-3">📌 Explicación del código (paso a paso)</h4>
+        <h4 class="fw-bold mb-2">
+          🧠 ¿Por qué este ejercicio es de tablas dinámicas?
+        </h4>
 
-        <!-- ===== BLOQUE 1 ===== -->
-        <h5 class="fw-bold mb-2">1) ¿Qué hace el programa?</h5>
-        <p class="mb-3">
-          Describe en 2-3 líneas la lógica general del ejercicio.
-        </p>
+        <ul>
+          <li>
+            Las provincias determinan automáticamente el número de columnas
+          </li>
+          <li>Las ciudades determinan automáticamente el número de filas</li>
+          <li>La tabla se adapta a cualquier cantidad de datos</li>
+        </ul>
 
-        <!-- ===== BLOQUE 2 ===== -->
-        <h5 class="fw-bold mb-2">2) Entradas del usuario</h5>
-        <p class="mb-2">
-          Explica qué datos ingresa el usuario y cómo se validan.
-        </p>
+        <pre class="code-box">
+Columnas = número de provincias
+Filas    = máximo de ciudades
+</pre
+        >
+      </div>
 
-        <pre class="code-box mb-3"><code># Ejemplo de bloque de código
-# Tus compañeros pegan aquí el código real (con indentación)
-numero = int(input("Ingrese un número: "))</code></pre>
+      <!-- RECORRIDO -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold mb-2">🔁 Recorrido de los datos</h4>
 
-        <!-- ===== BLOQUE 3 ===== -->
-        <h5 class="fw-bold mb-2">3) Proceso / Cálculo</h5>
-        <p class="mb-2">
-          Explica la parte principal de la lógica (bucles, condicionales, funciones, etc.).
-        </p>
+        <p>Para construir la tabla se utilizan recorridos anidados:</p>
 
-        <pre class="code-box mb-3"><code># Ejemplo
-resultado = 1
-for i in range(1, numero + 1):
-    resultado *= i</code></pre>
+        <pre class="code-box">
+for pais:
+    for provincia:
+        for ciudad:
+            generar celda
+</pre
+        >
 
-        <!-- ===== BLOQUE 4 ===== -->
-        <h5 class="fw-bold mb-2">4) Salida / Resultados</h5>
-        <p class="mb-2">
-          Explica qué se muestra al final y por qué.
-        </p>
-
-        <pre class="code-box"><code>print("El resultado es:", resultado)</code></pre>
-
-        <p class="hint mt-3 mb-0">
-          Consejo: No se salten pasos. Explicar “por qué” es más importante que solo pegar código.
+        <p class="hint">
+          Este tipo de recorrido permite construir tablas completamente
+          adaptables a la información disponible.
         </p>
       </div>
 
-      <!-- ✅ BOTÓN EJECUTAR -->
+      <div class="explain-card mb-4">
+  <h4 class="fw-bold mb-3">📌 Explicación detallada del código (párrafo en párrafo)</h4>
+
+  <!-- 1 -->
+  <h5 class="fw-bold">1) Importación de utilidades Flask</h5>
+  <p>
+    <code>from flask import request, render_template_string</code> importa dos piezas clave para que el ejercicio funcione
+    dentro de tu plataforma. <strong>request</strong> te permite saber si el usuario solo está viendo la página (GET) o si
+    presionó el botón “Ejecutar ejercicio” (POST). <strong>render_template_string</strong> sirve para devolver HTML
+    construido desde un string en Python, sin necesidad de crear un archivo HTML extra para el resultado.
+  </p>
+  <pre class="code-box">from flask import request, render_template_string</pre>
+
+  <!-- 2 -->
+  <h5 class="fw-bold mt-4">2) Encabezado del ejercicio</h5>
+  <p>
+    Este bloque sirve para identificar el ejercicio, su temática y que fue convertido desde PHP a Python. No cambia la ejecución,
+    pero ayuda a mantener organizado el proyecto y entender rápidamente el objetivo del archivo.
+  </p>
+  <pre class="code-box"># =====================================================
+# EJERCICIO: TABLAS DINÁMICAS - PROVINCIAS
+# CONVERSIÓN 1:1 DESDE PHP A PYTHON
+# =====================================================</pre>
+
+  <!-- 3 -->
+  <h5 class="fw-bold mt-4">3) Plantilla HTML base (variable <code>HTML</code>)</h5>
+  <p>
+    <code>HTML</code> guarda una plantilla en texto que luego Flask renderiza. Allí incluyes estilos y contenido inicial.
+    En GET, se muestra el mensaje para ejecutar. En POST, se muestran las tablas generadas (cuando la plantilla esté preparada
+    para recibir <code>tablas</code> y mostrarlas).
+  </p>
+  <pre class="code-box">HTML = """ ... """</pre>
+
+  <!-- 4 -->
+  <h5 class="fw-bold mt-4">4) CSS para tablas y celdas</h5>
+  <p>
+    Se aplican estilos para que las tablas queden centradas, con fondo blanco, bordes limpios y texto alineado.
+    Como las tablas se generan por código, este CSS asegura que todas se vean iguales sin importar cuántas columnas o filas existan.
+  </p>
+  <pre class="code-box">table{
+  margin:auto;
+  background:white;
+  border-collapse: collapse;
+}
+td, th{
+  padding:6px 10px;
+  border:1px solid #333;
+  text-align:center;
+}</pre>
+
+  <!-- 5 -->
+  <h5 class="fw-bold mt-4">5) Capital resaltada con parpadeo (blink)</h5>
+  <p>
+    En cada provincia, la primera ciudad (posición 0) se considera la “capital”. Para resaltarla se aplica la clase
+    <code>blink</code> que usa una animación CSS. Así el texto alterna visibilidad y llama la atención, igual que en tu PHP original.
+  </p>
+  <pre class="code-box">.blink{
+  animation: blink 1s linear infinite;
+  font-weight:bold;
+  color:black;
+}
+@keyframes blink {
+  50% { opacity:0; }
+}</pre>
+
+  <!-- 6 -->
+  <h5 class="fw-bold mt-4">6) Evitar desbordes (scroll horizontal)</h5>
+  <p>
+    Como el ejercicio puede tener muchas provincias (muchas columnas), en pantallas pequeñas la tabla podría salirse del contenedor.
+    Con <code>overflow-x:auto</code> se habilita un scroll horizontal para mantener el diseño estable.
+  </p>
+  <pre class="code-box">.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}</pre>
+
+  <!-- 7 -->
+  <h5 class="fw-bold mt-4">7) Control GET vs POST dentro de <code>ejecutar()</code></h5>
+  <p>
+    La función <code>ejecutar()</code> es llamada por tu <code>app.py</code>. Primero se valida el método HTTP:
+    si es GET, no se genera nada y solo se muestra el mensaje inicial. Si es POST, se construyen tablas y se retorna el resultado.
+  </p>
+  <pre class="code-box">def ejecutar():
+
+    if request.method == "GET":
+        return render_template_string(HTML, mostrar=False)</pre>
+
+  <!-- 8 -->
+  <h5 class="fw-bold mt-4">8) Estructura principal <code>paises</code></h5>
+  <p>
+    <code>paises</code> es un diccionario anidado (3 niveles): país → provincia → lista de ciudades.
+    Esta estructura permite construir tablas dinámicas porque el número de provincias define las columnas
+    y el máximo número de ciudades define las filas.
+  </p>
+  <pre class="code-box">paises = {
+  "ECUADOR": {
+    "Pichincha": ["QUITO", "..."],
+    "Guayas": ["GUAYAQUIL", "..."]
+  }
+}</pre>
+
+  <!-- 9 -->
+  <h5 class="fw-bold mt-4">9) Generación dinámica de tablas</h5>
+  <p>
+    Se recorre cada país y se genera una tabla HTML. Primero se calcula <code>maxFilas</code> con el máximo tamaño de listas
+    (para que todas las columnas tengan la misma cantidad de filas). Luego se construye el encabezado con provincias y el cuerpo
+    recorriendo fila por fila.
+  </p>
+  <pre class="code-box">tablas = []
+
+for pais, infoPais in paises.items():
+
+    maxFilas = max(len(c) for c in infoPais.values())
+
+    html = f"&lt;br&gt;&lt;strong&gt;PAÍS: {pais}&lt;/strong&gt;&lt;br&gt;"
+    html += "&lt;table&gt;"
+    html += f"&lt;tr&gt;&lt;th colspan='{len(infoPais)}' bgcolor='#EC7063'&gt;{pais}&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;"
+
+    for prov in infoPais:
+        html += f"&lt;th&gt;{prov}&lt;/th&gt;"
+    html += "&lt;/tr&gt;"</pre>
+
+  <!-- 10 -->
+  <h5 class="fw-bold mt-4">10) Cuerpo de la tabla (capital + celdas vacías)</h5>
+  <p>
+    En la fila 0 se imprime la capital con <code>blink</code>. En las demás filas se imprime la ciudad si existe.
+    Si no existe (provincia con menos ciudades), se agrega una celda vacía para mantener alineadas las columnas.
+  </p>
+  <pre class="code-box">for i in range(maxFilas):
+    html += "&lt;tr&gt;"
+    for cantones in infoPais.values():
+        if i == 0:
+            html += f"&lt;td class='blink' bgcolor='#D6FAF2'&gt;{cantones[0]}&lt;/td&gt;"
+        else:
+            html += (
+                f"&lt;td bgcolor='#D6FAF2'&gt;{cantones[i]}&lt;/td&gt;"
+                if i &lt; len(cantones)
+                else "&lt;td bgcolor='#D6DEFA'&gt; &lt;/td&gt;"
+            )
+    html += "&lt;/tr&gt;"</pre>
+
+  <!-- 11 -->
+  <h5 class="fw-bold mt-4">11) Render final (enviar tablas a la vista)</h5>
+  <p>
+    Se devuelve la plantilla renderizada y se envían las variables que la vista necesita:
+    <code>mostrar</code> para controlar la presentación y <code>tablas</code> para imprimir los HTML generados.
+    Para que se vean como HTML real, en la plantilla debes imprimirlas usando <code>|safe</code>.
+  </p>
+  <pre class="code-box">return render_template_string(
+    HTML,
+    mostrar=True,
+    paises=paises,
+    tablas=tablas
+)</pre>
+
+</div>
+
+
+
+      <!-- CÓDIGO COMPLETO -->
+      <div class="explain-card mb-4">
+        <h4 class="fw-bold">💻 Código completo del ejercicio (Python)</h4>
+        <p class="hint">
+          Este es el código completo del ejercicio convertido desde PHP a
+          Python, manteniendo la misma estructura de datos, recorridos y
+          comportamiento visual. Analice el código antes de ejecutarlo.
+        </p>
+
+        <pre class="code-box">
+from flask import request, render_template_string
+
+# =====================================================
+# EJERCICIO: TABLAS DINÁMICAS - PROVINCIAS
+# CONVERSIÓN 1:1 DESDE PHP A PYTHON
+# =====================================================
+
+HTML = """
+&lt;style&gt;
+table{
+  margin:auto;
+  background:white;
+  border-collapse: collapse;
+}
+td, th{
+  padding:6px 10px;
+  border:1px solid #333;
+  text-align:center;
+}
+.blink{
+  animation: blink 1s linear infinite;
+  font-weight:bold;
+  color:black;
+}
+@keyframes blink {
+  50% { opacity:0; }
+}
+.table-wrap{
+  width:100%;
+  overflow-x:auto;
+}
+&lt;/style&gt;
+
+&lt;h2 class="text-center mb-3"&gt;TALLER - PROVINCIAS&lt;/h2&gt;
+
+{% if mostrar %}
+
+&lt;h4&gt;Cantones de las provincias de cada país&lt;/h4&gt;
+&lt;pre style="background:white; padding:15px; border-radius:10px;"&gt;
+{{ paises }}
+&lt;/pre&gt;
+
+&lt;h4&gt;Representación en Tablas&lt;/h4&gt;
+
+{% for tabla in tablas %}
+  &lt;div class="table-wrap"&gt;
+    {{ tabla|safe }}
+  &lt;/div&gt;
+{% endfor %}
+
+{% else %}
+&lt;div class="alert alert-secondary text-center"&gt;
+  Presione &lt;strong&gt;Ejecutar ejercicio&lt;/strong&gt; para visualizar las tablas dinámicas.
+&lt;/div&gt;
+{% endif %}
+"""
+
+def ejecutar():
+
+    # -------------------------------------------------
+    # CONTROL DE EJECUCIÓN
+    # GET → no ejecuta el ejercicio
+    # POST → ejecuta el ejercicio
+    # -------------------------------------------------
+    if request.method == "GET":
+        return render_template_string(HTML, mostrar=False)
+
+    # -------------------------------------------------
+    # MATRIZ PRINCIPAL (PAÍS → PROVINCIA → CIUDADES)
+    # -------------------------------------------------
+    paises = {
+
+        "ECUADOR": {
+            "Pichincha": ["QUITO","CAYAMBE","RUMIÑAHUI","MEJÍA","PEDRO MONCAYO","PUERTO QUITO","SAN MIGUEL DE LOS BANCOS"],
+            "Guayas": ["GUAYAQUIL","DURÁN","MILAGRO","DAULE","SAMBORONDÓN","PLAYAS","BALAO"],
+            "Azuay": ["CUENCA","GUALACEO","PAUTE","SANTA ISABEL","SÍGSIG","EL PAN","GIRÓN"],
+            "Manabí": ["PORTOVIEJO","MANTA","CHONE","JIPIJAPA","PEDERNALES","PAJÁN","ROCAFUERTE"],
+            "Tungurahua": ["AMBATO","BAÑOS","CEVALLOS","PÍLLARO","PATATE","QUERO","TISALEO"],
+            "Sucumbíos": ["NUEVA LOJA","SHUSHUFINDI","LAGO AGRIO","PUTUMAYO","CUYABENO","GONZALO PIZARRO","CASCALES"],
+            "Loja": ["LOJA","CATAMAYO","MACARÁ","ZAPOTILLO","SARAGURO","GONZANAMÁ","CELICA"]
+        },
+
+        "COLOMBIA": {
+            "Cundinamarca": ["BOGOTÁ","CHÍA","ZIPAQUIRÁ","SOACHA","FACATATIVÁ","FUSAGASUGÁ","LA CALERA"],
+            "Antioquia": ["MEDELLÍN","ENVIGADO","ITAGÜÍ","RIONEGRO","BELLO","LA ESTRELLA","COPACABANA"],
+            "Valle del Cauca": ["CALI","PALMIRA","YUMBO","JAMUNDÍ","BUGA","BUENAVENTURA","TULUÁ"],
+            "Santander": ["BUCARAMANGA","FLORIDABLANCA","GIRÓN","PIEDECUESTA","SAN GIL","BARBOSA","ZAPATOCA"],
+            "Atlántico": ["BARRANQUILLA","SOLEDAD","GALAPA","PUERTO COLOMBIA","MALAMBO","TUBARÁ","LURUACO"],
+            "Bolívar": ["CARTAGENA","MAGANGUÉ","TURBACO","MOMPÓS","ARJONA","SIMITÍ","SAN JUAN NEPOMUCENO"],
+            "Nariño": ["PASTO","TÚQUERRES","IPIALES","SAMANIEGO","LA CRUZ","EL TAMBO","BARBACOAS"]
+        },
+
+        "USA": {
+            "California": ["SACRAMENTO","LOS ANGELES","SAN DIEGO","SAN FRANCISCO","SAN JOSÉ","FRESNO","OAKLAND"],
+            "Texas": ["AUSTIN","HOUSTON","DALLAS","SAN ANTONIO","EL PASO","FORT WORTH","ARLINGTON"],
+            "Florida": ["TALLAHASSEE","MIAMI","ORLANDO","TAMPA","JACKSONVILLE","SARASOTA","OCALA"],
+            "New York": ["ALBANY","NYC","BUFFALO","ROCHESTER","SYRACUSE","YONKERS","UTICA"],
+            "Illinois": ["SPRINGFIELD","CHICAGO","NAPERVILLE","AURORA","JOLIET","ELGIN","WAUKEGAN"],
+            "Washington": ["OLYMPIA","SEATTLE","TACOMA","SPOKANE","BELLEVUE","YAKIMA","EVERETT"],
+            "Georgia": ["ATLANTA","SAVANNAH","AUGUSTA","COLUMBUS","MACON","ATHENS","ALBANY"]
+        },
+
+        "CHINA": {
+            "Beijing": ["BEIJING","HAIDIAN","CHAOYANG","DONGCHENG","FANGSHAN","MENTOUGOU","XICHENG"],
+            "Shanghai": ["SHANGHAI","PUDONG","XUHUI","MINHANG","JINGAN","BAOSHAN","SONGJIANG"],
+            "Guangdong": ["GUANGZHOU","SHENZHEN","FOSHAN","ZHUHAI","DONGGUAN","ZHONGSHAN","JIANGMEN"],
+            "Zhejiang": ["HANGZHOU","NINGBO","WENZHOU","JINHUA","HUZHOU","TAIZHOU","SHAOXING"],
+            "Sichuan": ["CHENGDU","MIANYANG","NANCHONG","LUZHOU","DÀZHOU","DEYANG","LESHAN"],
+            "Hubei": ["WUHAN","YICHANG","XIANGYANG","EZHOU","HUANGGANG","JINGMEN","SHIYAN"],
+            "Shandong": ["JINAN","QINGDAO","YANTAI","WEIFANG","RIZHAO","ZIBO","DEZHOU"]
+        }
+    }
+
+    # -------------------------------------------------
+    # GENERACIÓN DE TABLAS DINÁMICAS
+    # -------------------------------------------------
+    tablas = []
+
+    for pais, infoPais in paises.items():
+
+        maxFilas = max(len(c) for c in infoPais.values())
+
+        html = f"&lt;br&gt;&lt;strong&gt;PAÍS: {pais}&lt;/strong&gt;&lt;br&gt;"
+        html += "&lt;table&gt;"
+        html += f"&lt;tr&gt;&lt;th colspan='{len(infoPais)}' bgcolor='#EC7063'&gt;{pais}&lt;/th&gt;&lt;/tr&gt;&lt;tr&gt;"
+
+        for prov in infoPais:
+            html += f"&lt;th&gt;{prov}&lt;/th&gt;"
+        html += "&lt;/tr&gt;"
+
+        for i in range(maxFilas):
+            html += "&lt;tr&gt;"
+            for cantones in infoPais.values():
+                if i == 0:
+                    html += f"&lt;td class='blink' bgcolor='#D6FAF2'&gt;{cantones[0]}&lt;/td&gt;"
+                else:
+                    html += (
+                        f"&lt;td bgcolor='#D6FAF2'&gt;{cantones[i]}&lt;/td&gt;"
+                        if i &lt; len(cantones)
+                        else "&lt;td bgcolor='#D6DEFA'&gt;&nbsp;&lt;/td&gt;"
+                    )
+            html += "&lt;/tr&gt;"
+
+        html += "&lt;/table&gt;&lt;br&gt;"
+        tablas.append(html)
+
+    return render_template_string(
+        HTML,
+        mostrar=True,
+        paises=paises,
+        tablas=tablas
+    )
+</pre
+        >
+      </div>
+
+      <!-- BOTÓN -->
       <div class="ej-actions">
-        <a href="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario"
-           class="btn btn-primary btn-pill btn-lg">
-          Ejecutar ejercicio
-        </a>
+        <form
+          action="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario"
+          method="post"
+        >
+          <button type="submit" class="btn btn-primary btn-pill btn-lg">
+            Ejecutar ejercicio
+          </button>
+        </form>
       </div>
 
       <!-- ✅ FORMULARIO / SALIDA (sale después del botón) -->
       {% if contenido %}
       <div id="formulario" class="form-shell">
-        <div class="form-card">
-          {{ contenido|safe }}
-        </div>
+        <div class="form-card">{{ contenido|safe }}</div>
       </div>
       {% endif %}
 
       <!-- ✅ ANTERIOR / SIGUIENTE -->
       <div class="ej-nav-bottom">
-
         {% if anterior %}
-          <a href="{{ url_for('ver_ejercicio', slug=anterior['slug']) }}" class="btn btn-outline-primary btn-pill">
-            <i class="bi bi-arrow-left me-1"></i> Anterior
-          </a>
+        <a
+          href="{{ url_for('ver_ejercicio', slug=anterior['slug']) }}"
+          class="btn btn-outline-primary btn-pill"
+        >
+          <i class="bi bi-arrow-left me-1"></i> Anterior
+        </a>
         {% else %}
-          <button class="btn btn-outline-primary btn-pill" disabled>
-            <i class="bi bi-arrow-left me-1"></i> Anterior
-          </button>
-        {% endif %}
-
-        {% if siguiente %}
-          <a href="{{ url_for('ver_ejercicio', slug=siguiente['slug']) }}" class="btn btn-primary btn-pill">
-            Siguiente <i class="bi bi-arrow-right ms-1"></i>
-          </a>
+        <button class="btn btn-outline-primary btn-pill" disabled>
+          <i class="bi bi-arrow-left me-1"></i> Anterior
+        </button>
+        {% endif %} {% if siguiente %}
+        <a
+          href="{{ url_for('ver_ejercicio', slug=siguiente['slug']) }}"
+          class="btn btn-primary btn-pill"
+        >
+          Siguiente <i class="bi bi-arrow-right ms-1"></i>
+        </a>
         {% else %}
-          <button class="btn btn-primary btn-pill" disabled>
-            Siguiente <i class="bi bi-arrow-right ms-1"></i>
-          </button>
+        <button class="btn btn-primary btn-pill" disabled>
+          Siguiente <i class="bi bi-arrow-right ms-1"></i>
+        </button>
         {% endif %}
-
       </div>
-
     </div>
   </div>
 </section>

@@ -1,42 +1,75 @@
-from flask import request, render_template_string
+import math
+from flask import request
 
-# ✅ Cada grupo pega aquí su HTML (puede ser grande)
-HTML = """
-<h4 class="mb-3 text-center">Ejercicio (Formulario / Interacción)</h4>
+# ============================
+# CLASE FIGURA (POO)
+# ============================
+class Figura:
+    def __init__(self, tipo, l1, l2=None, l3=None):
+        self.tipo = tipo
+        self.l1 = l1
+        self.l2 = l2
+        self.l3 = l3
+        self.area = 0
+        self.perimetro = 0
 
-<form method="post">
-  <label class="form-label">Dato 1:</label>
-  <input class="form-control mb-3" type="text" name="dato1" required>
+    def calcular_perimetro(self):
+        if self.tipo == "cuadrado":
+            self.perimetro = self.l1 * 4
 
-  <label class="form-label">Dato 2:</label>
-  <input class="form-control mb-4" type="number" name="dato2" required>
+        elif self.tipo == "rectangulo":
+            self.perimetro = (self.l1 * 2) + (self.l2 * 2)
 
-  <button class="btn btn-success w-100" type="submit">Enviar</button>
-</form>
+        elif self.tipo == "triangulo":
+            self.perimetro = self.l1 + self.l2 + self.l3
 
-{% if mostrar %}
-<hr>
-<div class="alert alert-info mt-3">
-  <strong>Resultado:</strong> {{ resultado }}
-</div>
-{% endif %}
-"""
+        return self.perimetro
 
+    def calcular_area(self):
+        if self.tipo == "cuadrado":
+            self.area = self.l1 ** 2
+
+        elif self.tipo == "rectangulo":
+            self.area = self.l1 * self.l2
+
+        elif self.tipo == "triangulo":
+            self.calcular_perimetro()
+            s = self.perimetro / 2
+            self.area = math.sqrt(
+                s * (s - self.l1) * (s - self.l2) * (s - self.l3)
+            )
+
+        return self.area
+
+
+# ============================
+# FUNCIÓN EJECUTAR (FLASK)
+# ============================
 def ejecutar():
+
+    # GET → solo muestra formulario
+    if request.method == "GET":
+        return ""
+
+    # POST → procesa datos
+    tipo = request.form["tipo"]
+    l1 = float(request.form["lado1"])
+    l2 = request.form.get("lado2")
+    l3 = request.form.get("lado3")
+
+    l2 = float(l2) if l2 else None
+    l3 = float(l3) if l3 else None
+
+    figura = Figura(tipo, l1, l2, l3)
+
+    area = figura.calcular_area()
+    per = figura.calcular_perimetro()
+
+    return f"""
+    <div class="alert alert-success">
+      <h4>Resultado</h4>
+      <p><strong>Figura:</strong> {tipo.capitalize()}</p>
+      <p><strong>Área:</strong> {area:.2f}</p>
+      <p><strong>Perímetro:</strong> {per:.2f}</p>
+    </div>
     """
-    ✅ FUNCIÓN ESTÁNDAR
-    - GET: muestra el formulario
-    - POST: procesa y muestra resultados
-    """
-
-    if request.method == "POST":
-        # ✅ Cada grupo implementa aquí lo que hace el ejercicio
-        dato1 = request.form.get("dato1")
-        dato2 = request.form.get("dato2")
-
-        # Ejemplo (cambiar por la lógica real del ejercicio)
-        resultado = f"Recibí: {dato1} y {dato2}"
-
-        return render_template_string(HTML, mostrar=True, resultado=resultado)
-
-    return render_template_string(HTML, mostrar=False)
