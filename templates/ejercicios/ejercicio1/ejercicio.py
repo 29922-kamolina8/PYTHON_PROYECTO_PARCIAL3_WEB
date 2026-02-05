@@ -1,99 +1,83 @@
 import os
-import random
-import string
+import sys
 from flask import request, render_template_string
 
+# ✅ Asegura que Python pueda importar geometry.py aunque el módulo se cargue con importlib
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join("static", "images")
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+if BASE_DIR not in sys.path:
+    sys.path.insert(0, BASE_DIR)
 
-def get_name_file(nombre_original, tamanio):
-    ext = nombre_original.split('.')[-1]
-    letras = string.ascii_letters
-    nombre = ''.join(random.choice(letras) for _ in range(tamanio))
-    return f"{nombre}.{ext}"
+from geometry import process_figure  # ✅ ahora sí, sin backend_formulario
 
 HTML = """
 <div class="wrap">
-<h3 class="text-center mb-4">Formulario de Registro Vehicular</h3>
+  <h3 class="text-center mb-4">Formulario de Figuras</h3>
 
-<form method="post" enctype="multipart/form-data">
-
-<label>Placa:</label>
-<input type="text" name="placa" class="form-control mb-3" required>
-
-<label>Marca:</label>
-<input type="text" name="marca" class="form-control mb-3" required>
-
-<label>Combustible:</label>
-<select name="combustible" class="form-select mb-3">
-  <option>Gasolina</option>
-  <option>Diésel</option>
-  <option>Eléctrico</option>
-</select>
-
-<label>Accesorios:</label>
-<div class="mb-3">
-  <div><input type="radio" name="accesorio" value="Radio" required> Radio</div>
-  <div><input type="radio" name="accesorio" value="Aros"> Aros</div>
-  <div><input type="radio" name="accesorio" value="Radio y Aros"> Radio y Aros</div>
-  <div><input type="radio" name="accesorio" value="Ninguno"> Ninguno</div>
-</div>
-
-<label>Comentarios:</label>
-<textarea name="comentarios" class="form-control mb-3"></textarea>
-
-<label>Foto:</label>
-<input type="file" name="foto" class="form-control mb-4">
-
-<button type="submit" class="btn btn-success w-100">
-  Enviar
-</button>
-</form>
-
-{% if mostrar %}
-<hr>
-<div class="alert alert-info mt-4">
-  <strong>Placa:</strong> {{ placa }}<br>
-  <strong>Marca:</strong> {{ marca }}<br>
-  <strong>Combustible:</strong> {{ combustible }}<br>
-  <strong>Accesorios:</strong> {{ accesorios }}<br>
-  <strong>Comentarios:</strong> {{ comentarios }}<br>
-
-  {% if foto %}
-    <img src="{{ foto }}" class="img-fluid mt-3 rounded">
+  {% if errors %}
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        {% for e in errors %}
+          <li>{{ e }}</li>
+        {% endfor %}
+      </ul>
+    </div>
   {% endif %}
-</div>
-{% endif %}
+
+  <form method="POST" class="card p-4 shadow-sm border-0">
+
+    <label class="fw-bold">Figura:</label>
+    <select name="figura" class="form-select mb-3">
+      <option value="">Seleccione figura</option>
+      <option value="cuadrado" {% if form_data.figura=='cuadrado' %}selected{% endif %}>Cuadrado</option>
+      <option value="rectangulo" {% if form_data.figura=='rectangulo' %}selected{% endif %}>Rectángulo</option>
+      <option value="triangulo" {% if form_data.figura=='triangulo' %}selected{% endif %}>Triángulo</option>
+    </select>
+
+    <label class="fw-bold">Lados:</label>
+    <input class="form-control mb-2" name="l1" placeholder="l1" value="{{ form_data.l1 }}">
+    <input class="form-control mb-2" name="l2" placeholder="l2" value="{{ form_data.l2 }}">
+    <input class="form-control mb-3" name="l3" placeholder="l3" value="{{ form_data.l3 }}">
+
+    <button class="btn btn-primary w-100">Calcular</button>
+  </form>
+
+  {% if result %}
+    <div class="card p-4 mt-3 shadow-sm border-0">
+      <p class="mb-2"><b>Figura:</b> {{ result.figura }}</p>
+      <p class="mb-2"><b>Lados:</b> {{ result.lados }}</p>
+      <p class="mb-2"><b>Área:</b> {{ result.area }}</p>
+      <p class="mb-2"><b>Perímetro:</b> {{ result.perimetro }}</p>
+
+      {% if result.tipo_triangulo %}
+        <p class="mb-0"><b>Tipo triángulo:</b> {{ result.tipo_triangulo }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>
 """
 
 def ejecutar():
-    if request.method == 'POST':
-        placa = request.form.get('placa')
-        marca = request.form.get('marca')
-        combustible = request.form.get('combustible')
-        comentarios = request.form.get('comentarios')
-        accesorios = request.form.get('accesorio')
+    errors = []
+    result = None
+    form_data = {"figura": "", "l1": "", "l2": "", "l3": ""}
 
-        foto = request.files.get('foto')
-        foto_url = None
+    if request.method == "POST":
+        figura = request.form.get("figura", "").strip()
+        l1 = request.form.get("l1", "").strip()
+        l2 = request.form.get("l2", "").strip()
+        l3 = request.form.get("l3", "").strip()
 
-        if foto and foto.filename:
-            nombre = get_name_file(foto.filename, 15)
-            ruta = os.path.join(UPLOAD_FOLDER, nombre)
-            foto.save(ruta)
-            foto_url = f"/static/images/{nombre}"
+        form_data["figura"] = figura
+        form_data["l1"] = l1
+        form_data["l2"] = l2
+        form_data["l3"] = l3
 
-        return render_template_string(
-            HTML,
-            placa=placa,
-            marca=marca,
-            combustible=combustible,
-            accesorios=accesorios,
-            comentarios=comentarios,
-            foto=foto_url,
-            mostrar=True
-        )
+        # ✅ tu backend (geometry.py) devuelve (result, errors)
+        result, errors = process_figure(figura, l1, l2, l3)
 
-    return render_template_string(HTML, mostrar=False)
+    return render_template_string(
+        HTML,
+        errors=errors,
+        result=result,
+        form_data=form_data
+    )

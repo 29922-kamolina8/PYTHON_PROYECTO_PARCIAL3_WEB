@@ -1,42 +1,83 @@
 from flask import request, render_template_string
 
-# ✅ Cada grupo pega aquí su HTML (puede ser grande)
+def calcular_factorial(n: int) -> int:
+    total = 1
+    for i in range(1, n + 1):
+        total *= i
+    return total
+
 HTML = """
-<h4 class="mb-3 text-center">Ejercicio (Formulario / Interacción)</h4>
+<div class="wrap">
 
-<form method="post">
-  <label class="form-label">Dato 1:</label>
-  <input class="form-control mb-3" type="text" name="dato1" required>
+  <h3 class="text-center mb-4">Cálculo de Factorial</h3>
 
-  <label class="form-label">Dato 2:</label>
-  <input class="form-control mb-4" type="number" name="dato2" required>
+  {% if error %}
+    <div class="alert alert-danger">
+      {{ error }}
+    </div>
+  {% endif %}
 
-  <button class="btn btn-success w-100" type="submit">Enviar</button>
-</form>
+  <div class="card p-4 shadow-sm border-0">
+    <form method="POST">
+      <div class="mb-3">
+        <label class="form-label fw-bold" for="ingresoNumero">Ingrese un número:</label>
+        <input type="number" class="form-control"
+               name="ingresoNumero" id="ingresoNumero"
+               value="{{ form_data.ingresoNumero }}"
+               min="0" max="10" step="1" required>
+        <div class="form-text">Rango permitido: 0 a 10.</div>
+      </div>
 
-{% if mostrar %}
-<hr>
-<div class="alert alert-info mt-3">
-  <strong>Resultado:</strong> {{ resultado }}
+      <button type="submit" class="btn btn-primary w-100">
+        Calcular
+      </button>
+    </form>
+  </div>
+
+  {% if mostrar_resultado %}
+    <div class="card p-4 mt-3 shadow-sm border-0 text-center">
+      <div class="alert alert-success mb-0">
+        El factorial de <strong>{{ numero }}</strong> es:
+        <br>
+        <strong>{{ resultado }}</strong>
+      </div>
+    </div>
+  {% endif %}
+
 </div>
-{% endif %}
 """
 
 def ejecutar():
-    """
-    ✅ FUNCIÓN ESTÁNDAR
-    - GET: muestra el formulario
-    - POST: procesa y muestra resultados
-    """
+    error = None
+    mostrar_resultado = False
+    numero = None
+    resultado = None
+    form_data = {"ingresoNumero": 0}
 
     if request.method == "POST":
-        # ✅ Cada grupo implementa aquí lo que hace el ejercicio
-        dato1 = request.form.get("dato1")
-        dato2 = request.form.get("dato2")
+        try:
+            raw = request.form.get("ingresoNumero", "0").strip()
+            n = int(raw)
 
-        # Ejemplo (cambiar por la lógica real del ejercicio)
-        resultado = f"Recibí: {dato1} y {dato2}"
+            form_data["ingresoNumero"] = n
 
-        return render_template_string(HTML, mostrar=True, resultado=resultado)
+            if n < 0:
+                error = "El número no puede ser negativo."
+            elif n > 10:
+                error = "El número debe estar entre 0 y 10."
+            else:
+                numero = n
+                resultado = calcular_factorial(n)
+                mostrar_resultado = True
 
-    return render_template_string(HTML, mostrar=False)
+        except Exception:
+            error = "Error al procesar el número ingresado. Asegúrate de escribir un entero válido."
+
+    return render_template_string(
+        HTML,
+        error=error,
+        mostrar_resultado=mostrar_resultado,
+        numero=numero,
+        resultado=resultado,
+        form_data=form_data
+    )

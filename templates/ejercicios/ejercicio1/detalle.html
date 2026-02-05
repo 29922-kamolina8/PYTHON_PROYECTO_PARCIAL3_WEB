@@ -13,11 +13,7 @@
   .hero-ej h1{font-weight:800;letter-spacing:-.02em;}
   .hero-ej p{max-width:920px;margin:0 auto;}
 
-  .hero-top-actions{
-    display:flex;
-    justify-content:center;
-    margin-bottom:14px;
-  }
+  .hero-top-actions{display:flex;justify-content:center;margin-bottom:14px;}
   .btn-pill{border-radius:999px;padding:10px 22px;font-weight:700;}
   .btn-pill-sm{border-radius:999px;padding:8px 16px;font-weight:700;}
 
@@ -28,7 +24,30 @@
     background:#fff;padding:26px;
   }
 
-  /* Bloques tipo tarjeta */
+  .ej-actions{
+    margin-top:18px;padding-top:18px;
+    border-top:1px solid rgba(0,0,0,.08);
+    display:flex;justify-content:center;
+  }
+
+  .form-shell{margin-top:22px;display:flex;justify-content:center;}
+  .form-card{
+    width:100%;max-width:720px;
+    border-radius:18px;border:1px solid rgba(0,0,0,.08);
+    box-shadow:0 10px 25px rgba(0,0,0,.06);
+    background:#fff;padding:22px;
+  }
+  .form-card *{max-width:100%;}
+
+  .ej-nav-bottom{
+    margin-top:26px;
+    padding-top:18px;
+    border-top:1px solid rgba(0,0,0,.08);
+    display:flex;justify-content:space-between;
+    gap:12px;flex-wrap:wrap;
+  }
+  .ej-nav-bottom .btn{min-width:170px;}
+
   .explain-card{
     border:1px solid rgba(0,0,0,.08);
     border-radius:16px;
@@ -36,57 +55,24 @@
     background:#fbfdff;
   }
 
-  /* Bloques de código */
   .code-box{
     background:#0b1220;
     color:#e6edf3;
     border-radius:14px;
     padding:14px;
     overflow:auto;
-    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-    font-size: 0.92rem;
-    white-space: pre; /* respeta enter + espacios */
-    margin: 0;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+    font-size:.92rem;
+    white-space:pre;
+    margin:0;
   }
-
-  .hint{ font-size:.95rem; color:#556; }
-
-  /* Botón ejecutar */
-  .ej-actions{
-    margin-top:18px;
-    display:flex;
-    justify-content:center;
-  }
-
-  /* Formulario/Salida */
-  .form-shell{margin-top:22px;display:flex;justify-content:center;}
-  .form-card{
-    width:100%;
-    max-width:720px;
-    border-radius:18px;border:1px solid rgba(0,0,0,.08);
-    box-shadow:0 10px 25px rgba(0,0,0,.06);
-    background:#fff;padding:22px;
-  }
-  .form-card *{max-width:100%;}
-
-  /* Navegación inferior */
-  .ej-nav-bottom{
-    margin-top:26px;
-    padding-top:18px;
-    border-top:1px solid rgba(0,0,0,.08);
-    display:flex;
-    justify-content:space-between;
-    gap:12px;
-    flex-wrap:wrap;
-  }
-  .ej-nav-bottom .btn{ min-width:170px; }
+  .hint{font-size:.95rem;color:#556;}
 </style>
 
 <!-- HERO -->
 <section class="hero-ej">
   <div class="container text-center">
 
-    <!-- Volver al menú -->
     <div class="hero-top-actions">
       <a href="{{ url_for('ejercicios') }}" class="btn btn-outline-secondary btn-pill-sm">
         <i class="bi bi-arrow-left me-1"></i> Volver al menú
@@ -95,11 +81,7 @@
 
     <span class="badge bg-primary mb-3">{{ ejercicio.tema }}</span>
     <h1 class="display-5 mb-2">{{ ejercicio.titulo }}</h1>
-
-    <!-- ✅ Se mantiene la DESCRIPCIÓN CORTA -->
-    <p class="lead text-muted">
-      {{ ejercicio.descripcion }}
-    </p>
+    <p class="lead text-muted">{{ ejercicio.descripcion }}</p>
   </div>
 </section>
 
@@ -108,65 +90,88 @@
   <div class="container">
     <div class="ej-panel">
 
-      <!-- ✅ ENUNCIADO (EDITAR AQUÍ) -->
+      <!-- ✅ ENUNCIADO REAL -->
       <div class="explain-card mb-4">
         <h4 class="fw-bold mb-2">🧩 Enunciado</h4>
-
-        <!-- 👇 Tus compañeros cambian este texto -->
         <p class="mb-2">
-          Aquí escribe el enunciado del ejercicio (qué se debe realizar y cuál es el objetivo).
+          En este ejercicio vamos a construir un <b>formulario de figuras</b> en Flask.
+          El usuario podrá escoger una figura (<b>cuadrado</b>, <b>rectángulo</b> o <b>triángulo</b>)
+          e ingresar sus lados.
         </p>
-
         <p class="mb-0 hint">
-          Objetivo: explica claramente qué aprenderá el estudiante con este ejercicio.
+          Objetivo: practicar <code>GET</code> vs <code>POST</code>, validación de entradas y mostrar resultados (área y perímetro).
         </p>
       </div>
 
-      <!-- ✅ EXPLICACIÓN DEL CÓDIGO (EDITAR AQUÍ) -->
-      <div class="explain-card mb-4">
-        <h4 class="fw-bold mb-3">📌 Explicación del código (paso a paso)</h4>
+<div class="explain-card mb-4">
+  <h4 class="fw-bold mb-3">📌 Explicación del código (paso a paso)</h4>
 
-        <!-- ===== BLOQUE 1 ===== -->
-        <h5 class="fw-bold mb-2">1) ¿Qué hace el programa?</h5>
-        <p class="mb-3">
-          Describe en 2-3 líneas la lógica general del ejercicio.
-        </p>
+  <h5 class="fw-bold mb-2">0) Idea general (GET vs POST)</h5>
+  <ul class="mb-3">
+    <li><b>GET:</b> el usuario entra a la página → se muestra el formulario vacío.</li>
+    <li><b>POST:</b> el usuario llena los datos y presiona <b>Calcular</b> → Flask procesa y muestra <b>resultado</b> o <b>errores</b>.</li>
+    <li>En Flask detectamos con <code>request.method</code>.</li>
+  </ul>
 
-        <!-- ===== BLOQUE 2 ===== -->
-        <h5 class="fw-bold mb-2">2) Entradas del usuario</h5>
-        <p class="mb-2">
-          Explica qué datos ingresa el usuario y cómo se validan.
-        </p>
+  <h5 class="fw-bold mb-2">1) ¿Qué datos se envían?</h5>
+  <p class="mb-2">
+    El formulario envía 4 campos: la <b>figura</b> y los lados <b>l1</b>, <b>l2</b>, <b>l3</b>.
+    Todo llega por <code>request.form</code> porque no hay archivos.
+  </p>
+  <pre class="code-box mb-3"><code>figura = request.form.get("figura")
+l1 = request.form.get("l1")
+l2 = request.form.get("l2")
+l3 = request.form.get("l3")</code></pre>
 
-        <pre class="code-box mb-3"><code># Ejemplo de bloque de código
-# Tus compañeros pegan aquí el código real (con indentación)
-numero = int(input("Ingrese un número: "))</code></pre>
+  <h5 class="fw-bold mb-2">2) Guardar lo que escribió el usuario (para no perderlo)</h5>
+  <p class="mb-2">
+    Se usa <code>form_data</code> para que, si hay errores, el formulario se recargue con los valores que el usuario ya escribió.
+  </p>
+  <pre class="code-box mb-3"><code>form_data = {"figura": figura, "l1": l1, "l2": l2, "l3": l3}</code></pre>
 
-        <!-- ===== BLOQUE 3 ===== -->
-        <h5 class="fw-bold mb-2">3) Proceso / Cálculo</h5>
-        <p class="mb-2">
-          Explica la parte principal de la lógica (bucles, condicionales, funciones, etc.).
-        </p>
+  <h5 class="fw-bold mb-2">3) Validación + cálculo con <code>process_figure()</code></h5>
+  <p class="mb-2">
+    La función <code>process_figure(figura, l1, l2, l3)</code> hace TODO lo importante:
+  </p>
+  <ul class="mb-3">
+    <li>Verifica que se haya escogido una figura válida.</li>
+    <li>Convierte cada lado a número y valida que sea <b>positivo</b> (si no, agrega errores).</li>
+    <li>Calcula <b>área</b> y <b>perímetro</b> según la figura.</li>
+  </ul>
+  <pre class="code-box mb-3"><code>result, errors = process_figure(figura, l1, l2, l3)</code></pre>
 
-        <pre class="code-box mb-3"><code># Ejemplo
-resultado = 1
-for i in range(1, numero + 1):
-    resultado *= i</code></pre>
+  <h5 class="fw-bold mb-2">4) ¿Cómo calcula cada figura?</h5>
+  <ul class="mb-3">
+    <li><b>Cuadrado:</b> usa solo <code>l1</code> → área = l1², perímetro = 4·l1.</li>
+    <li><b>Rectángulo:</b> usa <code>l1</code> y <code>l2</code> → área = l1·l2, perímetro = 2·(l1+l2).</li>
+    <li><b>Triángulo:</b> usa <code>l1</code>, <code>l2</code>, <code>l3</code> → primero valida desigualdad triangular y luego calcula.</li>
+  </ul>
 
-        <!-- ===== BLOQUE 4 ===== -->
-        <h5 class="fw-bold mb-2">4) Salida / Resultados</h5>
-        <p class="mb-2">
-          Explica qué se muestra al final y por qué.
-        </p>
+  <h5 class="fw-bold mb-2">5) Triángulo: validación + área (Fórmula de Herón)</h5>
+  <p class="mb-2">
+    Para triángulo, se valida que los lados sí formen un triángulo:
+    <code>a+b&gt;c</code>, <code>a+c&gt;b</code> y <code>b+c&gt;a</code>.
+    Si es válido, se calcula el área con Herón:
+  </p>
+  <pre class="code-box mb-3"><code>perimetro = a + b + c
+s = perimetro / 2
+area = sqrt(s*(s-a)*(s-b)*(s-c))</code></pre>
 
-        <pre class="code-box"><code>print("El resultado es:", resultado)</code></pre>
+  <h5 class="fw-bold mb-2">6) Tipo de triángulo</h5>
+  <p class="mb-3">
+    Si es triángulo válido, también se clasifica como:
+    <b>equilátero</b> (3 iguales), <b>isósceles</b> (2 iguales) o <b>escaleno</b> (todos distintos).
+  </p>
 
-        <p class="hint mt-3 mb-0">
-          Consejo: No se salten pasos. Explicar “por qué” es más importante que solo pegar código.
-        </p>
-      </div>
+  <h5 class="fw-bold mb-2">7) Salida final (qué se muestra al usuario)</h5>
+  <ul class="mb-0">
+    <li>Si hay <b>errores</b>, se muestran en un recuadro rojo (<code>alert</code>).</li>
+    <li>Si hay <b>resultado</b>, se muestran la figura, lados, área, perímetro y (si aplica) tipo de triángulo.</li>
+  </ul>
+</div>
 
-      <!-- ✅ BOTÓN EJECUTAR -->
+
+      <!-- ✅ Ejecutar -->
       <div class="ej-actions">
         <a href="{{ url_for('ejecutar_ejercicio', slug=ejercicio.slug) }}#formulario"
            class="btn btn-primary btn-pill btn-lg">
@@ -174,7 +179,7 @@ for i in range(1, numero + 1):
         </a>
       </div>
 
-      <!-- ✅ FORMULARIO / SALIDA (sale después del botón) -->
+      <!-- Formulario / salida -->
       {% if contenido %}
       <div id="formulario" class="form-shell">
         <div class="form-card">
@@ -183,7 +188,7 @@ for i in range(1, numero + 1):
       </div>
       {% endif %}
 
-      <!-- ✅ ANTERIOR / SIGUIENTE -->
+      <!-- ✅ Anterior / Siguiente -->
       <div class="ej-nav-bottom">
 
         {% if anterior %}
